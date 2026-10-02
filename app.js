@@ -202,12 +202,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Dynamic Island Behavior
-    if (screenKey === 'booking') {
-      dynamicIsland.style.width = '210px';
-      islandActivity.classList.remove('hidden');
-    } else {
-      dynamicIsland.style.width = '116px';
-      islandActivity.classList.add('hidden');
+    if (dynamicIsland) {
+      if (screenKey === 'booking') {
+        dynamicIsland.style.width = '210px';
+        islandActivity?.classList.remove('hidden');
+      } else {
+        dynamicIsland.style.width = '116px';
+        islandActivity?.classList.add('hidden');
+      }
     }
   }
 

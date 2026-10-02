@@ -5,6 +5,9 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build-ipa:
     name: Build Ridingo iOS IPA
@@ -66,3 +69,20 @@ jobs:
           name: Ridingo-User-App-IPA
           path: build/Ridingo-User-App.ipa
           retention-days: 14
+
+      - name: Create or Update GitHub Release
+        uses: softprops/action-gh-release@v2
+        if: github.ref == 'refs/heads/main'
+        with:
+          tag_name: v1.0.0
+          name: Ridingo iOS App Release (v1.0.0)
+          body: |
+            ## Ridingo iOS App (.ipa)
+            
+            This release contains the latest iOS build package (.ipa) for **Ridingo**:
+            - **Frameless native display**: simulator frame, bezel, and bottom home bar removed.
+            - **Clean iOS status bar area**: dynamic island notch and fake status bar icons eliminated.
+            - **Ready for sideloading**: install with AltStore, Sideloadly, TrollStore, or Xcode.
+          files: build/Ridingo-User-App.ipa
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
