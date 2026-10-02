@@ -4225,7 +4225,7 @@ body.device-fluid-mode .ios-home-indicator {
 }
 
 .bottom-safe-spacer {
-  height: calc(100px + env(safe-area-inset-bottom, 0px));
+  height: calc(76px + env(safe-area-inset-bottom, 0px));
 }
 
 /* ==========================================================================
@@ -4233,7 +4233,7 @@ body.device-fluid-mode .ios-home-indicator {
    ========================================================================== */
 .ios27-floating-navbar {
   position: absolute;
-  bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+  bottom: max(10px, calc(env(safe-area-inset-bottom, 0px) - 14px));
   left: 50%;
   transform: translateX(-50%);
   width: calc(100% - 32px);
