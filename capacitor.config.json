@@ -3,10 +3,13 @@
   "appName": "Ridingo",
   "webDir": "www",
   "bundledWebRuntime": false,
+  "backgroundColor": "#FFFFFF",
   "server": {
     "androidScheme": "https"
   },
   "ios": {
-    "contentInset": "always"
+    "contentInset": "never",
+    "backgroundColor": "#FFFFFF",
+    "preferredContentMode": "mobile"
   }
 }

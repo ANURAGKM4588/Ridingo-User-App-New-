@@ -34,6 +34,12 @@ jobs:
           npx cap add ios
           npx cap sync ios
 
+      - name: Configure iOS Fullscreen & Status Bar in Info.plist
+        run: |
+          plutil -replace UIUserInterfaceStyle -string "Light" ios/App/App/Info.plist
+          plutil -replace UIViewControllerBasedStatusBarAppearance -bool false ios/App/App/Info.plist
+          plutil -replace UIStatusBarStyle -string "UIStatusBarStyleDarkContent" ios/App/App/Info.plist
+
       - name: Install CocoaPods
         run: |
           cd ios/App
