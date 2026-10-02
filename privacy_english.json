@@ -1,0 +1,93 @@
+[
+  {
+    "num": "01",
+    "icon": "📂",
+    "tag": "Data Collection",
+    "title": "1. Information We Collect",
+    "summary": "We collect personal identification details, vehicle specifications, and real-time telemetry strictly required to deliver chauffeur dispatch services.",
+    "details": [
+      "Personal Identifiers: Full name, verified mobile number, email address, and emergency contact details.",
+      "Vehicle Data: Registration number, car make/model, fuel type, transmission (Manual/Automatic), and insurance validity.",
+      "KYC & Verification: Basic identity records to ensure safety and security on the platform.",
+      "Technical Device Data: App version, operating system, IP address, and crash diagnostics for app reliability."
+    ]
+  },
+  {
+    "num": "02",
+    "icon": "⚙️",
+    "tag": "Data Usage",
+    "title": "2. How We Use Your Data",
+    "summary": "Your data is used solely to match drivers, calculate accurate trip fares, process booking transactions, and ensure on-road passenger safety.",
+    "details": [
+      "Chauffeur Dispatch: Assigning the nearest qualified, verified driver to your pickup location and vehicle category.",
+      "Trip Computation: Calculating distance, estimated duration, 50% advance deposits, and final billing amounts.",
+      "Safety & Support: Providing 24/7 in-ride monitoring, customer support, and dispute investigation.",
+      "Service Enhancements: Optimizing app performance, reducing wait times, and preventing fraudulent bookings."
+    ]
+  },
+  {
+    "num": "03",
+    "icon": "🔒",
+    "tag": "Data Sharing",
+    "title": "3. Data Sharing & Disclosure",
+    "summary": "We never sell your personal data. Information is shared only with your assigned driver during an active booking or when legally mandated.",
+    "details": [
+      "Driver Coordination: Sharing pickup address, vehicle model, and contact details strictly for the duration of the ride.",
+      "Zero Third-Party Advertising: Your personal contact details and driving logs are never sold or rented to marketing firms.",
+      "Secure Infrastructure Partners: Trusted cloud hosting and SMS gateway providers under strict non-disclosure agreements.",
+      "Legal Compliance: Sharing information with law enforcement agencies only upon valid, official statutory court orders."
+    ]
+  },
+  {
+    "num": "04",
+    "icon": "📍",
+    "tag": "Location & GPS",
+    "title": "4. Real-Time Geolocation Tracking",
+    "summary": "Precise GPS tracking operates strictly during active driver dispatches to facilitate navigation, safety telemetry, and transparent route logs.",
+    "details": [
+      "Active Dispatch Tracking: GPS tracking is enabled solely while a driver is en route or conducting an active ride.",
+      "Safety Telematics: Real-time telemetry prevents route deviations and provides accurate emergency response tracking.",
+      "Trip Auditing: GPS breadcrumbs allow transparent dispute resolution regarding route length and travel hours.",
+      "Background Permission: Users may choose between 'While Using App' and 'Always Allow' based on their dispatch notification preferences."
+    ]
+  },
+  {
+    "num": "05",
+    "icon": "💳",
+    "tag": "Payment Security",
+    "title": "5. Financial Data & Payment Security",
+    "summary": "All digital transactions are processed through RBI-authorized, PCI-DSS Level 1 compliant payment gateways. We do not store raw card numbers.",
+    "details": [
+      "PCI-DSS Level 1 Compliance: All advance and trip balance payments use 256-bit encrypted banking channels.",
+      "No Card Storage: Credit/debit card numbers, CVVs, and banking passwords are never stored on Ridingo servers.",
+      "UPI & Instant Settlements: Fast, seamless UPI and digital wallet processing with instant transaction receipts.",
+      "Fraud Detection: Automated algorithms actively detect and flag duplicate deductions or unauthorized attempts."
+    ]
+  },
+  {
+    "num": "06",
+    "icon": "👤",
+    "tag": "User Rights",
+    "title": "6. User Rights & Data Retention",
+    "summary": "You hold complete ownership of your personal data under the Digital Personal Data Protection (DPDP) Act, including rights to access and delete your account.",
+    "details": [
+      "Right to Access & Portability: Request a full export of your past booking history and profile records at any time.",
+      "Right to Rectification: Easily update contact numbers, email addresses, and vehicle profiles through app settings.",
+      "Account Deletion: Submit a one-click account deletion request; all non-statutory records are wiped within 30 days.",
+      "Retention Policy: Tax, invoice, and statutory trip audit logs are retained strictly for the duration mandated by applicable Indian law."
+    ]
+  },
+  {
+    "num": "07",
+    "icon": "🛡️",
+    "tag": "Security & Contact",
+    "title": "7. Security Measures & Privacy Officer",
+    "summary": "We implement TLS 1.3 encryption, role-based access control, and dedicated Grievance Officer support for all privacy inquiries.",
+    "details": [
+      "End-to-End Encryption: Sensitive network payloads and telematics are transmitted using industry-grade TLS 1.3 cryptographic protocols.",
+      "Strict Access Controls: Only authorized operations staff have restricted, audited access to resolve dispatch issues.",
+      "Regular Security Audits: Continuous automated vulnerability scans protect against external threats and data breaches.",
+      "Privacy Officer Contact: For any privacy inquiries or grievance redressal, email us at teme.ridingo@gmail.com."
+    ]
+  }
+]

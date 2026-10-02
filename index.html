@@ -1,0 +1,2640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Ridingo — Personal Chauffeur for Your Car</title>
+  <meta name="description" content="Minimal, Apple-inspired personal chauffeur app for your own car. Hourly, Day, and Airport transfers with certified professional drivers.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=SF+Pro+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="device-mobile-mode">
+
+  <!-- Desktop Presentation Bar (Device & Screen Navigation Controller) -->
+  <aside class="device-controller" id="deviceController" aria-label="Device Preview Controller">
+    <div class="brand-pill">
+      <span class="brand-dot"></span>
+      <span class="brand-name">Ridingo</span>
+      <span class="brand-tag">Chauffeur</span>
+    </div>
+    
+    <div class="view-switchers">
+      <button class="view-btn active" id="btnPhoneView" title="iPhone 17 Pro Minimal Frame">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="3"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+        <span>iOS Frame</span>
+      </button>
+      <button class="view-btn" id="btnFluidView" title="Fluid Canvas / Desktop View">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+        <span>Fluid Web</span>
+      </button>
+    </div>
+
+    <!-- Quick Page Jump Chips -->
+    <div class="screen-jumper">
+      <span class="jump-label">Pages:</span>
+      <button class="jump-chip" data-screen="onboarding">Onboarding</button>
+      <button class="jump-chip" data-screen="auth">Sign In</button>
+      <button class="jump-chip active" data-nav="home">Home</button>
+      <button class="jump-chip" data-nav="trips">Trips</button>
+      <button class="jump-chip" data-nav="track">📍 Track</button>
+      <button class="jump-chip" data-nav="drivers">Chauffeurs</button>
+      <button class="jump-chip" data-nav="garage">Garage</button>
+      <button class="jump-chip highlight" data-screen="booking">Live Match</button>
+      <button class="jump-chip" id="chipOpenPolicy">📜 Legal Terms</button>
+    </div>
+  </aside>
+
+  <!-- Main Device Container -->
+  <main class="app-viewport-wrapper">
+    <div class="mobile-frame" id="mobileFrame">
+      
+      <!-- iOS Dynamic Island & Status Bar -->
+      <header class="ios-status-bar" id="iosStatusBar">
+        <div class="status-time" id="statusClock">09:41</div>
+        <div class="dynamic-island" id="dynamicIsland">
+          <div class="island-camera"></div>
+          <div class="island-sensor"></div>
+          <div class="island-activity hidden" id="islandActivity">
+            <span class="island-indicator"></span>
+            <span class="island-text">Chauffeur en route (4 min)</span>
+          </div>
+        </div>
+        <div class="status-icons">
+          <svg class="icon-signal" width="16" height="11" viewBox="0 0 16 11" fill="currentColor">
+            <rect x="0" y="7" width="2.5" height="4" rx="0.5"></rect>
+            <rect x="4.5" y="5" width="2.5" height="6" rx="0.5"></rect>
+            <rect x="9" y="2.5" width="2.5" height="8.5" rx="0.5"></rect>
+            <rect x="13.5" y="0" width="2.5" height="11" rx="0.5"></rect>
+          </svg>
+          <span class="status-network">5G</span>
+          <svg class="icon-battery" width="22" height="11" viewBox="0 0 22 11" fill="none">
+            <rect x="0.5" y="0.5" width="18" height="10" rx="3" stroke="currentColor"></rect>
+            <rect x="2" y="2" width="12" height="7" rx="1.5" fill="currentColor"></rect>
+            <path d="M20 3.5V7.5" stroke="currentColor" stroke-linecap="round"></path>
+          </svg>
+        </div>
+      </header>
+
+      <!-- App Canvas Screen Area -->
+      <div class="app-screen-container" id="appScreenContainer">
+
+        <!-- ============================================== -->
+        <!-- SCREEN 1: ONBOARDING SLIDES (Minimal Apple UI) -->
+        <!-- ============================================== -->
+        <section class="app-screen" id="screenOnboarding">
+          <div class="onboard-top-bar">
+            <div class="brand-monogram">
+              <span class="monogram-y">R</span>
+            </div>
+            <button class="skip-btn" id="btnSkipOnboarding">Skip</button>
+          </div>
+
+          <div class="onboard-slider-container">
+            <div class="onboard-track" id="onboardTrack">
+              
+              <!-- Slide 1 -->
+              <div class="onboard-slide active" data-slide="0">
+                <div class="slide-visual-box">
+                  <div class="onboard-drawing-container">
+                    <svg class="drawing-svg" viewBox="0 0 280 165" fill="none">
+                      <!-- Subtle ambient road horizon -->
+                      <line x1="16" y1="124" x2="264" y2="124" stroke="#E2E8F0" stroke-width="1.2" stroke-linecap="round" />
+                      <line x1="26" y1="132" x2="254" y2="132" class="anim-road-dash" stroke="#CBD5E1" stroke-width="1.5" stroke-linecap="round" />
+
+                      <!-- Speed vector lines -->
+                      <line x1="20" y1="74" x2="44" y2="74" stroke="rgba(13,17,23,0.18)" stroke-width="1.4" stroke-linecap="round" />
+                      <line x1="14" y1="88" x2="34" y2="88" stroke="rgba(13,17,23,0.14)" stroke-width="1.4" stroke-linecap="round" />
+
+                      <!-- Car Body Outline (Executive Chauffeur Sedan) -->
+                      <path d="M48 110 H64 L75 96 L106 68 C114 62 125 60 145 60 H176 C190 60 204 66 214 76 L236 98 H248 C252 98 255 101 255 105 V110 C255 114 252 117 248 117 H228" class="line-main" stroke-width="2" />
+                      <!-- Underbody -->
+                      <path d="M98 117 H176" class="line-main" stroke-width="2" />
+                      <path d="M48 110 C44 110 40 113 40 117 H58" class="line-main" stroke-width="2" />
+
+                      <!-- Window Glass Outline -->
+                      <path d="M110 72 H174 C184 72 194 77 202 84 L216 96 H104 L110 72 Z" stroke="#0D1117" stroke-width="1.6" fill="rgba(255,204,0,0.06)" />
+                      <!-- B-Pillar divider -->
+                      <line x1="156" y1="72" x2="156" y2="96" stroke="#0D1117" stroke-width="1.8" />
+
+                      <!-- Chauffeur Silhouette & Cap Outline -->
+                      <path d="M170 83 C170 80 172 77 176 77 C180 77 182 80 182 83 C182 86 179 88 176 88" stroke="var(--brand-yellow)" stroke-width="1.8" stroke-linecap="round" fill="none" />
+                      <path d="M172 78 L183 77" stroke="var(--brand-yellow)" stroke-width="2" stroke-linecap="round" />
+                      <!-- Steering Wheel & Hands -->
+                      <path d="M186 91 C184 87 188 84 191 84" stroke="#0D1117" stroke-width="1.6" stroke-linecap="round" />
+                      <ellipse cx="192" cy="90" rx="2" ry="5.5" stroke="#0D1117" stroke-width="1.4" fill="none" transform="rotate(-15 192 90)" />
+
+                      <!-- Headlight & Taillight -->
+                      <path d="M255 102 L274 96 L274 112 L255 106 Z" fill="rgba(255,204,0,0.15)" stroke="var(--brand-yellow)" stroke-width="1" stroke-dasharray="2 2" />
+                      <line x1="40" y1="102" x2="40" y2="108" stroke="#EF4444" stroke-width="3" stroke-linecap="round" />
+
+                      <!-- Rear Wheel (Center 78, 117) -->
+                      <circle cx="78" cy="117" r="19" stroke="#0D1117" stroke-width="2" fill="#FFFFFF" />
+                      <circle cx="78" cy="117" r="12" stroke="var(--brand-yellow)" stroke-width="1.5" fill="#FFFFFF" />
+                      <circle cx="78" cy="117" r="4" fill="#0D1117" />
+                      <g class="anim-wheel-spoke" style="transform-origin: 78px 117px;">
+                        <line x1="78" y1="105" x2="78" y2="129" stroke="#0D1117" stroke-width="1.4" />
+                        <line x1="66" y1="117" x2="90" y2="117" stroke="#0D1117" stroke-width="1.4" />
+                      </g>
+
+                      <!-- Front Wheel (Center 202, 117) -->
+                      <circle cx="202" cy="117" r="19" stroke="#0D1117" stroke-width="2" fill="#FFFFFF" />
+                      <circle cx="202" cy="117" r="12" stroke="var(--brand-yellow)" stroke-width="1.5" fill="#FFFFFF" />
+                      <circle cx="202" cy="117" r="4" fill="#0D1117" />
+                      <g class="anim-wheel-spoke" style="transform-origin: 202px 117px;">
+                        <line x1="202" y1="105" x2="202" y2="129" stroke="#0D1117" stroke-width="1.4" />
+                        <line x1="190" y1="117" x2="214" y2="117" stroke="#0D1117" stroke-width="1.4" />
+                      </g>
+
+                      <!-- Floating Chauffeur Arrival GPS Pin -->
+                      <g class="anim-gps-pin">
+                        <circle cx="140" cy="28" r="12" stroke="var(--brand-yellow)" stroke-width="1" stroke-dasharray="2 2" fill="none" class="anim-pin-pulse" />
+                        <path d="M140 16 C133 16 128 21 128 28 C128 36 140 46 140 46 C140 46 152 36 152 28 C152 21 147 16 140 16 Z" fill="#0D1117" stroke="var(--brand-yellow)" stroke-width="1.6" />
+                        <circle cx="140" cy="27" r="4" fill="var(--brand-yellow)" />
+                      </g>
+                    </svg>
+                  </div>
+                </div>
+                <div class="slide-typography">
+                  <span class="slide-kicker">PRIVATE CAR MOBILITY</span>
+                  <h1 class="slide-title">Your vehicle.<br>Our verified driver.</h1>
+                  <p class="slide-desc">Enjoy the total comfort of your own car without driving fatigue. Trained, certified chauffeurs on-demand anytime.</p>
+                </div>
+              </div>
+
+              <!-- Slide 2 -->
+              <div class="onboard-slide" data-slide="1">
+                <div class="slide-visual-box">
+                  <div class="onboard-drawing-container">
+                    <svg class="drawing-svg" viewBox="0 0 280 165" fill="none">
+                      <!-- Ground Horizon Line -->
+                      <line x1="10" y1="126" x2="270" y2="126" stroke="#E2E8F0" stroke-width="1.2" />
+
+                      <!-- AIRPORT TERMINAL BUILDING ARCHITECTURE -->
+                      <!-- Modern Curved Roof Canopy -->
+                      <path d="M35 126 V98 C50 92 75 92 95 98 V126" class="line-main" stroke-width="1.8" fill="rgba(255,204,0,0.04)" />
+                      <!-- Glass Mullions Grid -->
+                      <line x1="50" y1="96" x2="50" y2="126" stroke="rgba(13,17,23,0.18)" stroke-width="1.2" />
+                      <line x1="65" y1="94" x2="65" y2="126" stroke="rgba(13,17,23,0.18)" stroke-width="1.2" />
+                      <line x1="80" y1="96" x2="80" y2="126" stroke="rgba(13,17,23,0.18)" stroke-width="1.2" />
+                      <line x1="35" y1="110" x2="95" y2="110" stroke="rgba(13,17,23,0.18)" stroke-width="1.2" />
+
+                      <!-- Terminal Architectural Overhang Arc -->
+                      <path d="M28 96 C55 88 80 88 102 96" stroke="var(--brand-yellow)" stroke-width="2.2" stroke-linecap="round" />
+
+                      <!-- Air Traffic Control (ATC) Tower -->
+                      <path d="M55 92 V54 L48 48 H72 L65 54 V92" class="line-main" stroke-width="1.6" fill="#FFFFFF" />
+                      <!-- ATC Cab Glass Window -->
+                      <rect x="50" y="42" width="20" height="7" rx="1.5" stroke="#0D1117" stroke-width="1.5" fill="rgba(255,204,0,0.15)" />
+                      <!-- Tower Antenna -->
+                      <line x1="60" y1="42" x2="60" y2="30" stroke="#0D1117" stroke-width="1.6" />
+                      <circle cx="60" cy="30" r="2.5" fill="var(--brand-yellow)" class="anim-beacon" />
+                      <!-- Animated Rotating Radar Sweep -->
+                      <path d="M60 30 C54 26 50 30 46 28" stroke="var(--brand-yellow)" stroke-width="1.4" stroke-linecap="round" class="anim-radar-sweep" style="transform-origin: 60px 30px;" />
+
+                      <!-- Aerobridge / Gate -->
+                      <path d="M95 106 H114 L122 112 V122 H114" stroke="#0D1117" stroke-width="1.5" stroke-linecap="round" fill="none" />
+                      <circle cx="118" cy="108" r="2" fill="var(--brand-yellow)" class="anim-beacon" />
+
+                      <!-- RUNWAY IN PERSPECTIVE -->
+                      <path d="M120 126 L88 158" stroke="#0D1117" stroke-width="1.8" stroke-linecap="round" />
+                      <path d="M200 126 L252 158" stroke="#0D1117" stroke-width="1.8" stroke-linecap="round" />
+                      <!-- Runway Moving Centerline -->
+                      <line x1="160" y1="128" x2="170" y2="156" class="anim-road-dash" stroke="var(--brand-yellow)" stroke-width="2.2" stroke-linecap="round" />
+                      <!-- Runway Threshold Bars -->
+                      <line x1="135" y1="130" x2="185" y2="130" stroke="rgba(13,17,23,0.3)" stroke-width="1.4" stroke-dasharray="3 3" />
+
+                      <!-- DYNAMIC TAKEOFF ARC -->
+                      <path d="M130 122 C155 112 185 88 215 48" class="anim-flight-path" stroke="var(--brand-yellow)" stroke-width="1.8" stroke-linecap="round" />
+                      <!-- Beacon / Radar Rings -->
+                      <circle cx="218" cy="44" r="7" stroke="rgba(255,204,0,0.4)" stroke-width="1" stroke-dasharray="2 2" />
+                      <circle cx="218" cy="44" r="2.5" fill="var(--brand-yellow)" />
+
+                      <!-- SLEEK MINIMAL JET OUTLINE TAKING OFF -->
+                      <g class="anim-flight-plane" style="transform-origin: 195px 64px;">
+                        <path d="M216 44 L196 62 L174 57 L170 60 L186 69 L178 78 L171 76 L168 79 L176 85 L180 91 L183 89 L182 82 L191 74 L200 88 L204 84 L199 65 L217 48 C219 46 218 43 216 44 Z" fill="#0D1117" stroke="var(--brand-yellow)" stroke-width="1.4" />
+                        <circle cx="187" cy="70" r="1.5" fill="var(--brand-yellow)" />
+                      </g>
+
+                      <!-- Minimal Airport Labels -->
+                      <text x="204" y="146" font-size="8.5" font-weight="700" letter-spacing="0.8" fill="#94A3B8" font-family="-apple-system, sans-serif">BLR • RUNWAY 09R</text>
+                      <text x="35" y="146" font-size="8.5" font-weight="700" letter-spacing="0.8" fill="#94A3B8" font-family="-apple-system, sans-serif">TERMINAL 2</text>
+                    </svg>
+                  </div>
+                </div>
+                <div class="slide-typography">
+                  <span class="slide-kicker">AIRPORT TRANSFERS</span>
+                  <h1 class="slide-title">Precision timing.<br>Gate-to-gate assist.</h1>
+                  <p class="slide-desc">Enter your flight number. Your chauffeur monitors radar delay, greets you at the terminal, and safely drives your car back.</p>
+                </div>
+              </div>
+
+              <!-- Slide 3 -->
+              <div class="onboard-slide" data-slide="2">
+                <div class="slide-visual-box">
+                  <div class="onboard-drawing-container">
+                    <svg class="drawing-svg" viewBox="0 0 280 165" fill="none">
+                      <!-- Concentric Security Protection Rings -->
+                      <circle cx="140" cy="76" r="66" stroke="rgba(255,204,0,0.25)" stroke-width="1.2" stroke-dasharray="4 4" class="anim-shield-pulse" />
+                      <circle cx="140" cy="76" r="52" stroke="rgba(13,17,23,0.08)" stroke-width="1" />
+
+                      <!-- Constellation Connecting Lines -->
+                      <line x1="72" y1="42" x2="108" y2="56" class="line-faint" />
+                      <line x1="208" y1="42" x2="172" y2="56" class="line-faint" />
+                      <line x1="68" y1="108" x2="106" y2="96" class="line-faint" />
+                      <line x1="212" y1="108" x2="174" y2="96" class="line-faint" />
+
+                      <!-- Security Audit Micro Nodes -->
+                      <circle cx="72" cy="42" r="3.5" fill="#FFFFFF" stroke="#0D1117" stroke-width="1.5" />
+                      <circle cx="72" cy="42" r="1.5" fill="var(--brand-yellow)" />
+                      <text x="46" y="34" font-size="8" font-weight="700" fill="#94A3B8" font-family="-apple-system, sans-serif">POLICE VERIFIED</text>
+
+                      <circle cx="208" cy="42" r="3.5" fill="#FFFFFF" stroke="#0D1117" stroke-width="1.5" />
+                      <circle cx="208" cy="42" r="1.5" fill="var(--brand-yellow)" />
+                      <text x="180" y="34" font-size="8" font-weight="700" fill="#94A3B8" font-family="-apple-system, sans-serif">SKILL AUDITED</text>
+
+                      <circle cx="68" cy="108" r="3.5" fill="#FFFFFF" stroke="#0D1117" stroke-width="1.5" />
+                      <circle cx="68" cy="108" r="1.5" fill="var(--brand-yellow)" />
+                      <text x="42" y="121" font-size="8" font-weight="700" fill="#94A3B8" font-family="-apple-system, sans-serif">DRUG TESTED</text>
+
+                      <circle cx="212" cy="108" r="3.5" fill="#FFFFFF" stroke="#0D1117" stroke-width="1.5" />
+                      <circle cx="212" cy="108" r="1.5" fill="var(--brand-yellow)" />
+                      <text x="184" y="121" font-size="8" font-weight="700" fill="#94A3B8" font-family="-apple-system, sans-serif">TOP 1% AUDITED</text>
+
+                      <!-- LUXURY SECURITY SHIELD -->
+                      <path d="M140 30 L104 42 V76 C104 101 120 119 140 128 C160 119 176 101 176 76 V42 L140 30 Z" stroke="#0D1117" stroke-width="2.2" stroke-linejoin="round" fill="#FFFFFF" />
+                      <!-- Inner Gold Contour -->
+                      <path d="M140 38 L112 47 V76 C112 96 124 111 140 119 C156 111 168 96 168 76 V47 L140 38 Z" stroke="var(--brand-yellow)" stroke-width="1.6" stroke-linejoin="round" fill="rgba(255,204,0,0.05)" />
+
+                      <!-- Biometric Laser Scanning Beam -->
+                      <g class="anim-scan-bar">
+                        <line x1="114" y1="48" x2="166" y2="48" stroke="var(--brand-yellow)" stroke-width="1.8" stroke-linecap="round" />
+                        <line x1="118" y1="49" x2="162" y2="49" stroke="rgba(255,204,0,0.4)" stroke-width="3" stroke-linecap="round" />
+                      </g>
+
+                      <!-- Chauffeur Emblem Inside Shield -->
+                      <path d="M130 64 C130 58 150 58 150 64 H130 Z" stroke="#0D1117" stroke-width="1.6" fill="#0D1117" />
+                      <path d="M126 65 C134 64 146 64 154 65" stroke="var(--brand-yellow)" stroke-width="2" stroke-linecap="round" />
+                      <polygon points="140,54 142,59 147,59 143,62 145,67 140,64 135,67 137,62 133,59 138,59" fill="var(--brand-yellow)" />
+
+                      <!-- Verification Circle & Checkmark -->
+                      <circle cx="140" cy="90" r="14" fill="#0D1117" stroke="var(--brand-yellow)" stroke-width="1.8" />
+                      <path d="M133 90 L138 95 L148 84" stroke="#FFFFFF" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </div>
+                </div>
+                <div class="slide-typography">
+                  <span class="slide-kicker">UNCOMPROMISED SAFETY</span>
+                  <h1 class="slide-title">Zero surge rates.<br>White-glove ethics.</h1>
+                  <p class="slide-desc">Multi-point background verified, defensive-driving certified, and professional white-glove trained for every minute behind the wheel.</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="onboard-bottom-controls">
+            <!-- Apple style segmented indicator -->
+            <div class="onboard-indicators" id="onboardIndicators">
+              <span class="indicator active"></span>
+              <span class="indicator"></span>
+              <span class="indicator"></span>
+            </div>
+
+            <div class="onboard-buttons">
+              <button class="btn-primary-yellow full-width" id="btnNextSlide">
+                <span>Continue</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </button>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- ============================================== -->
+        <!-- SCREEN 2: AUTH (SIGN IN / SIGN UP)             -->
+        <!-- ============================================== -->
+        <section class="app-screen hidden" id="screenAuth">
+          <div class="auth-header">
+            <button class="icon-circle-btn" id="btnBackToOnboard" title="Back">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
+            <div class="brand-monogram sm">
+              <span class="monogram-y">R</span>
+            </div>
+            <div style="width: 36px;"></div>
+          </div>
+
+          <div class="auth-body">
+            <div class="auth-title-group">
+              <h2 class="auth-headline" id="authHeadline">Welcome to Ridingo</h2>
+              <p class="auth-subline" id="authSubline">Chauffeur service for your personal car</p>
+            </div>
+
+            <!-- Apple-style segmented tabs (Sign In / Create Account) -->
+            <div class="segment-picker" id="authTabGroup">
+              <div class="segment-glider" id="authGlider"></div>
+              <button class="segment-tab active" data-tab="signin">Sign In</button>
+              <button class="segment-tab" data-tab="signup">Create Account</button>
+            </div>
+
+            <!-- PRIMARY AUTH STAGE: Mobile Phone Login by Default (Sign In) -->
+            <div class="auth-login-stage" id="authLoginStage">
+              <!-- Phone Form (Direct Active on Page) -->
+              <form class="auth-form" id="formPhoneLogin" onsubmit="return false;">
+                <div class="input-glass-box phone-box">
+                  <div class="country-badge">
+                    <span class="flag-icon">🇮🇳</span>
+                    <span class="country-code">+91</span>
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                  </div>
+                  <input type="tel" id="inputPhone" class="auth-input" placeholder="98765 43210" maxlength="10" autocomplete="tel">
+                </div>
+
+                <!-- OTP Verification Block (Apple style clean pins) -->
+                <div class="otp-container" id="otpSection">
+                  <div class="otp-header">
+                    <span>Enter 4-digit security code sent via SMS</span>
+                    <span class="otp-timer">00:48</span>
+                  </div>
+                  <div class="otp-pin-grid">
+                    <input type="text" maxlength="1" class="otp-pin active">
+                    <input type="text" maxlength="1" class="otp-pin">
+                    <input type="text" maxlength="1" class="otp-pin">
+                    <input type="text" maxlength="1" class="otp-pin">
+                  </div>
+                </div>
+
+                <button class="btn-primary-yellow full-width mt-16" id="btnPhoneSubmit">
+                  <span>Continue with Mobile</span>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
+
+                <!-- Kept Email Address Button: Smoothly reveals email filling bar on click -->
+                <button type="button" class="btn-email-toggle-btn" id="chipEmailMode">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                  <span>Continue with Email Address</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
+              </form>
+
+              <!-- Email Filling Bar Form (Hidden initially, shown when Email Address button is clicked) -->
+              <form class="auth-form hidden" id="formEmailLogin" onsubmit="return false;">
+                <div class="email-form-header">
+                  <span class="email-form-title">EMAIL ADDRESS SIGN IN</span>
+                  <span class="email-form-badge">Encrypted</span>
+                </div>
+                
+                <div class="input-glass-box">
+                  <div class="input-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                  </div>
+                  <input type="email" id="inputEmail" class="auth-input" placeholder="alexander@icloud.com">
+                </div>
+                <div class="input-glass-box mt-12">
+                  <div class="input-icon">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                  </div>
+                  <input type="password" id="inputPassword" class="auth-input" placeholder="Password">
+                </div>
+                <button class="btn-primary-yellow full-width mt-16" id="btnEmailSubmit">
+                  <span>Sign In with Email</span>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
+
+                <!-- Return to Mobile Number Button -->
+                <button type="button" class="btn-email-toggle-btn" id="btnBackToPhoneMode">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="3"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+                  <span>Use Mobile Phone Number instead</span>
+                </button>
+              </form>
+            </div>
+
+            <!-- SECONDARY AUTH STAGE: Create Account (No inline OTP section, includes Full Name, Last Name, Email/Mobile Switch, Next button) -->
+            <div class="auth-register-stage hidden" id="authRegisterStage">
+              <form class="auth-form" id="formSignup" onsubmit="return false;">
+                <!-- Full Name: First Name & Last Name -->
+                <div class="form-row-2col">
+                  <div class="input-glass-box">
+                    <div class="input-icon">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                    </div>
+                    <input type="text" id="inputSignupFirstName" class="auth-input" placeholder="First Name" autocomplete="given-name">
+                  </div>
+                  <div class="input-glass-box">
+                    <input type="text" id="inputSignupLastName" class="auth-input" placeholder="Last Name" autocomplete="family-name">
+                  </div>
+                </div>
+
+                <!-- Contact Selector Switcher: Mobile No or Email ID -->
+                <div class="signup-contact-toggle-bar">
+                  <span class="contact-toggle-label">VERIFY VIA:</span>
+                  <div class="contact-pill-switch" id="signupContactToggle">
+                    <button type="button" class="contact-pill-btn active" id="btnSignupModePhone" data-mode="phone">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="3"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+                      <span>Mobile No</span>
+                    </button>
+                    <button type="button" class="contact-pill-btn" id="btnSignupModeEmail" data-mode="email">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                      <span>Email ID</span>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Mobile Phone Box (Active when Mobile No is selected) -->
+                <div class="input-glass-box phone-box" id="boxSignupPhone">
+                  <div class="country-badge">
+                    <span class="flag-icon">🇮🇳</span>
+                    <span class="country-code">+91</span>
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                  </div>
+                  <input type="tel" id="inputSignupPhone" class="auth-input" placeholder="98765 43210" maxlength="10" autocomplete="tel">
+                </div>
+
+                <!-- Email Box (Hidden initially, active when Email ID is selected) -->
+                <div class="input-glass-box hidden" id="boxSignupEmail">
+                  <div class="input-icon">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                  </div>
+                  <input type="email" id="inputSignupEmail" class="auth-input" placeholder="alexander@icloud.com" autocomplete="email">
+                </div>
+
+                <!-- Next Button (Triggers OTP verification popup modal) -->
+                <button type="button" class="btn-primary-yellow full-width mt-16" id="btnSignupNext">
+                  <span>Next</span>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
+              </form>
+            </div>
+
+            <!-- Divider with Text in the middle between Mobile/Email and Social Sign In -->
+            <div class="auth-divider">
+              <span>Continue with</span>
+            </div>
+
+            <!-- 1-Tap Social Buttons (Apple & Google) -->
+            <div class="social-login-grid">
+              <button class="btn-apple-oauth" id="btnAppleAuth">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.4c.66-.82 1.11-1.96.99-3.1-.96.04-2.13.65-2.82 1.47-.61.72-1.15 1.88-1.01 2.99 1.07.08 2.18-.54 2.84-1.36z"></path>
+                </svg>
+                <span>Continue with Apple</span>
+              </button>
+
+              <button class="btn-google-oauth" id="btnGoogleAuth">
+                <svg width="18" height="18" viewBox="0 0 24 24">
+                  <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/>
+                  <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.34 24 12 24z"/>
+                  <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.17 0 9.96 0 12s.45 3.83 1.25 5.42l4.03-3.15z"/>
+                  <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.34 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/>
+                </svg>
+                <span>Continue with Google</span>
+              </button>
+            </div>
+
+            <p class="auth-legal">
+              By proceeding, you agree to Ridingo's <button type="button" class="legal-link-btn" id="linkOpenTerms">Terms &amp; Conditions</button> &amp; <button type="button" class="legal-link-btn" id="linkOpenPrivacy">Privacy Policy</button>.
+            </p>
+          </div>
+
+          <!-- Bottom Sheet Modal: OTP Verification Popup for Registration -->
+          <div class="auth-modal-overlay hidden" id="signupOtpModal">
+            <div class="auth-modal-panel">
+              <div class="modal-drag-pill"></div>
+              
+              <div class="auth-modal-header">
+                <div class="auth-modal-icon-badge">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><polyline points="9 12 11 14 15 10"></polyline></svg>
+                </div>
+                <button class="icon-circle-btn sm" id="btnCloseSignupOtpModal" title="Close">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+              </div>
+
+              <div class="auth-modal-content">
+                <h3 class="auth-modal-title" id="otpModalTitle">Verify Mobile Number</h3>
+                <p class="auth-modal-desc" id="otpModalDesc">
+                  We sent a 4-digit verification code to <strong id="otpModalTarget">+91 98765 43210</strong>
+                </p>
+
+                <div class="otp-modal-pins" id="signupOtpPinGrid">
+                  <input type="text" maxlength="1" class="otp-modal-pin" autofocus>
+                  <input type="text" maxlength="1" class="otp-modal-pin">
+                  <input type="text" maxlength="1" class="otp-modal-pin">
+                  <input type="text" maxlength="1" class="otp-modal-pin">
+                </div>
+
+                <div class="otp-resend-row">
+                  <span>Didn't receive code?</span>
+                  <button type="button" class="btn-resend-otp" id="btnResendSignupOtp">Resend in <span id="signupOtpTimer">00:45</span></button>
+                </div>
+
+                <button type="button" class="btn-primary-yellow full-width mt-16" id="btnVerifySignupOtp">
+                  <span>Verify & Create Account</span>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
+
+                <button type="button" class="btn-change-contact" id="btnChangeContactMethod">
+                  ← Edit details or change contact method
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- ============================================== -->
+        <!-- SCREEN 3: MAIN APP (5 DEDICATED NAVBAR PAGES)  -->
+        <!-- ============================================== -->
+        <section class="app-screen hidden" id="screenMainApp">
+          
+          <!-- ================= PAGE 1: HOME ================= -->
+          <div class="app-page active" id="pageHome">
+            <div class="page-scroll-body">
+              
+              <!-- Top Greeting Header -->
+              <header class="home-top-header">
+                <div class="user-greeting-box">
+                  <div class="location-pill-mini">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                    <span>Koramangala, Bengaluru</span>
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                  </div>
+                  <h1 class="greeting-heading">Good evening, Alexander</h1>
+                  <p class="service-tagline">Rent a verified chauffeur for your car</p>
+                </div>
+
+                <div class="header-action-stack">
+                  <button class="header-icon-pill" id="btnNotification" title="Notifications">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+                    <span class="notification-badge"></span>
+                  </button>
+                  <div class="user-avatar-pill" id="btnProfileQuick" title="User Profile">
+                    <span class="avatar-monogram">AV</span>
+                  </div>
+                </div>
+              </header>
+
+              <!-- PRIMARY BOOKING MODULE -->
+              <div class="booking-orchestrator-card">
+                
+                <!-- 1. The 4 Categories Bar (Minimal Line Track Style) -->
+                <div class="category-selection-bar style-underline" id="categorySelectionBar">
+                  <div class="category-glider" id="categoryGlider"></div>
+                  
+                  <button class="cat-tab active" data-category="hourly">
+                    <div class="cat-icon-wrap">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                    </div>
+                    <span class="cat-label">Hourly</span>
+                  </button>
+
+                  <button class="cat-tab" data-category="day">
+                    <div class="cat-icon-wrap">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                    </div>
+                    <span class="cat-label">Day</span>
+                  </button>
+
+                  <button class="cat-tab" data-category="airport">
+                    <div class="cat-icon-wrap">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.3c.4-.2.6-.6.5-1.1z"></path></svg>
+                    </div>
+                    <span class="cat-label">Airport</span>
+                  </button>
+
+                  <button class="cat-tab" data-category="special">
+                    <div class="cat-icon-wrap">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    </div>
+                    <span class="cat-label">Special</span>
+                  </button>
+                </div>
+
+                <!-- DYNAMIC LOCATION / TRANSFER STAGE (Smooth Animated Area) -->
+                <div class="dynamic-location-stage" id="dynamicLocationStage">
+                  
+                  <!-- SPECIAL OCCASION CHIPS (Visible in Special mode at the top of location box) -->
+                  <div class="special-occasion-box hidden" id="specialOccasionBox">
+                    <div class="occasion-header">
+                      <span class="occ-label">SELECT TRIP OCCASION / CAUSE</span>
+                      <span class="occ-hint">Trained Chauffeur Protocol</span>
+                    </div>
+                    <div class="occasion-chips-track" id="occasionChipsTrack">
+                      <button class="occ-chip active" data-cause="wedding">
+                        <span class="occ-icon">💍</span>
+                        <span>Wedding</span>
+                      </button>
+                      <button class="occ-chip" data-cause="night">
+                        <span class="occ-icon">🌙</span>
+                        <span>Night Trip</span>
+                      </button>
+                      <button class="occ-chip" data-cause="business">
+                        <span class="occ-icon">💼</span>
+                        <span>Corporate</span>
+                      </button>
+                      <button class="occ-chip" data-cause="outstation">
+                        <span class="occ-icon">🏖️</span>
+                        <span>Outstation</span>
+                      </button>
+                      <button class="occ-chip" data-cause="other">
+                        <span class="occ-icon">✨</span>
+                        <span>Other Service</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- 2. Dual Location Selection Bar (Hourly, Day, Special) -->
+                  <div class="location-selection-wrapper" id="dualLocationView">
+                    <!-- From Location Bar -->
+                    <div class="location-item-row" id="rowFromLocation">
+                      <div class="pin-indicator from">
+                        <span class="pin-dot yellow"></span>
+                      </div>
+                      <div class="location-content">
+                        <span class="loc-label">FROM (PICK-UP LOCATION)</span>
+                        <input type="text" class="loc-input" id="inputFromLoc" value="100 Feet Rd, 4th Block, Koramangala" placeholder="Where should chauffeur reach?">
+                      </div>
+                      <button type="button" class="loc-action-btn btn-clear-loc" id="btnClearFromLoc" title="Clear Pick-up Location" aria-label="Clear Pick-up Location">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                      </button>
+                    </div>
+
+                    <!-- Route Connector & Swap Button -->
+                    <div class="route-connector-line">
+                      <div class="vertical-dash"></div>
+                      <button type="button" class="swap-locations-pill" id="btnSwapLocations" onclick="window.handleSwapLocations && window.handleSwapLocations(event)" title="Swap Pickup &amp; Destination" aria-label="Swap pickup and destination locations">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" style="pointer-events: none;">
+                          <path d="M7 20V4m0 0L3 8m4-4l4 4"></path>
+                          <path d="M17 4v16m0 0l-4-4m4 4l4-4"></path>
+                        </svg>
+                      </button>
+                    </div>
+
+                    <!-- To Location Bar -->
+                    <div class="location-item-row" id="rowToLocation">
+                      <div class="pin-indicator to">
+                        <span class="pin-dot dark"></span>
+                      </div>
+                      <div class="location-content">
+                        <span class="loc-label">TO (DESTINATION / RETURN)</span>
+                        <input type="text" class="loc-input" id="inputToLoc" value="" placeholder="Where is your trip heading?">
+                      </div>
+                      <button type="button" class="loc-action-btn btn-clear-loc hidden" id="btnClearToLoc" title="Clear Destination Location" aria-label="Clear Destination Location">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- 3. AIRPORT CONCIERGE TRANSFER SECTION (Replaces Location Box in Airport mode) -->
+                  <!-- 3. AIRPORT CONCIERGE TRANSFER SECTION (Replaces Location Box in Airport mode) -->
+                  <div class="airport-concierge-card hidden" id="airportSectionBox">
+                    <div class="airport-header-row">
+                      <div class="airport-badge">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.3c.4-.2.6-.6.5-1.1z"></path></svg>
+                        <span>Airport Chauffeur Transfer</span>
+                      </div>
+                      <div class="airport-direction-toggle" id="airportDirectionToggle">
+                        <button type="button" class="dir-chip active" data-dir="pickup">
+                          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 19 19 12"></polyline></svg>
+                          <span>Pick Up at BLR</span>
+                        </button>
+                        <button type="button" class="dir-chip" data-dir="drop">
+                          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 5 5 12"></polyline></svg>
+                          <span>Drop to BLR</span>
+                        </button>
+                      </div>
+                    </div>
+
+                    <!-- 3 Location Bars in Same Minimal Style as Hourly & Day Section -->
+                    <div class="location-selection-wrapper airport-locations-wrapper">
+                      <!-- 1. Car Pick-up Point -->
+                      <div class="location-item-row" id="rowAirportCarPickup">
+                        <div class="pin-indicator from">
+                          <span class="pin-dot yellow"></span>
+                        </div>
+                        <div class="location-content">
+                          <span class="loc-label" id="lblAirportCarPickup">CAR PICK-UP POINT</span>
+                          <input type="text" class="loc-input" id="inputAirportCarPickup" value="100 Feet Rd, 4th Block, Koramangala" placeholder="Where should chauffeur reach for car?">
+                        </div>
+                        <button type="button" class="loc-action-btn btn-clear-loc" id="btnClearAirportCarPickup" title="Clear Car Pick-up Point" aria-label="Clear Car Pick-up Point">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                        </button>
+                      </div>
+
+                      <!-- Route Connector 1 -->
+                      <div class="route-connector-line airport-route-connector">
+                        <div class="vertical-dash"></div>
+                      </div>
+
+                      <!-- 2. Airport Terminal Stop -->
+                      <div class="location-item-row" id="rowAirportTerminal">
+                        <div class="pin-indicator airport">
+                          <span class="pin-dot blue"></span>
+                        </div>
+                        <div class="location-content">
+                          <span class="loc-label" id="lblAirportTerminal">AIRPORT TERMINAL</span>
+                          <input type="text" class="loc-input" id="inputAirportTerminal" value="Kempegowda Int'l Terminal 2 (BLR)" placeholder="Enter airport terminal">
+                        </div>
+                        <button type="button" class="loc-action-btn btn-clear-loc" id="btnClearAirportTerminal" title="Clear Airport Terminal" aria-label="Clear Airport Terminal">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                        </button>
+                      </div>
+
+                      <!-- Route Connector 2 -->
+                      <div class="route-connector-line airport-route-connector">
+                        <div class="vertical-dash"></div>
+                      </div>
+
+                      <!-- 3. Destination (Last Stop) -->
+                      <div class="location-item-row" id="rowAirportDest">
+                        <div class="pin-indicator to">
+                          <span class="pin-dot dark"></span>
+                        </div>
+                        <div class="location-content">
+                          <span class="loc-label" id="lblAirportDest">DESTINATION (LAST STOP)</span>
+                          <input type="text" class="loc-input" id="inputAirportDest" value="Indiranagar 100ft Road, Bengaluru" placeholder="Where is your final stop?">
+                        </div>
+                        <button type="button" class="loc-action-btn btn-clear-loc" id="btnClearAirportDest" title="Clear Destination Location" aria-label="Clear Destination Location">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                        </button>
+                      </div>
+                    </div>
+
+                    <!-- Flight Tracking & Reaching Time -->
+                    <div class="airport-inputs-grid">
+                      <div class="airport-field-card">
+                        <div class="field-meta">
+                          <span class="field-title">FLIGHT NUMBER</span>
+                          <span class="live-pill" id="flightStatusPill">Radar Sync Live</span>
+                        </div>
+                        <div class="field-input-wrap">
+                          <div class="field-icon">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"></path></svg>
+                          </div>
+                          <input type="text" id="inputFlightNo" class="field-input" placeholder="e.g. 6E 204 or AI 502" value="6E 204">
+                          <span class="airline-brand-tag" id="airlineTag">IndiGo • T2</span>
+                        </div>
+                      </div>
+
+                      <div class="airport-field-card">
+                        <div class="field-meta">
+                          <span class="field-title">CHAUFFEUR REACHING TIME</span>
+                          <span class="buffer-hint" id="lblReachBufferHint">15 min before</span>
+                        </div>
+                        <div class="field-input-wrap">
+                          <div class="field-icon">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                          </div>
+                          <select class="field-select" id="selectDriverReachTime">
+                            <option value="before15" selected>15 min before landing</option>
+                            <option value="before30">30 min before landing</option>
+                            <option value="before45">45 min before landing</option>
+                            <option value="landing">At flight touchdown</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <!-- 4. DURATION, CAR TYPE & VEHICLE CUSTOMIZER (Rock Solid Stability) -->
+                <div class="service-config-row" id="hourlyConfigRow">
+                  
+                  <!-- VEHICLE CATEGORY / CAR TYPE SELECTOR (Sedan, Hatchback, SUV, Luxury) -->
+                  <div class="car-type-selector-module" id="carTypeSelectorModule">
+                    <div class="car-type-header">
+                      <span class="ct-title">SELECT YOUR CAR TYPE</span>
+                      <span class="ct-selected-badge" id="dispSelectedCarTypeBadge">Sedan (Dzire / City / C-Class)</span>
+                    </div>
+                    <div class="car-type-chips-grid" id="carTypeChipsGrid">
+                      <button type="button" class="car-type-chip active" data-cartype="sedan" title="Sedan (e.g. Dzire, Honda City, Verna, C-Class)">
+                        <div class="ct-meta">
+                          <span class="ct-name">Sedan</span>
+                          <span class="ct-hint">City • Verna • C-Class</span>
+                        </div>
+                      </button>
+
+                      <button type="button" class="car-type-chip" data-cartype="hatchback" title="Hatchback (e.g. Swift, i20, Baleno, Polo)">
+                        <div class="ct-meta">
+                          <span class="ct-name">Hatchback</span>
+                          <span class="ct-hint">Swift • i20 • Baleno</span>
+                        </div>
+                      </button>
+
+                      <button type="button" class="car-type-chip" data-cartype="suv" title="SUV / MUV (e.g. Creta, Fortuner, Innova, XUV700)">
+                        <div class="ct-meta">
+                          <span class="ct-name">SUV / MUV</span>
+                          <span class="ct-hint">Creta • Fortuner • Innova</span>
+                        </div>
+                      </button>
+
+                      <button type="button" class="car-type-chip" data-cartype="luxury" title="Luxury (e.g. BMW, Mercedes E/S, Audi, Jaguar)">
+                        <div class="ct-meta">
+                          <span class="ct-name">Luxury</span>
+                          <span class="ct-hint">BMW • Merc S • Audi</span>
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- DURATION PRESETS (Only shown for Hourly category) -->
+                  <div class="duration-slider-box" id="durationSliderBox">
+                    <div class="slider-header">
+                      <span class="sl-title">CHAUFFEUR DURATION</span>
+                      <span class="sl-value" id="dispDurationValue">4 Hours</span>
+                    </div>
+                    <div class="duration-presets" id="durationPresetList">
+                      <button class="dur-chip" data-hours="2">2h</button>
+                      <button class="dur-chip active" data-hours="4">4h</button>
+                      <button class="dur-chip" data-hours="6">6h</button>
+                      <button class="dur-chip" data-hours="8">8h</button>
+                    </div>
+                  </div>
+
+                  <!-- Replaced Registered Car with Modern Pick-Up Date & Time Module -->
+                  <div class="pickup-datetime-module" id="pickupDateTimeModule">
+                    <div class="datetime-header">
+                      <span class="dt-title">PICK-UP DATE &amp; TIME</span>
+                      <div class="dt-mode-switch" id="dtModeSwitch">
+                        <button type="button" class="dt-mode-btn active" id="btnDtNow" data-mode="now">
+                          <span class="dt-dot"></span>
+                          <span>Now</span>
+                        </button>
+                        <button type="button" class="dt-mode-btn" id="btnDtSchedule" data-mode="schedule">
+                          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                          <span>Schedule</span>
+                        </button>
+                      </div>
+                    </div>
+
+                    <div class="datetime-fields-grid">
+                      <!-- Date Picker Field -->
+                      <label class="datetime-pill-card" for="inputPickupDate" id="cardPickupDate">
+                        <div class="dt-icon-wrap">
+                          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                        </div>
+                        <div class="dt-text-wrap">
+                          <span class="dt-field-label">DATE</span>
+                          <span class="dt-field-value" id="dispPickupDate">Today, 03 Oct</span>
+                          <input type="date" id="inputPickupDate" class="native-dt-input" aria-label="Select pickup date">
+                        </div>
+                        <svg class="dt-chevron" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                      </label>
+
+                      <!-- Time Picker Field -->
+                      <label class="datetime-pill-card" for="inputPickupTime" id="cardPickupTime">
+                        <div class="dt-icon-wrap">
+                          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                        </div>
+                        <div class="dt-text-wrap">
+                          <span class="dt-field-label">TIME</span>
+                          <span class="dt-field-value" id="dispPickupTime">Immediate (6 min)</span>
+                          <input type="time" id="inputPickupTime" class="native-dt-input" aria-label="Select pickup time">
+                        </div>
+                        <svg class="dt-chevron" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 5. STABLE FARE SUMMARY & PRIMARY CTA BUTTON (Zero Layout Shift) -->
+                <div class="booking-cta-dock">
+                  <div class="fare-quote-box">
+                    <div class="quote-header">
+                      <span class="quote-currency">EST. FARE</span>
+                      <span class="quote-guarantee">No surge</span>
+                    </div>
+                    <div class="fare-display">
+                      <span class="currency-symbol">₹</span>
+                      <span class="fare-amount" id="dispFareAmount">596</span>
+                    </div>
+                    <span class="fare-subtext" id="dispFareSub">for 4h • ₹149/h</span>
+                  </div>
+
+                  <button type="button" class="btn-primary-yellow book-action-btn disabled" id="btnBookChauffeur" disabled>
+                    <div class="btn-content-flex">
+                      <span class="btn-main-text">Book Chauffeur</span>
+                      <span class="btn-secondary-text">Enter destination</span>
+                    </div>
+                    <div class="btn-arrow-icon">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </div>
+                  </button>
+                </div>
+
+              </div>
+
+              <!-- Recent Trip History (Minimal & Modern List Style — Exactly 3 Recent Trips) -->
+              <div class="home-recent-trips-section">
+                <div class="teaser-header">
+                  <div class="teaser-title-wrap">
+                    <span class="teaser-title">RECENT TRIP HISTORY</span>
+                    <span class="teaser-count-pill">3 Trips</span>
+                  </div>
+                  <button type="button" class="teaser-link" id="linkGoToTrips">View All</button>
+                </div>
+
+                <div class="recent-trips-list" id="homeRecentTripsList">
+                  <!-- Trip 1: Airport Drop -->
+                  <div class="recent-trip-item" data-from="100 Feet Rd, 4th Block, Koramangala" data-to="BLR Airport Terminal 2" data-cat="airport" data-car="sedan" data-name="Airport Drop • Terminal 2">
+                    <div class="trip-item-icon">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.3c.4-.2.6-.6.5-1.1z"></path></svg>
+                    </div>
+                    <div class="trip-item-details">
+                      <div class="trip-item-route">Koramangala 4th Blk → BLR Airport T2</div>
+                      <div class="trip-item-meta">
+                        <span class="meta-tag">Airport Drop</span>
+                        <span class="meta-dot">•</span>
+                        <span>Yesterday</span>
+                        <span class="meta-dot">•</span>
+                        <span class="meta-fare">₹899</span>
+                        <span class="meta-dot">•</span>
+                        <span>Vikram S. ★ 4.99</span>
+                      </div>
+                    </div>
+                    <button type="button" class="btn-repeat-trip" title="Repeat this trip" aria-label="Repeat Airport Drop trip">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
+                      <span>Repeat</span>
+                    </button>
+                  </div>
+
+                  <!-- Trip 2: City Hourly -->
+                  <div class="recent-trip-item" data-from="Indiranagar 100ft Rd" data-to="UB City Luxury Mall" data-cat="hourly" data-car="sedan" data-name="City Hourly • UB City">
+                    <div class="trip-item-icon">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                    </div>
+                    <div class="trip-item-details">
+                      <div class="trip-item-route">Indiranagar 100ft Rd → UB City Mall</div>
+                      <div class="trip-item-meta">
+                        <span class="meta-tag">4h Hourly</span>
+                        <span class="meta-dot">•</span>
+                        <span>28 Sep</span>
+                        <span class="meta-dot">•</span>
+                        <span class="meta-fare">₹596</span>
+                        <span class="meta-dot">•</span>
+                        <span>Ramesh N. ★ 4.97</span>
+                      </div>
+                    </div>
+                    <button type="button" class="btn-repeat-trip" title="Repeat this trip" aria-label="Repeat 4h Hourly trip">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
+                      <span>Repeat</span>
+                    </button>
+                  </div>
+
+                  <!-- Trip 3: Full Day Rental -->
+                  <div class="recent-trip-item" data-from="Koramangala 4th Block" data-to="Electronic City Phase 1" data-cat="day" data-car="suv" data-name="Full Day • Electronic City">
+                    <div class="trip-item-icon">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                    </div>
+                    <div class="trip-item-details">
+                      <div class="trip-item-route">Koramangala → Electronic City Phase 1</div>
+                      <div class="trip-item-meta">
+                        <span class="meta-tag">Full Day 10h</span>
+                        <span class="meta-dot">•</span>
+                        <span>19 Sep</span>
+                        <span class="meta-dot">•</span>
+                        <span class="meta-fare">₹1,299</span>
+                        <span class="meta-dot">•</span>
+                        <span>Anand K. ★ 4.96</span>
+                      </div>
+                    </div>
+                    <button type="button" class="btn-repeat-trip" title="Repeat this trip" aria-label="Repeat Full Day trip">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
+                      <span>Repeat</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Key Features Mosaic -->
+              <section class="home-features-overview">
+                <h3 class="features-kicker">RIDINGO STANDARDS</h3>
+                <div class="features-mini-grid">
+                  <div class="mini-feat-item">
+                    <div class="feat-bullet-icon">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="3"></circle></svg>
+                    </div>
+                    <div class="feat-txt">
+                      <strong>Your Own Vehicle</strong>
+                      <span>Zero adjustment to unfamiliar cars</span>
+                    </div>
+                  </div>
+                  <div class="mini-feat-item">
+                    <div class="feat-bullet-icon">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                    </div>
+                    <div class="feat-txt">
+                      <strong>5-Step Vetted Drivers</strong>
+                      <span>Thorough background &amp; skill certified</span>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              <div class="bottom-safe-spacer"></div>
+            </div>
+          </div>
+
+
+          <!-- ================= PAGE 2: TRIPS (DEDICATED FULL PAGE) ================= -->
+          <div class="app-page hidden" id="pageTrips">
+            <div class="page-scroll-body">
+              <header class="page-header-standard">
+                <div>
+                  <h1 class="page-main-heading">My Trips</h1>
+                  <p class="page-main-sub">History, upcoming rides & 1-tap rebooking</p>
+                </div>
+              </header>
+
+              <!-- Trips Segmented Tabs -->
+              <div class="trips-filter-tabs">
+                <button class="trip-filter-pill active" data-filter="all">All (4)</button>
+                <button class="trip-filter-pill" data-filter="upcoming">Upcoming (1)</button>
+                <button class="trip-filter-pill" data-filter="completed">Completed (3)</button>
+              </div>
+
+              <!-- Upcoming Trip Card -->
+              <div class="trip-full-card upcoming-card" data-category="upcoming" data-cat="airport" data-car="luxury" data-from="100 Feet Rd, Koramangala 4th Block" data-to="BLR Airport Departures Ramp T2" data-name="Airport Drop">
+                <div class="trip-status-ribbon">
+                  <span class="live-dot-green"></span>
+                  <span>CONFIRMED UPCOMING</span>
+                </div>
+                <div class="trip-header-line">
+                  <span class="trip-tag-cat">Airport Drop • Flight 6E 204</span>
+                  <span class="trip-time-badge">Tomorrow, 06:00 AM</span>
+                </div>
+                <div class="trip-route-expanded">
+                  <div class="route-node">
+                    <span class="dot-sm yellow"></span>
+                    <div class="node-details">
+                      <span class="node-title">100 Feet Rd, Koramangala 4th Block</span>
+                      <span class="node-sub">Pick up at doorstep</span>
+                    </div>
+                  </div>
+                  <div class="route-stem"></div>
+                  <div class="route-node">
+                    <span class="dot-sm dark"></span>
+                    <div class="node-details">
+                      <span class="node-title">BLR Airport Departures Ramp T2</span>
+                      <span class="node-sub">Vehicle safely parked & handed over</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="trip-card-footer">
+                  <div class="trip-meta-info">
+                    <span class="trip-fare">₹899</span>
+                    <span class="trip-meta-sep">•</span>
+                    <span class="trip-meta-desc">Mercedes C-Class • Doorstep Pickup</span>
+                  </div>
+                  <button type="button" class="btn-repeat-trip" title="Repeat this trip" aria-label="Repeat Airport Drop trip">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
+                    <span>Repeat</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Completed Trip 1 -->
+              <div class="trip-full-card" data-category="completed" data-cat="hourly" data-car="luxury" data-from="Indiranagar 100ft Rd" data-to="UB City Luxury Mall & Return" data-name="4-Hour City Rental">
+                <div class="trip-header-line">
+                  <span class="trip-tag-cat past">4-Hour City Rental</span>
+                  <span class="trip-date-simple">28 Sep, 20:15</span>
+                </div>
+                <div class="trip-route-expanded">
+                  <div class="route-node">
+                    <span class="dot-sm yellow"></span>
+                    <div class="node-details">
+                      <span class="node-title">Indiranagar 100ft Rd</span>
+                      <span class="node-sub">Evening dinner & meeting commute</span>
+                    </div>
+                  </div>
+                  <div class="route-stem"></div>
+                  <div class="route-node">
+                    <span class="dot-sm dark"></span>
+                    <div class="node-details">
+                      <span class="node-title">UB City Luxury Mall & Return</span>
+                      <span class="node-sub">Car safely parked at home</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="trip-card-footer">
+                  <div class="trip-meta-info">
+                    <span class="trip-fare">₹596</span>
+                    <span class="trip-meta-sep">•</span>
+                    <span class="trip-meta-desc">BMW 330Li • 4 hrs rental</span>
+                  </div>
+                  <button type="button" class="btn-repeat-trip" title="Repeat this trip" aria-label="Repeat 4-Hour City Rental trip">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
+                    <span>Repeat</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Completed Trip 2 -->
+              <div class="trip-full-card" data-category="completed" data-cat="airport" data-car="suv" data-from="BLR Airport Arrivals T1" data-to="Whitefield Palm Meadows" data-name="Airport Concierge Transfer">
+                <div class="trip-header-line">
+                  <span class="trip-tag-cat past">Airport Concierge Transfer</span>
+                  <span class="trip-date-simple">21 Sep, 16:40</span>
+                </div>
+                <div class="trip-route-expanded">
+                  <div class="route-node">
+                    <span class="dot-sm yellow"></span>
+                    <div class="node-details">
+                      <span class="node-title">BLR Airport Arrivals T1</span>
+                      <span class="node-sub">Flight AI 502 • Gate 4 assist</span>
+                    </div>
+                  </div>
+                  <div class="route-stem"></div>
+                  <div class="route-node">
+                    <span class="dot-sm dark"></span>
+                    <div class="node-details">
+                      <span class="node-title">Whitefield Palm Meadows</span>
+                      <span class="node-sub">Personal Fortuner 4x4</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="trip-card-footer">
+                  <div class="trip-meta-info">
+                    <span class="trip-fare">₹899</span>
+                    <span class="trip-meta-sep">•</span>
+                    <span class="trip-meta-desc">Fortuner 4x4 • 38 km transfer</span>
+                  </div>
+                  <button type="button" class="btn-repeat-trip" title="Repeat this trip" aria-label="Repeat Airport Concierge Transfer trip">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
+                    <span>Repeat</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Completed Trip 3 -->
+              <div class="trip-full-card" data-category="completed" data-cat="outstation" data-car="luxury" data-from="Bengaluru" data-to="Mysore Heritage Tour" data-name="Full Day Outstation">
+                <div class="trip-header-line">
+                  <span class="trip-tag-cat past">Full Day Outstation (12h)</span>
+                  <span class="trip-date-simple">14 Sep, 07:00</span>
+                </div>
+                <div class="trip-route-expanded">
+                  <div class="route-node">
+                    <span class="dot-sm yellow"></span>
+                    <div class="node-details">
+                      <span class="node-title">Bengaluru ➔ Mysore Heritage Tour</span>
+                      <span class="node-sub">Expressway • Full Day Dedicated Chauffeur</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="trip-card-footer">
+                  <div class="trip-meta-info">
+                    <span class="trip-fare">₹1,899</span>
+                    <span class="trip-meta-sep">•</span>
+                    <span class="trip-meta-desc">Mercedes C-Class • 12 hrs</span>
+                  </div>
+                  <button type="button" class="btn-repeat-trip" title="Repeat this trip" aria-label="Repeat Full Day Outstation trip">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
+                    <span>Repeat</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="bottom-safe-spacer"></div>
+            </div>
+          </div>
+
+
+          <!-- ================= PAGE 3: TRACK (LIVE & UPCOMING GPS HUB) ================= -->
+          <div class="app-page hidden" id="pageTrack">
+            <div class="track-page-container">
+              
+              <!-- MINIMAL MODERN INTEGRATED MAP CANVAS BACKGROUND (FREE DRAGGABLE) -->
+              <div class="track-map-viewport" id="trackMapViewport">
+                <!-- Draggable Map Canvas Container -->
+                <div class="track-map-canvas" id="trackMapCanvas">
+                  <!-- SVG Vector Dark Cartography Map -->
+                  <svg class="track-vector-map" viewBox="0 0 400 700" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <linearGradient id="trackRouteGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#FFCC00" />
+                        <stop offset="60%" stop-color="#F59E0B" />
+                        <stop offset="100%" stop-color="#10B981" />
+                      </linearGradient>
+                      <filter id="routeGlow" x="-20%" y="-20%" width="140%" height="140%">
+                        <feGaussianBlur stdDeviation="3.5" result="blur" />
+                        <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                      </filter>
+                    </defs>
+
+                    <!-- Map Background Base (Generous Coverage for 360-degree Panning) -->
+                    <rect x="-800" y="-800" width="2000" height="2300" fill="#0A0E17"/>
+
+                    <!-- City District Blocks (Subtle Minimalist Polygons) -->
+                    <g fill="#101622" opacity="0.88">
+                      <!-- Central & East zones -->
+                      <path d="M-10,30 L90,15 L110,120 L-10,140 Z" />
+                      <path d="M125,20 L270,10 L285,110 L135,120 Z" fill="#0F1520" />
+                      <path d="M305,25 L410,15 L415,130 L295,120 Z" fill="#121825" />
+                      <path d="M-10,160 L100,145 L85,290 L-10,310 Z" fill="#0F141F" />
+                      <path d="M120,150 L270,140 L280,270 L130,285 Z" fill="#141B28" />
+                      <path d="M295,145 L410,150 L415,300 L300,280 Z" fill="#111622" />
+                      <path d="M-10,335 L110,320 L95,490 L-10,510 Z" fill="#101520" />
+                      <path d="M130,310 L280,300 L275,480 L120,490 Z" fill="#131A26" />
+                      <path d="M300,305 L415,320 L420,490 L295,480 Z" fill="#101621" />
+
+                      <!-- Extended West & South Districts for Panning -->
+                      <path d="M-360,-120 L-120,-140 L-100,10 L-340,30 Z" fill="#0E1420" />
+                      <path d="M-380,80 L-130,60 L-120,290 L-370,300 Z" fill="#111724" />
+                      <path d="M-380,340 L-120,330 L-130,550 L-390,570 Z" fill="#0F1522" />
+                      <path d="M-380,610 L-100,600 L-110,880 L-380,870 Z" fill="#121826" />
+
+                      <!-- Extended East & Tech Park Districts -->
+                      <path d="M430,20 L680,10 L690,180 L440,160 Z" fill="#0E1522" />
+                      <path d="M440,200 L710,210 L700,430 L430,410 Z" fill="#131B29" />
+                      <path d="M440,460 L720,470 L710,750 L430,730 Z" fill="#111724" />
+
+                      <!-- Extended North & Airport Corridor Districts -->
+                      <path d="M-120,-380 L120,-370 L110,-160 L-130,-170 Z" fill="#111827" />
+                      <path d="M150,-380 L420,-390 L400,-150 L140,-160 Z" fill="#0F1522" />
+                      <path d="M-10,540 L160,530 L150,750 L-10,760 Z" fill="#131926" />
+                      <path d="M180,520 L390,510 L380,760 L170,770 Z" fill="#0F1420" />
+                    </g>
+
+                    <!-- Minimalist Water Feature Accents -->
+                    <g fill="#0C1B2B" opacity="0.8">
+                      <!-- Koramangala Basin -->
+                      <path d="M30,70 Q70,60 100,90 T70,140 T20,110 Z" />
+                      <!-- East Tech Lake Reserve -->
+                      <path d="M470,260 Q550,220 590,290 T540,380 T460,340 Z" />
+                      <!-- North Ulsoor Lake Waterway -->
+                      <path d="M210,-240 Q290,-270 320,-200 T260,-120 T190,-160 Z" />
+                      <!-- South Reservoir -->
+                      <path d="M-220,680 Q-140,650 -120,740 T-180,820 T-260,770 Z" />
+                    </g>
+
+                    <!-- Secondary City Street Grid (Thin Muted Lines - Extended) -->
+                    <g stroke="#182130" stroke-width="1.8" stroke-linecap="round" opacity="0.65">
+                      <!-- Horizontal Grid Lines -->
+                      <line x1="-600" y1="-260" x2="800" y2="-260" />
+                      <line x1="-600" y1="-120" x2="800" y2="-120" />
+                      <line x1="-600" y1="65" x2="800" y2="65" />
+                      <line x1="-600" y1="190" x2="800" y2="190" />
+                      <line x1="-600" y1="240" x2="800" y2="240" />
+                      <line x1="-600" y1="360" x2="800" y2="360" />
+                      <line x1="-600" y1="430" x2="800" y2="430" />
+                      <line x1="-600" y1="580" x2="800" y2="580" />
+                      <line x1="-600" y1="720" x2="800" y2="720" />
+                      <line x1="-600" y1="860" x2="800" y2="860" />
+
+                      <!-- Vertical Grid Lines -->
+                      <line x1="-320" y1="-600" x2="-320" y2="1100" />
+                      <line x1="-180" y1="-600" x2="-180" y2="1100" />
+                      <line x1="-60" y1="-600" x2="-60" y2="1100" />
+                      <line x1="50" y1="-600" x2="50" y2="1100" />
+                      <line x1="165" y1="-600" x2="165" y2="1100" />
+                      <line x1="240" y1="-600" x2="240" y2="1100" />
+                      <line x1="345" y1="-600" x2="345" y2="1100" />
+                      <line x1="480" y1="-600" x2="480" y2="1100" />
+                      <line x1="620" y1="-600" x2="620" y2="1100" />
+                    </g>
+
+                    <!-- Main Arterial Avenues (Modern Charcoal Roads - Extended Across Entire Panning Range) -->
+                    <g stroke="#212C3F" stroke-width="5.5" stroke-linecap="round" opacity="0.85">
+                      <path d="M-600,130 C-100,130 180,90 800,90" fill="none" />
+                      <path d="M-600,300 C-50,290 220,330 800,330" fill="none" />
+                      <path d="M-600,640 C-120,630 200,670 800,660" fill="none" />
+                      <path d="M-600,-80 C-80,-70 240,-90 800,-80" fill="none" />
+                      
+                      <path d="M110,-600 C110,120 115,480 105,1100" fill="none" />
+                      <path d="M285,-600 C290,160 280,560 290,1100" fill="none" />
+                      <path d="M-150,-600 C-140,-10 -160,520 -150,1100" fill="none" />
+                      <path d="M520,-600 C530,-40 515,480 525,1100" fill="none" />
+                    </g>
+
+                    <!-- Ring Road Highway Curves & Expressways -->
+                    <g stroke="#28364E" stroke-width="7" stroke-linecap="round" opacity="0.85" fill="none">
+                      <path d="M-400,520 C-60,500 240,410 700,120" />
+                      <path d="M-300,-180 C0,-140 380,-30 650,420" />
+                    </g>
+                    <g stroke="#141B28" stroke-width="4.5" stroke-linecap="round" fill="none">
+                      <path d="M-400,520 C-60,500 240,410 700,120" />
+                      <path d="M-300,-180 C0,-140 380,-30 650,420" />
+                    </g>
+
+                    <!-- Subtle Minimalist District Typography & Road Badges -->
+                    <g fill="#475569" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="700" font-size="8.5" letter-spacing="1.5" opacity="0.75">
+                      <text x="20" y="48">KORAMANGALA</text>
+                      <text x="245" y="155">INDIRANAGAR</text>
+                      <text x="145" y="475">HSR LAYOUT</text>
+                      <text x="-260" y="160">CBD / MG ROAD</text>
+                      <text x="440" y="80">BELLANDUR TECH PARK</text>
+                      <text x="240" y="-120">AIRPORT EXPRESSWAY (T2)</text>
+                      <text x="-240" y="490">OUTER RING ROAD</text>
+                      <text x="430" y="520">ELECTRONIC CITY FLYOVER</text>
+                    </g>
+
+                    <!-- Active GPS Route Line with Glow (Chauffeur to Pickup to Destination) -->
+                    <path id="trackLiveRoutePath" class="track-route-path"
+                      d="M 95,245 C 110,220 140,210 180,210 C 220,210 260,240 285,270 C 300,290 310,330 295,370 C 280,410 220,420 180,425"
+                      fill="none" stroke="url(#trackRouteGrad)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"
+                      filter="url(#routeGlow)" />
+
+                    <!-- Waypoint Destination Marker (Drop Point) -->
+                    <g class="track-dest-marker" transform="translate(180, 425)">
+                      <circle r="7" fill="#10B981" />
+                      <circle r="14" fill="#10B981" opacity="0.25" />
+                      <circle r="3" fill="#FFFFFF" />
+                    </g>
+
+                    <!-- Waypoint Pickup Marker -->
+                    <g class="track-pickup-marker" transform="translate(285, 270)">
+                      <circle r="6" fill="#FFFFFF" />
+                      <circle r="12" fill="#FFFFFF" opacity="0.22" />
+                      <circle r="2.5" fill="#0A0D12" />
+                    </g>
+
+                    <!-- Waypoint Live Chauffeur Marker with Heading Angle & Animated Radar Pulse -->
+                    <g class="track-chauffeur-marker" id="trackChauffeurMarker" transform="translate(95, 245)">
+                      <!-- Animated Radar Pulse Rings -->
+                      <circle class="radar-wave wave-1" r="14" fill="none" stroke="#FFCC00" stroke-width="1.5" />
+                      <circle class="radar-wave wave-2" r="26" fill="none" stroke="#FFCC00" stroke-width="1" />
+                      
+                      <!-- Chauffeur Pin Body -->
+                      <circle r="12" fill="#0A0D12" stroke="#FFCC00" stroke-width="2.5" />
+                      <!-- Vehicle Direction Icon inside -->
+                      <path d="M-3.5,3.5 L0,-4.5 L3.5,3.5 L0,1.8 Z" fill="#FFCC00" transform="rotate(45)" />
+                    </g>
+                  </svg>
+                </div>
+
+                <!-- Floating Map HUD Overlays -->
+                <div class="map-hud-top-bar">
+                  <div class="map-status-pill">
+                    <span class="live-dot-pulse"></span>
+                    <span class="map-status-text" id="mapStatusIndicator">GPS Live • 1.8 km away</span>
+                  </div>
+
+                  <div class="map-hud-actions">
+                    <button class="map-hud-btn" id="btnRecenterMap" title="Center on Chauffeur" type="button">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                        <circle cx="12" cy="12" r="7"></circle>
+                        <polyline points="12 1 12 5 12 19 12 23"></polyline>
+                        <polyline points="1 12 5 12 19 12 23 12"></polyline>
+                      </svg>
+                    </button>
+                    <button class="map-hud-btn" id="btnToggleTraffic" title="Live Traffic Mode" type="button">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                        <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                        <polyline points="2 17 12 22 22 17"></polyline>
+                        <polyline points="2 12 12 17 22 12"></polyline>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Floating Chauffeur ETA Chip over Map -->
+                <div class="map-floating-eta-badge" id="mapFloatingEta">
+                  <div class="eta-time-val" id="mapFloatingEtaTime">4 MIN</div>
+                  <div class="eta-label-sub" id="mapFloatingEtaSub">Chauffeur en route</div>
+                </div>
+              </div>
+
+              <!-- ============================================== -->
+              <!-- HALF-POPUP BOTTOM SHEET (BOTTOM TO TOP STYLE)   -->
+              <!-- ============================================== -->
+              <div class="track-bottom-sheet" id="trackBottomSheet">
+                <div class="sheet-grab-bar-wrap" id="trackSheetDragHandle" title="Drag or tap to expand/collapse">
+                  <span class="sheet-grab-bar"></span>
+                </div>
+
+                <!-- Minimized Peek Bar (Only visible at bottom when minimized, drag or tap to expand) -->
+                <div class="track-minimized-peek-bar" id="trackMinimizedPeekBar" title="Drag or tap to expand full trip details">
+                  <div class="peek-driver-info">
+                    <div class="peek-avatar-wrap">
+                      <div class="peek-avatar" id="peekDriverAvatar">VS</div>
+                      <span class="peek-dot-pulse" id="peekDotPulse"></span>
+                    </div>
+                    <div class="peek-text-col">
+                      <strong class="peek-driver-name" id="peekDriverName">Vikram Singh</strong>
+                      <span class="peek-status-sub" id="peekStatusSub">Arriving in 4 min • Mercedes C-Class</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Scrollable content area inside bottom sheet -->
+                <div class="track-sheet-scrollable-body" id="trackSheetBody">
+                  <!-- Interactive State Preview Switcher (Allows testing Active Trip vs No Trip states seamlessly) -->
+                  <div class="track-state-preview-toggle">
+                    <span class="preview-mode-tag">TRIP STATUS:</span>
+                    <div class="preview-toggle-chips">
+                      <button class="toggle-mode-chip active" id="chipModeActiveTrip" type="button">Active Trip</button>
+                      <button class="toggle-mode-chip" id="chipModeNoTrip" type="button">No Trip</button>
+                    </div>
+                  </div>
+
+                <!-- ================= STATE A: ACTIVE OR UPCOMING TRIP ================= -->
+                <div class="track-sheet-content" id="trackSheetActiveState">
+                  <!-- Live Status Header Row -->
+                  <div class="track-status-header">
+                    <div class="track-live-badge" id="trackTripStatusBadge">
+                      <span class="badge-pulse-indicator"></span>
+                      <strong id="trackStatusTitle">Chauffeur en route</strong>
+                    </div>
+                    <span class="track-eta-pill" id="trackEtaPill">ETA 4 mins</span>
+                  </div>
+
+                  <!-- Chauffeur Summary Card -->
+                  <div class="track-chauffeur-card">
+                    <div class="track-avatar-box">
+                      <div class="track-avatar" id="trackDriverAvatar">VS</div>
+                      <span class="track-avatar-verified">✓</span>
+                    </div>
+                    <div class="track-driver-meta">
+                      <div class="track-driver-name-row">
+                        <h3 class="track-driver-name" id="trackDriverName">Vikram Singh</h3>
+                        <span class="track-driver-rating" id="trackDriverRating">★ 4.99 Top 1%</span>
+                      </div>
+                      <p class="track-car-desc" id="trackAssignedCar">Mercedes-Benz C-Class • KA 01 MJ 4402</p>
+                      <span class="track-driver-tag" id="trackDriverBadge">Certified Defensive Driving</span>
+                    </div>
+                    <div class="track-contact-actions">
+                      <button class="track-round-action-btn" id="btnTrackCallDriver" title="Call Chauffeur" type="button">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                      </button>
+                      <button class="track-round-action-btn" id="btnTrackChatDriver" title="Message Chauffeur" type="button">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Route Waypoints Overview -->
+                  <div class="track-waypoints-box">
+                    <div class="waypoint-row">
+                      <div class="wp-icon wp-pickup"></div>
+                      <div class="wp-text-wrap">
+                        <span class="wp-sub">PICKUP LOCATION</span>
+                        <strong class="wp-title" id="trackPickupDisp">Home, 4th Block, Koramangala</strong>
+                      </div>
+                    </div>
+                    <div class="wp-connector-line"></div>
+                    <div class="waypoint-row">
+                      <div class="wp-icon wp-drop"></div>
+                      <div class="wp-text-wrap">
+                        <span class="wp-sub">DROP DESTINATION</span>
+                        <strong class="wp-title" id="trackDropDisp">Kempegowda Int'l Airport (T2)</strong>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Telemetry Stats Grid -->
+                  <div class="track-telemetry-row">
+                    <div class="telem-item">
+                      <span class="telem-label">DISTANCE</span>
+                      <strong class="telem-value" id="trackDistanceDisp">1.8 km away</strong>
+                    </div>
+                    <div class="telem-divider"></div>
+                    <div class="telem-item">
+                      <span class="telem-label">SPEED</span>
+                      <strong class="telem-value" id="trackSpeedDisp">32 km/h</strong>
+                    </div>
+                    <div class="telem-divider"></div>
+                    <div class="telem-item">
+                      <span class="telem-label">EST. FARE</span>
+                      <strong class="telem-value" id="trackFareDisp">₹899</strong>
+                    </div>
+                  </div>
+
+                  <!-- Bottom Section Button: Track Now -->
+                  <div class="track-bottom-action-wrap">
+                    <button class="btn-track-now-primary" id="btnTrackNow" type="button">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                        <polygon points="3 11 22 2 13 21 11 13 3 11"></polygon>
+                      </svg>
+                      <span>Track Now</span>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- ================= STATE B: NO TRIP (NO UPCOMING & NO LIVE TRIP) ================= -->
+                <div class="track-sheet-content hidden" id="trackSheetEmptyState">
+                  <div class="track-empty-container">
+                    <div class="track-empty-radar-graphic">
+                      <div class="empty-radar-ripple ripple-1"></div>
+                      <div class="empty-radar-ripple ripple-2"></div>
+                      <div class="empty-radar-core">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFCC00" stroke-width="2">
+                          <circle cx="12" cy="12" r="10"></circle>
+                          <line x1="12" y1="2" x2="12" y2="6"></line>
+                          <line x1="12" y1="18" x2="12" y2="22"></line>
+                          <line x1="2" y1="12" x2="6" y2="12"></line>
+                          <line x1="18" y1="12" x2="22" y2="12"></line>
+                          <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                      </div>
+                    </div>
+
+                    <h3 class="track-empty-title">There are no trips right now and upcoming</h3>
+                    <p class="track-empty-desc">You don't have an active or upcoming chauffeur reservation. Request a certified professional driver for your car in seconds.</p>
+
+                    <div class="track-empty-features-pill">
+                      <span>✓ 100% Background-Checked</span>
+                      <span>✓ Instant Dispatch</span>
+                    </div>
+
+                    <!-- Bottom Section Button for Empty State -->
+                    <div class="track-bottom-action-wrap mt-16">
+                      <button class="btn-track-now-primary" id="btnTrackBookChauffeur" type="button">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                          <rect x="3" y="11" width="18" height="8" rx="2"></rect>
+                          <path d="m5 11 3-6h8l3 6"></path>
+                          <circle cx="7.5" cy="16.5" r="1.5"></circle>
+                          <circle cx="16.5" cy="16.5" r="1.5"></circle>
+                        </svg>
+                        <span>Book a Chauffeur Now</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="track-sheet-safe-spacer"></div>
+              </div> <!-- close trackSheetBody -->
+            </div> <!-- close trackBottomSheet -->
+
+          </div>
+        </div>
+
+
+          <!-- ================= PAGE 4: CHAUFFEURS DIRECTORY ================= -->
+          <div class="app-page hidden" id="pageChauffeurs">
+            <div class="page-scroll-body">
+              <header class="page-header-standard">
+                <div class="badge-mini-gold">
+                  <span>TOP 1% VERIFIED DIRECTORY</span>
+                </div>
+                <h1 class="page-main-heading">Elite Chauffeurs</h1>
+                <p class="page-main-sub">Background-cleared chauffeurs trained for your car</p>
+              </header>
+
+              <!-- Driver Category Filter -->
+              <div class="chauffeur-filter-bar">
+                <button class="ch-filter active" data-filter="all">All (18)</button>
+                <button class="ch-filter" data-filter="luxury">Luxury & EV</button>
+                <button class="ch-filter" data-filter="suv">SUV & Manual</button>
+                <button class="ch-filter" data-filter="night">Night Shift</button>
+              </div>
+
+              <div class="chauffeur-full-list">
+                
+                <!-- Chauffeur 1 -->
+                <article class="chauffeur-directory-card" data-cat="luxury">
+                  <div class="card-status-bar">
+                    <span class="status-available-dot"></span>
+                    <span class="avail-text">Available Now in Koramangala (5m away)</span>
+                  </div>
+                  <div class="chauffeur-top">
+                    <div class="chauffeur-avatar-badge">
+                      <div class="monogram-avatar-large">VS</div>
+                      <span class="verified-seal">✓</span>
+                    </div>
+                    <div class="chauffeur-details">
+                      <div class="driver-name-row">
+                        <h3 class="driver-title">Vikram Singh</h3>
+                        <span class="experience-pill">7 Yrs Exp</span>
+                      </div>
+                      <div class="driver-score-row">
+                        <span class="star-rating">★ 4.99</span>
+                        <span class="trips-count">(1,840+ trips)</span>
+                        <span class="vehicle-cert">Mercedes & BMW Pro</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="driver-quote-bubble">
+                    <p class="quote-text">"Vikram drove my BMW 5 series to the airport during heavy rains. Impeccable smooth braking and opened every door with gloves. True 5-star chauffeur."</p>
+                    <span class="quote-author">— Dr. Rohan K. (Verified Owner)</span>
+                  </div>
+
+                  <div class="credentials-badge-list">
+                    <span class="cred-chip">Police Cleared</span>
+                    <span class="cred-chip">Defensive Driving</span>
+                    <span class="cred-chip">Suited Uniform</span>
+                    <span class="cred-chip">English / Hindi</span>
+                  </div>
+
+                  <button class="btn-select-driver" data-driver-name="Vikram Singh">
+                    <span>Select Vikram as Chauffeur</span>
+                  </button>
+                </article>
+
+                <!-- Chauffeur 2 -->
+                <article class="chauffeur-directory-card" data-cat="suv">
+                  <div class="card-status-bar">
+                    <span class="status-available-dot"></span>
+                    <span class="avail-text">Available in Indiranagar (8m away)</span>
+                  </div>
+                  <div class="chauffeur-top">
+                    <div class="chauffeur-avatar-badge">
+                      <div class="monogram-avatar-large">AM</div>
+                      <span class="verified-seal">✓</span>
+                    </div>
+                    <div class="chauffeur-details">
+                      <div class="driver-name-row">
+                        <h3 class="driver-title">Arun Murthy</h3>
+                        <span class="experience-pill">9 Yrs Exp</span>
+                      </div>
+                      <div class="driver-score-row">
+                        <span class="star-rating">★ 4.98</span>
+                        <span class="trips-count">(2,410+ trips)</span>
+                        <span class="vehicle-cert">Fortuner & Manual SUV</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="driver-quote-bubble">
+                    <p class="quote-text">"Hired Arun for a full-day city errand in my Fortuner. Extremely punctual, took care of parking everywhere, and didn't touch my stereo. Highly recommended."</p>
+                    <span class="quote-author">— Siddharth M. (Verified Owner)</span>
+                  </div>
+
+                  <div class="credentials-badge-list">
+                    <span class="cred-chip">Heavy SUV Certified</span>
+                    <span class="cred-chip">Non-Smoker</span>
+                    <span class="cred-chip">VIP Etiquette</span>
+                    <span class="cred-chip">Kannada / English</span>
+                  </div>
+
+                  <button class="btn-select-driver" data-driver-name="Arun Murthy">
+                    <span>Select Arun as Chauffeur</span>
+                  </button>
+                </article>
+
+                <!-- Chauffeur 3 -->
+                <article class="chauffeur-directory-card" data-cat="night">
+                  <div class="card-status-bar">
+                    <span class="status-available-dot"></span>
+                    <span class="avail-text">Available in CBD / MG Rd (12m away)</span>
+                  </div>
+                  <div class="chauffeur-top">
+                    <div class="chauffeur-avatar-badge">
+                      <div class="monogram-avatar-large">RN</div>
+                      <span class="verified-seal">✓</span>
+                    </div>
+                    <div class="chauffeur-details">
+                      <div class="driver-name-row">
+                        <h3 class="driver-title">Ramesh N.</h3>
+                        <span class="experience-pill">11 Yrs Exp</span>
+                      </div>
+                      <div class="driver-score-row">
+                        <span class="star-rating">★ 4.97</span>
+                        <span class="trips-count">(3,120+ trips)</span>
+                        <span class="vehicle-cert">Night Shift Specialist</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="driver-quote-bubble">
+                    <p class="quote-text">"Ramesh is my go-to driver whenever I attend late-night dinner events. He brings his own clean gloves and drives with total respect for the vehicle."</p>
+                    <span class="quote-author">— Ananya S. (Verified Owner)</span>
+                  </div>
+
+                  <div class="credentials-badge-list">
+                    <span class="cred-chip">Zero Fatigue Certified</span>
+                    <span class="cred-chip">Bangalore Route Master</span>
+                    <span class="cred-chip">Hindi / Tamil / English</span>
+                  </div>
+
+                  <button class="btn-select-driver" data-driver-name="Ramesh N.">
+                    <span>Select Ramesh as Chauffeur</span>
+                  </button>
+                </article>
+
+              </div>
+              <div class="bottom-safe-spacer"></div>
+            </div>
+          </div>
+
+
+          <!-- ================= PAGE 5: GARAGE & VEHICLES ================= -->
+          <div class="app-page hidden" id="pageGarage">
+            <div class="page-scroll-body">
+              <header class="page-header-standard">
+                <div class="badge-mini-gold">
+                  <span>MY PRIVATE GARAGE</span>
+                </div>
+                <h1 class="page-main-heading">My Vehicles</h1>
+                <p class="page-main-sub">Manage cars driven by Ridingo chauffeurs</p>
+              </header>
+
+
+              <!-- Vehicle List -->
+              <div class="garage-page-cars">
+                
+                <div class="garage-car-item active" data-car="Mercedes C-Class">
+                  <div class="car-active-indicator">ACTIVE ON APP</div>
+                  <div class="car-header-row">
+                    <div>
+                      <h3 class="garage-car-name">Mercedes-Benz C220d</h3>
+                      <span class="garage-plate">KA 01 MJ 4402 • Automatic</span>
+                    </div>
+                    <div class="car-glyph-box">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="11" width="18" height="8" rx="2"></rect><path d="m5 11 3-6h8l3 6"></path><circle cx="7.5" cy="16.5" r="1.5"></circle><circle cx="16.5" cy="16.5" r="1.5"></circle></svg>
+                    </div>
+                  </div>
+                  <div class="car-specs-grid">
+                    <span class="spec-pill">Sedan</span>
+                    <span class="spec-pill">Diesel</span>
+                    <span class="spec-pill">Fastag Active</span>
+                    <span class="spec-pill">RC Verified ✓</span>
+                  </div>
+                </div>
+
+                <div class="garage-car-item" data-car="BMW 3 Series">
+                  <div class="car-header-row">
+                    <div>
+                      <h3 class="garage-car-name">BMW 330Li M Sport</h3>
+                      <span class="garage-plate">KA 03 NB 9911 • Automatic</span>
+                    </div>
+                    <div class="car-glyph-box">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="11" width="18" height="8" rx="2"></rect><path d="m5 11 3-6h8l3 6"></path><circle cx="7.5" cy="16.5" r="1.5"></circle><circle cx="16.5" cy="16.5" r="1.5"></circle></svg>
+                    </div>
+                  </div>
+                  <div class="car-specs-grid">
+                    <span class="spec-pill">Luxury Sedan</span>
+                    <span class="spec-pill">Petrol</span>
+                    <span class="spec-pill">Sport Mode Allowed</span>
+                  </div>
+                </div>
+
+                <div class="garage-car-item" data-car="Toyota Fortuner">
+                  <div class="car-header-row">
+                    <div>
+                      <h3 class="garage-car-name">Toyota Fortuner 4x4</h3>
+                      <span class="garage-plate">KA 05 Z 7700 • Manual Gear</span>
+                    </div>
+                    <div class="car-glyph-box">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="9" width="20" height="9" rx="2"></rect><path d="m4 9 3-5h10l3 5"></path><circle cx="6.5" cy="15.5" r="2"></circle><circle cx="17.5" cy="15.5" r="2"></circle></svg>
+                    </div>
+                  </div>
+                  <div class="car-specs-grid">
+                    <span class="spec-pill">7-Seater SUV</span>
+                    <span class="spec-pill">Manual Transmission</span>
+                    <span class="spec-pill">Highway Spec</span>
+                  </div>
+                </div>
+
+                <button class="btn-add-vehicle-large" id="btnAddNewCarModal">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                  <span>Add Another Personal Vehicle</span>
+                </button>
+
+              </div>
+
+              <!-- Chauffeur Preferences Section -->
+              <div class="preferences-box">
+                <h3 class="pref-heading">CHAUFFEUR IN-CABIN PREFERENCES</h3>
+                <div class="pref-row">
+                  <span>Driver Attire</span>
+                  <strong>Formal Dark Suit & Gloves</strong>
+                </div>
+                <div class="pref-row">
+                  <span>AC Climate</span>
+                  <strong>22°C Auto Clean Air</strong>
+                </div>
+                <div class="pref-row">
+                  <span>Highway Speed Alert</span>
+                  <strong>Max 80 km/h</strong>
+                </div>
+              </div>
+
+              <div class="bottom-safe-spacer"></div>
+            </div>
+          </div>
+
+
+          <!-- ============================================== -->
+          <!-- iOS 27 FLOATING DOCK / NAVBAR (Liquid Island)  -->
+          <!-- ============================================== -->
+          <nav class="ios27-floating-navbar" id="iosNavbar" aria-label="iOS 27 Dynamic Navigation Dock">
+            <div class="navbar-liquid-backdrop"></div>
+            <div class="navbar-active-bubble" id="navbarBubble"></div>
+            
+            <button class="nav-dock-item active" data-tab="home" title="Home">
+              <div class="nav-icon-container">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                </svg>
+              </div>
+              <span class="nav-text">Home</span>
+            </button>
+
+            <button class="nav-dock-item" data-tab="trips" title="Trips & History">
+              <div class="nav-icon-container">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+              </div>
+              <span class="nav-text">Trips</span>
+            </button>
+
+            <button class="nav-dock-item primary-track-dock" data-tab="track" title="Live Tracking Hub">
+              <div class="track-capsule-glow">
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="3 11 22 2 13 21 11 13 3 11"></polygon>
+                </svg>
+              </div>
+              <span class="nav-text bold-yellow">Track</span>
+            </button>
+
+            <button class="nav-dock-item" data-tab="drivers" title="Top Chauffeurs Directory">
+              <div class="nav-icon-container">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="9" cy="7" r="4"></circle>
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+              </div>
+              <span class="nav-text">Chauffeurs</span>
+            </button>
+
+            <button class="nav-dock-item" data-tab="garage" title="My Vehicles & Preferences">
+              <div class="nav-icon-container">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <circle cx="12" cy="12" r="3"></circle>
+                  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                </svg>
+              </div>
+              <span class="nav-text">Garage</span>
+            </button>
+          </nav>
+
+        </section>
+
+
+        <!-- ============================================== -->
+        <!-- SCREEN 4: LIVE CHAUFFEUR BOOKING & TRIP FLOW   -->
+        <!-- ============================================== -->
+        <section class="app-screen hidden" id="screenBooking">
+          <div class="booking-active-sheet">
+            
+            <div class="sheet-top-nav">
+              <button class="icon-circle-btn" id="btnCloseBooking" title="Back to Home">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+              </button>
+              <div class="live-status-pill-pulse" id="liveStatusBadge">
+                <span class="pulse-dot"></span>
+                <span id="liveStatusBadgeText">Sending Request to Drivers...</span>
+              </div>
+              <button class="icon-circle-btn" id="btnShareTrip" title="Share Trip with Family">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+              </button>
+            </div>
+
+            <!-- STATE A: SEARCHING & BROADCASTING TO DRIVERS (NO DRIVER DETAILS YET) -->
+            <div class="booking-state-panel" id="panelBookingSearching">
+              <div class="dispatch-radar-box">
+                <div class="radar-circle c3"></div>
+                <div class="radar-circle c2"></div>
+                <div class="radar-circle c1"></div>
+                <div class="radar-center-beacon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="3"></circle></svg>
+                </div>
+                <div class="driver-blip-marker pulse-blip">
+                  <span class="blip-badge">Connecting Drivers...</span>
+                </div>
+              </div>
+
+              <div class="searching-status-card">
+                <div class="searching-header-row">
+                  <div class="searching-spinner"></div>
+                  <div>
+                    <h3 class="searching-title">Request Sent to Nearby Chauffeurs</h3>
+                    <p class="searching-desc">Broadcasting your trip to top-rated verified drivers in your area...</p>
+                  </div>
+                </div>
+
+                <div class="searching-route-summary">
+                  <div class="search-route-row">
+                    <span class="dot-sm yellow"></span>
+                    <span class="sr-label">Pick-up:</span>
+                    <span class="sr-val" id="searchFromDisp">100 Feet Rd, Koramangala</span>
+                  </div>
+                  <div class="search-route-row">
+                    <span class="dot-sm dark"></span>
+                    <span class="sr-label">Destination:</span>
+                    <span class="sr-val" id="searchToDisp">Indiranagar 100 Feet Rd</span>
+                  </div>
+                  <div class="search-route-row car-info">
+                    <span class="sr-badge" id="searchCarTypeDisp">Sedan</span>
+                    <span class="sr-hint">Driver will drive your personal car</span>
+                  </div>
+                </div>
+
+                <!-- Simulation trigger notification banner -->
+                <div class="driver-demo-trigger-banner">
+                  <span class="demo-tag">DEMO SIMULATION</span>
+                  <span>Driver received your request on Partner App...</span>
+                </div>
+              </div>
+
+              <button class="btn-cancel-trip mt-14" id="btnCancelSearching">Cancel Request</button>
+            </div>
+
+            <!-- STATE B: DRIVER HAS ACCEPTED -> DRIVER DETAILS & LIVE TRIP PROGRESS -->
+            <div class="booking-state-panel hidden" id="panelBookingConfirmed">
+              <!-- Radar / Distance Tracker -->
+              <div class="dispatch-radar-box">
+                <div class="radar-circle c3"></div>
+                <div class="radar-circle c2"></div>
+                <div class="radar-circle c1"></div>
+                <div class="radar-center-beacon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="3"></circle></svg>
+                </div>
+                <div class="driver-blip-marker">
+                  <span class="blip-badge" id="driverBlipBadge">Arriving in 4 min</span>
+                </div>
+              </div>
+
+              <!-- Chauffeur Details Card (Only shown for the accepted driver) -->
+              <div class="driver-assigned-card">
+                <div class="driver-profile-row">
+                  <div class="monogram-avatar-large" id="assignedDriverAvatar">VS</div>
+                  <div class="driver-main-info">
+                    <div class="name-badge-flex">
+                      <h3 class="assigned-name" id="assignedDriverName">Vikram Singh</h3>
+                      <span class="top-rated-tag" id="assignedDriverBadge">★ 4.98 Top 1%</span>
+                    </div>
+                    <p class="assigned-subtitle" id="assignedDriverSub">Certified Professional Chauffeur</p>
+                    <div class="assigned-meta-pills">
+                      <span class="pill-mini" id="assignedDriverExp">7 Yrs Exp</span>
+                      <span class="pill-mini">Police Verified</span>
+                      <span class="pill-mini">Formal Black Suit</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Quick Communication Actions -->
+                <div class="driver-actions-row">
+                  <button class="call-btn-chip" id="btnCallAcceptedDriver">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                    <span>Call Chauffeur</span>
+                  </button>
+                  <button class="chat-btn-chip" id="btnChatAcceptedDriver">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                    <span>Message</span>
+                  </button>
+                  <div class="ride-otp-box">
+                    <span class="otp-sub">START OTP</span>
+                    <span class="otp-digits" id="liveStartOtp">8412</span>
+                  </div>
+                </div>
+
+                <!-- Vehicle Assigned Information -->
+                <div class="vehicle-assigned-info">
+                  <div class="veh-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+                  </div>
+                  <div class="veh-text">
+                    <span class="v-title" id="assignedVehicleText">Assigned to drive: <strong>Your Sedan (KA 01 MJ 4402)</strong></span>
+                    <span class="v-sub">Professional chauffeur assigned for your vehicle</span>
+                  </div>
+                </div>
+
+                <!-- Live Status Timeline Steps -->
+                <div class="status-steps-timeline">
+                  <div class="step-item completed" id="stepBookingConfirmed">
+                    <div class="step-marker">✓</div>
+                    <div class="step-desc">Driver Accepted &amp; Booking Confirmed</div>
+                  </div>
+                  <div class="step-item current" id="stepDriverArriving">
+                    <div class="step-marker" id="markerDriverArriving">2</div>
+                    <div class="step-desc" id="descDriverArriving">Arriving at your location in 4 mins</div>
+                  </div>
+                  <div class="step-item pending" id="stepTripStarted">
+                    <div class="step-marker" id="markerTripStarted">3</div>
+                    <div class="step-desc" id="descTripStarted">Trip Started • Chauffeur driving your car</div>
+                  </div>
+                </div>
+
+                <button class="btn-cancel-trip" id="btnCancelBooking">Cancel Chauffeur</button>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- ============================================== -->
+        <!-- DRIVER APP INTERACTIVE DEMO POPUP MODAL        -->
+        <!-- ============================================== -->
+        <div class="driver-app-demo-modal hidden" id="driverAppDemoModal">
+          <div class="driver-modal-card">
+            <!-- Driver App Status Bar -->
+            <div class="driver-app-header">
+              <div class="driver-brand-pill">
+                <span class="driver-dot"></span>
+                <span>RIDINGO PARTNER APP</span>
+              </div>
+              <span class="driver-sim-tag">Driver View Simulator</span>
+            </div>
+
+            <!-- Driver Request Received View -->
+            <div class="driver-sim-state" id="driverSimStateRequest">
+              <div class="incoming-alert-box">
+                <div class="alert-sonar-ring"></div>
+                <span class="incoming-pulse-title">⚡ NEW CHAUFFEUR REQUEST</span>
+                <span class="incoming-timer" id="driverAcceptCountdown">15s</span>
+              </div>
+
+              <div class="driver-job-details">
+                <div class="job-fare-pill">
+                  <span class="job-fare" id="driverSimFare">₹596</span>
+                  <span class="job-cat" id="driverSimCategory">Hourly • 4 Hours</span>
+                </div>
+
+                <div class="job-route-card">
+                  <div class="job-route-row">
+                    <span class="dot-sm yellow"></span>
+                    <div class="route-txt">
+                      <span class="lbl">CUSTOMER PICK-UP (1.2 km away)</span>
+                      <strong id="driverSimPickup">100 Feet Rd, Koramangala</strong>
+                    </div>
+                  </div>
+                  <div class="job-route-row">
+                    <span class="dot-sm dark"></span>
+                    <div class="route-txt">
+                      <span class="lbl">DESTINATION</span>
+                      <strong id="driverSimDrop">Indiranagar 100 Feet Rd</strong>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="driver-car-meta">
+                  <span class="car-badge" id="driverSimCar">Vehicle: Sedan (Customer's Car)</span>
+                </div>
+              </div>
+
+              <!-- Driver Action Button: Accept Request -->
+              <button type="button" class="btn-driver-accept" id="btnDriverAcceptJob">
+                <span>ACCEPT REQUEST</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </button>
+            </div>
+
+            <!-- Driver Active Trip Control View (After Acceptance) -->
+            <div class="driver-sim-state hidden" id="driverSimStateActive">
+              <div class="driver-active-header">
+                <div class="driver-active-profile">
+                  <div class="driver-avatar-mini" id="simDriverMiniAvatar">VS</div>
+                  <div>
+                    <strong id="simDriverMiniName">Vikram Singh (Partner)</strong>
+                    <span class="status-online">● Request Accepted</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="driver-trip-action-box">
+                <div class="step-guide" id="driverStepGuide">Chauffeur is navigating to customer's location.</div>
+
+                <!-- Simulation Stepper Buttons -->
+                <div class="driver-stepper-actions">
+                  <button type="button" class="btn-driver-step" id="btnDriverArrived">
+                    <span class="step-num">Step 1</span>
+                    <strong>Set: Arrived at Location</strong>
+                  </button>
+                  <button type="button" class="btn-driver-step disabled" id="btnDriverStartTrip" disabled>
+                    <span class="step-num">Step 2</span>
+                    <strong>Verify OTP &amp; Start Trip</strong>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Close simulator button -->
+            <button type="button" class="btn-close-simulator" id="btnCloseDriverSim">Minimize Simulator</button>
+          </div>
+        </div>
+
+
+        <!-- ============================================== -->
+        <!-- MODAL: MY CAR GARAGE SELECTOR (Quick Switch)   -->
+        <!-- ============================================== -->
+        <div class="garage-drawer-overlay hidden" id="garageDrawer">
+          <div class="garage-drawer-panel">
+            <div class="drawer-header">
+              <div class="drawer-title-group">
+                <h3 class="drawer-title">Switch Vehicle</h3>
+                <p class="drawer-sub">Select which car our chauffeur will drive</p>
+              </div>
+              <button class="icon-circle-btn" id="btnCloseGarage">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+              </button>
+            </div>
+
+            <div class="garage-cars-list">
+              <div class="car-choice-card active" data-car-name="Mercedes C-Class" data-car-spec="Automatic • Sedan">
+                <div class="car-radio-dot"></div>
+                <div class="car-card-body">
+                  <div class="car-primary-row">
+                    <span class="car-make">Mercedes-Benz C220d</span>
+                    <span class="car-tag-primary">Primary</span>
+                  </div>
+                  <span class="car-num-plate">KA 01 MJ 4402 • Automatic</span>
+                </div>
+              </div>
+
+              <div class="car-choice-card" data-car-name="BMW 3 Series" data-car-spec="Automatic • Sedan">
+                <div class="car-radio-dot"></div>
+                <div class="car-card-body">
+                  <div class="car-primary-row">
+                    <span class="car-make">BMW 330Li M Sport</span>
+                  </div>
+                  <span class="car-num-plate">KA 03 NB 9911 • Automatic</span>
+                </div>
+              </div>
+
+              <div class="car-choice-card" data-car-name="Toyota Fortuner" data-car-spec="Manual • 4x4 SUV">
+                <div class="car-radio-dot"></div>
+                <div class="car-card-body">
+                  <div class="car-primary-row">
+                    <span class="car-make">Toyota Fortuner 4x4</span>
+                  </div>
+                  <span class="car-num-plate">KA 05 Z 7700 • Manual Gear</span>
+                </div>
+              </div>
+            </div>
+
+            <button class="btn-add-new-car" id="btnAddCar">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+              <span>Add Another Personal Vehicle</span>
+            </button>
+          </div>
+        </div>
+
+
+        <!-- ============================================== -->
+        <!-- RIDINGO OFFICIAL LEGAL MODAL (TERMS & PRIVACY) -->
+        <!-- ============================================== -->
+        <div class="policy-modal-overlay hidden" id="policyModal" role="dialog" aria-modal="true" aria-labelledby="policyModalTitle">
+          <div class="policy-modal-container">
+            <!-- Modal Header Bar -->
+            <div class="policy-modal-header">
+              <div class="policy-grab-pill"></div>
+              
+              <div class="policy-header-bar">
+                <div class="policy-brand-tag">
+                  <span class="policy-live-dot"></span>
+                  <span id="policyModalEyebrow">RIDINGO LEGAL • ENGLISH</span>
+                </div>
+                <button type="button" class="policy-close-btn" id="btnClosePolicy" aria-label="Close legal documents">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+              </div>
+
+              <div class="policy-header-title-row">
+                <h2 class="policy-main-title" id="policyModalTitle">Terms &amp; Conditions</h2>
+                <span class="policy-ver-badge">v2.4 • Oct 2024</span>
+              </div>
+
+              <!-- Minimal Segmented Tab Switcher -->
+              <div class="policy-tab-group" id="policyTabGroup" role="tablist">
+                <div class="policy-tab-glider" id="policyGlider"></div>
+                <button type="button" class="policy-tab-btn active" id="tabTerms" data-policy="terms" role="tab" aria-selected="true">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+                  <span>Terms &amp; Conditions</span>
+                </button>
+                <button type="button" class="policy-tab-btn" id="tabPrivacy" data-policy="privacy" role="tab" aria-selected="false">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                  <span>Privacy Policy</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Scrollable Policy Content Body (Universal No-Scrollbar) -->
+            <div class="policy-scroll-content" id="policyScrollBody">
+              
+              <!-- ================= TAB 1: TERMS & CONDITIONS ================= -->
+              <div class="policy-pane active" id="paneTerms" role="tabpanel">
+                <div class="policy-hero-card">
+                  <div class="policy-hero-badge">OFFICIAL CUSTOMER AGREEMENT</div>
+                  <h3 class="policy-hero-title">Terms of Service</h3>
+                  <p class="policy-hero-subtitle">
+                    Please read these terms carefully before booking a verified personal chauffeur for your private vehicle. By using Ridingo, you agree to these operational terms.
+                  </p>
+                  <div class="policy-meta-chips">
+                    <span class="meta-chip">🇮🇳 English</span>
+                    <span class="meta-chip">✓ Indian Motor Tariff</span>
+                    <span class="meta-chip">⚡ 50% Advance Protocol</span>
+                  </div>
+                </div>
+
+                <!-- 7 Terms Sections -->
+                <div class="policy-sections-list">
+                  <!-- Section 1 -->
+                  <article class="policy-card">
+                    <div class="policy-card-top">
+                      <div class="policy-card-meta">
+                        <span class="policy-num-pill">01</span>
+                        <span class="policy-tag-pill">SERVICE NATURE</span>
+                      </div>
+                      <span class="policy-status-check">✓ Verified</span>
+                    </div>
+                    <h4 class="policy-card-title">1. Service Description</h4>
+                    <p class="policy-card-summary">
+                      Ridingo operates strictly as a peer-to-peer driver-dispatch and technology platform connecting registered private car owners with verified freelance chauffeurs under the <em>"Your car. Our driver."</em> model.
+                    </p>
+                    <ul class="policy-card-bullets">
+                      <li>
+                        <span class="bullet-dot"></span>
+                        <span>We provide professional driving assistance for your personal vehicle. Ridingo does not own commercial transport fleets, cabs, or yellow-board taxis.</span>
+                      </li>
+                      <li>
+                        <span class="bullet-dot"></span>
+                        <span>The vehicle owner retains full legal custody, care, and ownership of their vehicle throughout the trip.</span>
+                      </li>
+                    </ul>
+                  </article>
+
+                  <!-- Section 2 -->
+                  <article class="policy-card">
+                    <div class="policy-card-top">
+                      <div class="policy-card-meta">
+                        <span class="policy-num-pill">02</span>
+                        <span class="policy-tag-pill">BOOKING &amp; RATES</span>
+                      </div>
+                      <span class="policy-status-check">✓ Standard</span>
+                    </div>
+                    <h4 class="policy-card-title">2. Payment Policy</h4>
+                    <p class="policy-card-summary">
+                      Upfront fare computation based on package duration, overtime hours, and distance thresholds.
+                    </p>
+                    <ul class="policy-card-bullets">
+                      <li>
+                        <span class="bullet-dot"></span>
+                        <span><strong>50% Advance Required:</strong> A mandatory 50% advance deposit is required upon dispatch confirmation to reserve and assign your verified driver.</span>
+                      </li>
+                      <li>
+                        <span class="bullet-dot"></span>
+                        <span><strong>Final Settlement:</strong> The remaining 50% balance plus any accrued overtime, night allowance, or return charges must be settled immediately at trip conclusion.</span>
+                      </li>
+                    </ul>
+                  </article>
+
+                  <!-- Section 3 -->
+                  <article class="policy-card">
+                    <div class="policy-card-top">
+                      <div class="policy-card-meta">
+                        <span class="policy-num-pill">03</span>
+                        <span class="policy-tag-pill">CANCELLATIONS</span>
+                      </div>
+                      <span class="policy-status-check">✓ Fair Fee</span>
+                    </div>
+                    <h4 class="policy-card-title">3. Cancellation Policy</h4>
+                    <p class="policy-card-summary">
+                      Structured cancellation framework to ensure fair compensation for drivers committing their active time.
+                    </p>
+                    <ul class="policy-card-bullets">
+                      <li>
+                        <span class="bullet-dot"></span>
+                        <span><strong>Free Cancellation:</strong> Free cancellation is available before a driver accepts or departs toward your pickup address.</span>
+                      </li>
+                      <li>
+                        <span class="bullet-dot"></span>
+                        <span><strong>Nominal 5% Fee:</strong> Once a driver has accepted and is en route, cancellation incurs a standard nominal 5% processing fee on the total booking value to compensate the driver's transit time and fuel.</span>
+                      </li>
+                    </ul>
+                  </article>
+
+                  <!-- Section 4 -->
+                  <article class="policy-card">
+                    <div class="policy-card-top">
+                      <div class="policy-card-meta">
+                        <span class="policy-num-pill">04</span>
+                        <span class="policy-tag-pill">VEHICLE INSURANCE</span>
+                      </div>
+                      <span class="policy-status-check">✓ Mandatory</span>
+                    </div>
+                    <h4 class="policy-card-title">4. Insurance Information</h4>
+                    <p class="policy-card-summary">
+                      The platform does not provide primary motor vehicular insurance.
+                    </p>
+                    <ul class="policy-card-bullets">
+                      <li>
+                        <span class="bullet-dot"></span>
+                        <span><strong>Comprehensive Cover:</strong> The vehicle owner must maintain active, valid, and comprehensive Indian Motor Tariff insurance (covering third-party liability and own damage) for the dispatched vehicle.</span>
+                      </li>
+                      <li>
+                        <span class="bullet-dot"></span>
+                        <span><strong>Vehicle Insurance Only:</strong> Ridingo provides driver services only and does not provide vehicle insurance or damage coverage; only the vehicle owner's own insurance is applicable.</span>
+                      </li>
+                    </ul>
+                  </article>
+
+                  <!-- Section 5 -->
+                  <article class="policy-card">
+                    <div class="policy-card-top">
+                      <div class="policy-card-meta">
+                        <span class="policy-num-pill">05</span>
+                        <span class="policy-tag-pill">TRIP EXPENSES</span>
+                      </div>
+                      <span class="policy-status-check">✓ Owner Cost</span>
+                    </div>
+                    <h4 class="policy-card-title">5. Additional Costs</h4>
+                    <p class="policy-card-summary">
+                      Operational on-road expenditures incurred during transit are the customer's direct responsibility.
+                    </p>
+                    <ul class="policy-card-bullets">
+                      <li>
+                        <span class="bullet-dot"></span>
+                        <span>Fuel, Fastag electronic tollway charges, municipal parking fees, state border entry permits, and highway taxes are excluded from the driver service fee.</span>
+                      </li>
+                      <li>
+                        <span class="bullet-dot"></span>
+                        <span>All operational trip fees must be paid directly by the car owner or reimbursed to the driver against official receipts.</span>
+                      </li>
+                    </ul>
+                  </article>
+
+                  <!-- Section 6 -->
+                  <article class="policy-card">
+                    <div class="policy-card-top">
+                      <div class="policy-card-meta">
+                        <span class="policy-num-pill">06</span>
+                        <span class="policy-tag-pill">APP SUPPORT</span>
+                      </div>
+                      <span class="policy-status-check">✓ 24/7 SLA</span>
+                    </div>
+                    <h4 class="policy-card-title">6. Platform Liability</h4>
+                    <p class="policy-card-summary">
+                      Ridingo is responsible for digital platform operations, driver background vetting, and secure payment processing.
+                    </p>
+                    <ul class="policy-card-bullets">
+                      <li>
+                        <span class="bullet-dot"></span>
+                        <span>We maintain continuous verification of driver credentials, criminal background checks, and driving license authenticity.</span>
+                      </li>
+                      <li>
+                        <span class="bullet-dot"></span>
+                        <span>Ridingo provides 24/7 in-app emergency assistance, live telemetry tracking, and dispatch dispute mediation.</span>
+                      </li>
+                    </ul>
+                  </article>
+
+                  <!-- Section 7 -->
+                  <article class="policy-card">
+                    <div class="policy-card-top">
+                      <div class="policy-card-meta">
+                        <span class="policy-num-pill">07</span>
+                        <span class="policy-tag-pill">FAIR RESOLUTION</span>
+                      </div>
+                      <span class="policy-status-check">✓ Resolution</span>
+                    </div>
+                    <h4 class="policy-card-title">7. Dispute Resolution &amp; Grievance</h4>
+                    <p class="policy-card-summary">
+                      In the rare event of a dispute, our Safety &amp; Compliance Board conducts an objective root-cause inquiry within 48 to 72 business hours.
+                    </p>
+                    <ul class="policy-card-bullets">
+                      <li>
+                        <span class="bullet-dot"></span>
+                        <span>Telemetry records, GPS timestamps, and journey logs are reviewed transparently for dispute settlement.</span>
+                      </li>
+                      <li>
+                        <span class="bullet-dot"></span>
+                        <span>Official grievance contact: <a href="mailto:teme.ridingo@gmail.com" class="policy-email-link">teme.ridingo@gmail.com</a></span>
+                      </li>
+                    </ul>
+                  </article>
+                </div>
+              </div>
+
+              <!-- ================= TAB 2: PRIVACY POLICY ================= -->
+              <div class="policy-pane" id="panePrivacy" role="tabpanel">
+                <div class="policy-hero-card">
+                  <div class="policy-hero-badge">DATA PRIVACY &amp; SECURITY</div>
+                  <h3 class="policy-hero-title">Ridingo Privacy Policy</h3>
+                  <p class="policy-hero-subtitle">
+                    Your personal information and ride telemetry are handled with bank-grade encryption and zero commercial data selling. Review how Ridingo safeguards your data.
+                  </p>
+                  <div class="policy-meta-chips">
+                    <span class="meta-chip">🔒 256-Bit TLS 1.3</span>
+                    <span class="meta-chip">🛡️ DPDP Act Compliant</span>
+                    <span class="meta-chip">🚫 Zero Data Selling</span>
+                  </div>
+                </div>
+
+                <!-- 7 Privacy Sections -->
+                <div class="policy-sections-list">
+                  <!-- Section 1 -->
+                  <article class="policy-card">
+                    <div class="policy-card-top">
+                      <div class="policy-card-meta">
+                        <span class="policy-num-pill">01</span>
+                        <span class="policy-tag-pill">DATA COLLECTION</span>
+                      </div>
+                      <span class="policy-status-check">✓ Encrypted</span>
+                    </div>
+                    <h4 class="policy-card-title">1. Information We Collect</h4>
+                    <p class="policy-card-summary">
+                      Transparent collection of only the data required to provide seamless chauffeur dispatch and user security.
+                    </p>
+                    <ul class="policy-card-bullets">
+                      <li>
+                        <span class="bullet-dot"></span>
+                        <span><strong>Profile Identifiers:</strong> Full legal name, mobile phone number, email address, and emergency contact details.</span>
+                      </li>
+                      <li>
+                        <span class="bullet-dot"></span>
+                        <span><strong>Vehicle Information:</strong> Car make, model year, fuel variant, transmission (Manual/Automatic), and registration number.</span>
+                      </li>
+                      <li>
+                        <span class="bullet-dot"></span>
+                        <span><strong>Diagnostic Signals:</strong> Device IP address, app build version, OS version, and crash logs for performance optimization.</span>
+                      </li>
+                    </ul>
+                  </article>
+
+                  <!-- Section 2 -->
+                  <article class="policy-card">
+                    <div class="policy-card-top">
+                      <div class="policy-card-meta">
+                        <span class="policy-num-pill">02</span>
+                        <span class="policy-tag-pill">DATA USAGE</span>
+                      </div>
+                      <span class="policy-status-check">✓ Purpose-Driven</span>
+                    </div>
+                    <h4 class="policy-card-title">2. How We Use Your Data</h4>
+                    <p class="policy-card-summary">
+                      Purpose-driven processing exclusively to power your personal driver booking experience.
+                    </p>
+                    <ul class="policy-card-bullets">
+                      <li>
+                        <span class="bullet-dot"></span>
+                        <span><strong>Driver Matching:</strong> Matching your vehicle gearbox type (Manual vs Automatic) with certified chauffeurs.</span>
+                      </li>
+                      <li>
+                        <span class="bullet-dot"></span>
+                        <span><strong>Fare &amp; Advance Calculation:</strong> Computing distance, overtime, and calculating the required 50% advance booking deposit.</span>
+                      </li>
+                      <li>
+                        <span class="bullet-dot"></span>
+                        <span><strong>Safety &amp; Monitoring:</strong> Enabling real-time live ride sharing with family and trusted contacts.</span>
+                      </li>
+                    </ul>
+                  </article>
+
+                  <!-- Section 3 -->
+                  <article class="policy-card">
+                    <div class="policy-card-top">
+                      <div class="policy-card-meta">
+                        <span class="policy-num-pill">03</span>
+                        <span class="policy-tag-pill">DATA SHARING</span>
+                      </div>
+                      <span class="policy-status-check">✓ Isolated</span>
+                    </div>
+                    <h4 class="policy-card-title">3. Data Sharing &amp; Disclosure</h4>
+                    <p class="policy-card-summary">
+                      Strict operational privacy safeguards with zero commercial monetization of your personal data.
+                    </p>
+                    <ul class="policy-card-bullets">
+                      <li>
+                        <span class="bullet-dot"></span>
+                        <span><strong>Assigned Chauffeur:</strong> Drivers receive only your first name, vehicle details, and pickup pin during active trips. Calling numbers are masked.</span>
+                      </li>
+                      <li>
+                        <span class="bullet-dot"></span>
+                        <span><strong>Zero Sale of Data:</strong> We never sell, rent, or trade your personal information or travel history to third-party ad networks or brokers.</span>
+                      </li>
+                    </ul>
+                  </article>
+
+                  <!-- Section 4 -->
+                  <article class="policy-card">
+                    <div class="policy-card-top">
+                      <div class="policy-card-meta">
+                        <span class="policy-num-pill">04</span>
+                        <span class="policy-tag-pill">LOCATION &amp; GPS</span>
+                      </div>
+                      <span class="policy-status-check">✓ Trip Only</span>
+                    </div>
+                    <h4 class="policy-card-title">4. Real-Time Geolocation Tracking</h4>
+                    <p class="policy-card-summary">
+                      High-precision GPS telemetry is active strictly during dispatch and trip windows.
+                    </p>
+                    <ul class="policy-card-bullets">
+                      <li>
+                        <span class="bullet-dot"></span>
+                        <span><strong>Navigation &amp; Route Telemetry:</strong> Used to route your driver accurately to your car location and track trip progress.</span>
+                      </li>
+                      <li>
+                        <span class="bullet-dot"></span>
+                        <span><strong>Session Termination:</strong> Background location tracking ceases immediately upon ride completion and driver sign-off.</span>
+                      </li>
+                    </ul>
+                  </article>
+
+                  <!-- Section 5 -->
+                  <article class="policy-card">
+                    <div class="policy-card-top">
+                      <div class="policy-card-meta">
+                        <span class="policy-num-pill">05</span>
+                        <span class="policy-tag-pill">PAYMENT SECURITY</span>
+                      </div>
+                      <span class="policy-status-check">✓ PCI-DSS L1</span>
+                    </div>
+                    <h4 class="policy-card-title">5. Financial Data &amp; Payment Security</h4>
+                    <p class="policy-card-summary">
+                      Bank-grade encryption and RBI-compliant financial transaction gateways.
+                    </p>
+                    <ul class="policy-card-bullets">
+                      <li>
+                        <span class="bullet-dot"></span>
+                        <span><strong>PCI-DSS Level 1:</strong> All UPI, NetBanking, and credit/debit card transactions are processed through tokenized, certified payment aggregators.</span>
+                      </li>
+                      <li>
+                        <span class="bullet-dot"></span>
+                        <span><strong>Zero Raw Storage:</strong> Ridingo never stores CVVs, card PINs, or raw banking credentials on its servers.</span>
+                      </li>
+                    </ul>
+                  </article>
+
+                  <!-- Section 6 -->
+                  <article class="policy-card">
+                    <div class="policy-card-top">
+                      <div class="policy-card-meta">
+                        <span class="policy-num-pill">06</span>
+                        <span class="policy-tag-pill">USER RIGHTS</span>
+                      </div>
+                      <span class="policy-status-check">✓ DPDP Ready</span>
+                    </div>
+                    <h4 class="policy-card-title">6. User Rights &amp; Data Retention</h4>
+                    <p class="policy-card-summary">
+                      Total sovereignty and ownership over your personal profile under the Digital Personal Data Protection (DPDP) Act.
+                    </p>
+                    <ul class="policy-card-bullets">
+                      <li>
+                        <span class="bullet-dot"></span>
+                        <span><strong>Access &amp; Export:</strong> You may view, correct, or request export of your personal profile and ride history at any time.</span>
+                      </li>
+                      <li>
+                        <span class="bullet-dot"></span>
+                        <span><strong>Right to Erasure:</strong> Request permanent account deletion via support; personal identifiers are purged within 30 days barring statutory compliance records.</span>
+                      </li>
+                    </ul>
+                  </article>
+
+                  <!-- Section 7 -->
+                  <article class="policy-card">
+                    <div class="policy-card-top">
+                      <div class="policy-card-meta">
+                        <span class="policy-num-pill">07</span>
+                        <span class="policy-tag-pill">SECURITY &amp; CONTACT</span>
+                      </div>
+                      <span class="policy-status-check">✓ Monitored</span>
+                    </div>
+                    <h4 class="policy-card-title">7. Security Measures &amp; Privacy Officer</h4>
+                    <p class="policy-card-summary">
+                      State-of-the-art technical architecture with TLS 1.3 encryption, firewalls, and dedicated compliance personnel.
+                    </p>
+                    <ul class="policy-card-bullets">
+                      <li>
+                        <span class="bullet-dot"></span>
+                        <span>Regular audits, end-to-end encrypted sessions, and role-based internal data access controls.</span>
+                      </li>
+                      <li>
+                        <span class="bullet-dot"></span>
+                        <span><strong>Privacy &amp; Grievance Officer:</strong> For queries or data rights requests, write directly to <a href="mailto:teme.ridingo@gmail.com" class="policy-email-link">teme.ridingo@gmail.com</a>.</span>
+                      </li>
+                    </ul>
+                  </article>
+                </div>
+              </div>
+
+              <!-- Action Confirmation Button -->
+              <div class="policy-modal-footer">
+                <button type="button" class="btn-primary-yellow full-width" id="btnPolicyDone">
+                  <span>I Understand &amp; Agree</span>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </button>
+              </div>
+
+            </div><!-- /policy-scroll-content -->
+          </div><!-- /policy-modal-container -->
+        </div><!-- /policy-modal-overlay -->
+
+        <!-- iOS Toast Capsule -->
+        <div class="ios-toast-capsule hidden" id="iosToast">
+          <span class="toast-icon" id="toastIcon">⚡</span>
+          <span class="toast-message" id="toastMessage">Trip rebooked successfully!</span>
+        </div>
+
+      </div><!-- /app-screen-container -->
+
+      <!-- iOS Home Indicator Bar -->
+      <div class="ios-home-indicator"></div>
+
+    </div><!-- /mobile-frame -->
+  </main>
+
+  <script src="app.js?v=swap_live"></script>
+</body>
+</html>

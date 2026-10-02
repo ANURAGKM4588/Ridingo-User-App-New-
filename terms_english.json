@@ -1,0 +1,92 @@
+[
+  {
+    "num": "01",
+    "icon": "🚗",
+    "tag": "Service Nature",
+    "title": "1. Service Description",
+    "summary": "Ridingo is a peer-to-peer ride-sharing platform that connects users with professional drivers who drive the customer's own vehicle.",
+    "details": [
+      "Ridingo functions strictly as a driver-dispatch agency and technology platform under the 'Your car. Our driver.' model.",
+      "The platform connects registered vehicle owners with vetted, licensed chauffeurs.",
+      "Ridingo does not supply, rent, or own the motor vehicles utilized during bookings.",
+      "The customer retains complete possession and ownership of their vehicle at all times."
+    ]
+  },
+  {
+    "num": "02",
+    "icon": "💳",
+    "tag": "Booking & Rates",
+    "title": "2. Payment Policy",
+    "summary": "A 50% advance payment is strictly required to confirm and lock any driver dispatch booking on the platform.",
+    "details": [
+      "A mandatory 50% advance deposit is processed via secure in-app digital payment upon scheduling.",
+      "Driver dispatch and reservation are only locked once the 50% confirmation payment is received.",
+      "The remaining 50% balance plus any approved overtime hours must be settled immediately upon trip conclusion.",
+      "All invoices and receipts are generated automatically inside the Ridingo application."
+    ]
+  },
+  {
+    "num": "03",
+    "icon": "⚠️",
+    "tag": "Cancellations",
+    "title": "3. Cancellation Policy",
+    "summary": "Cancellations are not permitted after a driver has accepted the ride. If cancelled, a 5% cancellation charge will be deducted from the full amount.",
+    "details": [
+      "Once an assigned chauffeur has accepted the ride request, the booking is legally locked and cancellations are not permitted.",
+      "If a cancellation request is approved under exceptional circumstances, a mandatory 5% fee calculated on the total booking value will be deducted.",
+      "The remaining balance of the advance payment will be credited back to the original payment source within 3-5 business days."
+    ]
+  },
+  {
+    "num": "04",
+    "icon": "🛡️",
+    "tag": "Vehicle Insurance",
+    "title": "4. Insurance Information",
+    "summary": "This platform does not provide vehicle insurance. Users must rely on their own valid motor vehicle insurance policy for all claims.",
+    "details": [
+      "Ridingo provides professional driver assistance only and does not issue or include automobile insurance policies.",
+      "The vehicle owner guarantees that the vehicle has active, valid comprehensive motor insurance coverage under Indian Motor Tariff regulations.",
+      "Any vehicle damage, third-party liability, or road collision claims must be filed through the vehicle's primary insurance policy.",
+      "The customer is responsible for maintaining all statutory vehicle documents (RC, Insurance, PUC, Fitness)."
+    ]
+  },
+  {
+    "num": "05",
+    "icon": "⛽",
+    "tag": "Trip Expenses",
+    "title": "5. Additional Costs",
+    "summary": "Fuel, Fastag tolls, parking fees, and interstate permits are the direct responsibility of the vehicle owner.",
+    "details": [
+      "Fuel charges (Petrol/Diesel/EV charging) are not included in driver rates and must be supplied by the vehicle owner.",
+      "All electronic toll charges (Fastag) and manual toll booths are payable by the vehicle owner.",
+      "Parking charges, airport entry charges, valet fees, and city entry fees are the customer's responsibility.",
+      "Interstate border entry taxes and special tourist permits required for outstation trips must be borne directly by the customer."
+    ]
+  },
+  {
+    "num": "06",
+    "icon": "📱",
+    "tag": "App Support",
+    "title": "6. Platform Liability",
+    "summary": "The platform is fully responsible for any technical issues, booking glitches, or payment errors that occur within the app.",
+    "details": [
+      "Ridingo takes full accountability for technical performance, server uptime, and software stability within the Ridingo app.",
+      "In the event of an app error, double-deduction, or technical dispatch failure, Ridingo will rectify and process refunds immediately.",
+      "Our 24/7 technical helpdesk actively monitors all booking pipelines and telematics for continuous uptime.",
+      "Platform liability is strictly limited to technology services and does not extend to external road conditions or traffic delays."
+    ]
+  },
+  {
+    "num": "07",
+    "icon": "⚖️",
+    "tag": "Fair Resolution",
+    "title": "7. Dispute Resolution",
+    "summary": "Any disputes between the vehicle owner and driver will be resolved fairly following an investigation into the root causes.",
+    "details": [
+      "In the event of any disagreement regarding routes, behavior, duration, or expenses, both parties may submit a dispute ticket through the app.",
+      "Ridingo's dedicated Compliance & Safety Board conducts a thorough root-cause inquiry using GPS data, chat logs, and telemetry.",
+      "Disputes are resolved objectively and binding decisions are communicated within 48 to 72 hours.",
+      "Ridingo upholds strict ethical conduct and zero-tolerance policies for harassment, misconduct, or unsafe driving."
+    ]
+  }
+]
