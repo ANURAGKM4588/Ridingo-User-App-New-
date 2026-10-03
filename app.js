@@ -1368,34 +1368,268 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ==========================================
-  // 11. GARAGE PAGE & VEHICLE SELECTION
+  // 11. ACCOUNT & PROFILE PAGE CONTROLLER (INLINE ACCORDION DROPDOWNS)
   // ==========================================
-  const garageCarItems = document.querySelectorAll('.garage-car-item');
+  const accountGroups = document.querySelectorAll('.account-item-group');
 
-  garageCarItems.forEach(item => {
-    item.addEventListener('click', () => {
-      garageCarItems.forEach(i => {
-        i.classList.remove('active');
-        const badge = i.querySelector('.car-active-indicator');
-        if (badge) badge.remove();
-      });
+  function toggleAccountAccordion(targetGroup) {
+    if (!targetGroup) return;
+    const isExpanded = targetGroup.classList.contains('expanded');
 
-      item.classList.add('active');
-      const activeBadge = document.createElement('div');
-      activeBadge.className = 'car-active-indicator';
-      activeBadge.textContent = 'ACTIVE ON APP';
-      item.prepend(activeBadge);
+    // Close all groups with smooth collapse
+    accountGroups.forEach(group => {
+      group.classList.remove('expanded');
+      const row = group.querySelector('.account-nav-row');
+      if (row) row.setAttribute('aria-expanded', 'false');
+    });
 
-      const carName = item.dataset.car;
-      state.selectedCar.make = carName;
-      carModelLabel.textContent = carName;
+    // If it was not already expanded, expand it now
+    if (!isExpanded) {
+      targetGroup.classList.add('expanded');
+      const row = targetGroup.querySelector('.account-nav-row');
+      if (row) row.setAttribute('aria-expanded', 'true');
 
-      showToast(`Switched active vehicle to ${carName}`, '🚗');
+      // Scroll smoothly into view if needed
+      setTimeout(() => {
+        targetGroup.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 100);
+    }
+  }
+
+  // Row clicks to toggle respective dropdowns
+  accountGroups.forEach(group => {
+    const row = group.querySelector('.account-nav-row');
+    row?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleAccountAccordion(group);
     });
   });
 
-  document.getElementById('btnAddNewCarModal')?.addEventListener('click', () => {
-    showToast('Vehicle registration document scanner active', '📷');
+  // Edit profile pencil button
+  const btnAccountMore = document.getElementById('btnAccountMore');
+  const popoverAccountMore = document.getElementById('popoverAccountMore');
+  const backdropAccountMore = document.getElementById('backdropAccountMore');
+
+  btnAccountMore?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    openEditProfileModal();
+  });
+
+  backdropAccountMore?.addEventListener('click', () => {
+    popoverAccountMore?.classList.add('hidden');
+  });
+
+  // Open Minimal Edit Profile Popup
+  const modalEditProfile = document.getElementById('modalEditProfile');
+  const backdropEditProfile = document.getElementById('backdropEditProfile');
+  const btnCloseEditProfile = document.getElementById('btnCloseEditProfile');
+  const btnCancelEditProfile = document.getElementById('btnCancelEditProfile');
+  const btnSaveEditProfile = document.getElementById('btnSaveEditProfile');
+
+  function openEditProfileModal() {
+    popoverAccountMore?.classList.add('hidden');
+    // Sync current values into modal inputs
+    const currentName = document.getElementById('accountProfileName')?.textContent?.trim() || 'Alexander Vance';
+    const inputName = document.getElementById('inputModalFullName');
+    if (inputName) inputName.value = currentName;
+
+    modalEditProfile?.classList.remove('hidden');
+  }
+
+  function closeEditProfileModal() {
+    modalEditProfile?.classList.add('hidden');
+  }
+
+  // 3-Dots -> Edit Profile Information
+  document.getElementById('popActionEdit')?.addEventListener('click', () => {
+    openEditProfileModal();
+  });
+
+  // Modal dismiss handlers (Close icon, Cancel button, Backdrop click)
+  btnCloseEditProfile?.addEventListener('click', closeEditProfileModal);
+  btnCancelEditProfile?.addEventListener('click', closeEditProfileModal);
+  backdropEditProfile?.addEventListener('click', closeEditProfileModal);
+
+  // Modal Avatar change feedback
+  document.getElementById('btnModalAvatarChange')?.addEventListener('click', () => {
+    showToast('Select a new profile photo to upload', '📷');
+  });
+
+  // Save Edit Profile Modal
+  btnSaveEditProfile?.addEventListener('click', () => {
+    const fullName = document.getElementById('inputModalFullName')?.value.trim();
+    const phone = document.getElementById('inputModalPhone')?.value.trim();
+
+    if (!fullName) {
+      showToast('Please enter your full name', '⚠️');
+      return;
+    }
+
+    // Update account profile card display
+    const nameEl = document.getElementById('accountProfileName');
+    if (nameEl) nameEl.textContent = fullName;
+
+    // Update home screen greeting
+    const firstName = fullName.split(' ')[0] || fullName;
+    const greetingEl = document.querySelector('.greeting-heading');
+    if (greetingEl) {
+      greetingEl.textContent = `Good evening, ${firstName}`;
+    }
+
+    // Update phone subtitle if modified
+    const subEl = document.getElementById('accountProfileSub');
+    if (subEl && phone) {
+      subEl.textContent = `+91 ${phone} • Ridingo Club`;
+    }
+
+    closeEditProfileModal();
+    showToast('Profile information saved successfully', '✓');
+  });
+
+  // Security popover action
+  document.getElementById('popActionSecurity')?.addEventListener('click', () => {
+    popoverAccountMore?.classList.add('hidden');
+    const group = document.getElementById('groupAccountSecurity');
+    if (group && !group.classList.contains('expanded')) {
+      toggleAccountAccordion(group);
+    }
+  });
+
+  // Billing & GST popover action
+  document.getElementById('popActionBilling')?.addEventListener('click', () => {
+    popoverAccountMore?.classList.add('hidden');
+    const group = document.getElementById('groupAccountBilling');
+    if (group && !group.classList.contains('expanded')) {
+      toggleAccountAccordion(group);
+    }
+  });
+
+  // Top Up Wallet
+  document.getElementById('btnTopUpWallet')?.addEventListener('click', () => {
+    showToast('Add Money to Ridingo Wallet: UPI / Card active', '💳');
+  });
+
+  // Edit GST Profile
+  document.getElementById('btnEditGST')?.addEventListener('click', () => {
+    showToast('Corporate GST portal: Update company tax details', '📄');
+  });
+
+  // Direct Call Helpline
+  document.getElementById('btnCallSupportDesk')?.addEventListener('click', () => {
+    showToast('Connecting to 24/7 Operations Command Desk: +91 80 4000 9988', '📞');
+  });
+
+  // Sign out popover action
+  document.getElementById('popActionSignOut')?.addEventListener('click', () => {
+    popoverAccountMore?.classList.add('hidden');
+    showToast('Signed out of Ridingo session', '🔒');
+    setTimeout(() => {
+      switchScreen('auth');
+    }, 400);
+  });
+
+  // Sub-detail: Regenerate PIN
+  document.getElementById('btnRegeneratePin')?.addEventListener('click', () => {
+    const d1 = Math.floor(1 + Math.random() * 9);
+    const d2 = Math.floor(Math.random() * 10);
+    const d3 = Math.floor(Math.random() * 10);
+    const d4 = Math.floor(Math.random() * 10);
+    const pinDigits = document.querySelectorAll('#pinDisplayDigits .minimal-pin-box');
+    if (pinDigits.length === 4) {
+      pinDigits[0].textContent = d1;
+      pinDigits[1].textContent = d2;
+      pinDigits[2].textContent = d3;
+      pinDigits[3].textContent = d4;
+    }
+    showToast(`New ride start PIN: ${d1}${d2}${d3}${d4}`, '🔑');
+  });
+
+  // Sub-detail: Add Saved Spot
+  document.getElementById('btnAddSavedSpot')?.addEventListener('click', () => {
+    showToast('Map pin selector active: Choose pickup location', '📍');
+  });
+
+  // Security - Export DPDP archive
+  document.getElementById('btnExportDataRecords')?.addEventListener('click', () => {
+    showToast('Encrypted DPDP data archive exported', '🛡️');
+  });
+
+  // Chat with Ridingo Controller
+  const chatMessagesContainer = document.getElementById('chatMessagesContainer');
+  const inputChatMessage = document.getElementById('inputChatMessage');
+  const btnSendChatMessage = document.getElementById('btnSendChatMessage');
+
+  function appendChatMessage(text, isOutgoing = false) {
+    if (!chatMessagesContainer) return;
+    const row = document.createElement('div');
+    row.className = `chat-msg-row ${isOutgoing ? 'outgoing' : 'incoming'}`;
+    
+    if (!isOutgoing) {
+      const avatar = document.createElement('div');
+      avatar.className = 'chat-desk-avatar';
+      avatar.textContent = 'R';
+      row.appendChild(avatar);
+    }
+
+    const bubble = document.createElement('div');
+    bubble.className = 'chat-bubble';
+    
+    const p = document.createElement('p');
+    p.textContent = text;
+    bubble.appendChild(p);
+
+    const time = document.createElement('span');
+    time.className = 'chat-time';
+    time.textContent = 'Just now';
+    bubble.appendChild(time);
+
+    row.appendChild(bubble);
+    chatMessagesContainer.appendChild(row);
+    chatMessagesContainer.scrollTop = chatMessagesContainer.scrollHeight;
+  }
+
+  function handleSendChatMessage() {
+    const text = inputChatMessage?.value.trim();
+    if (!text) return;
+    appendChatMessage(text, true);
+    inputChatMessage.value = '';
+
+    setTimeout(() => {
+      const replies = [
+        "Your message has been received by our Chauffeur Operations Desk. An on-duty coordinator is reviewing your request.",
+        "Your driver's live GPS route telemetry is fully synchronized with our operations center.",
+        "Understood Alexander! We have updated the chauffeur's dispatch briefing notes accordingly."
+      ];
+      const randomReply = replies[Math.floor(Math.random() * replies.length)];
+      appendChatMessage(randomReply, false);
+    }, 700);
+  }
+
+  btnSendChatMessage?.addEventListener('click', handleSendChatMessage);
+  inputChatMessage?.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') handleSendChatMessage();
+  });
+
+  document.querySelectorAll('.chat-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      const msg = chip.dataset.msg;
+      if (msg) {
+        appendChatMessage(msg, true);
+        setTimeout(() => {
+          if (msg.includes('ETA')) {
+            appendChatMessage("Your assigned chauffeur is stationed 1.4 km away and ready for rapid dispatch.", false);
+          } else if (msg.includes('airport')) {
+            appendChatMessage("Flight auto-sync enabled. Chauffeur will arrive at the arrival curb 30 mins prior to touchdown.", false);
+          } else {
+            appendChatMessage("Operations desk has flagged this note for your chauffeur partner.", false);
+          }
+        }, 600);
+      }
+    });
+  });
+
+  document.getElementById('btnCallSupportDesk')?.addEventListener('click', () => {
+    showToast('Connecting to 24/7 Helpline: 1800-RIDINGO...', '📞');
   });
 
   // Switch Vehicle quick drawer on Home
@@ -1424,8 +1658,8 @@ document.addEventListener('DOMContentLoaded', () => {
       state.selectedCar.make = carName;
       state.selectedCar.spec = carSpec;
 
-      carModelLabel.textContent = carName;
-      carTypeLabel.textContent = carSpec;
+      if (carModelLabel) carModelLabel.textContent = carName;
+      if (carTypeLabel) carTypeLabel.textContent = carSpec;
 
       showToast(`Selected ${carName} for this ride`, '🚗');
       setTimeout(() => garageDrawer.classList.add('hidden'), 250);

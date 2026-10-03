@@ -80,15 +80,17 @@ jobs:
         uses: softprops/action-gh-release@v2
         if: github.ref == 'refs/heads/main'
         with:
-          tag_name: v1.0.0
-          name: Ridingo iOS App Release (v1.0.0)
+          tag_name: v1.0.1
+          name: Ridingo iOS App Release (v1.0.1)
+          make_latest: true
           body: |
-            ## Ridingo iOS App (.ipa)
+            ## Ridingo iOS App (.ipa) — Release v1.0.1
             
             This release contains the latest iOS build package (.ipa) for **Ridingo**:
-            - **Frameless native display**: simulator frame, bezel, and bottom home bar removed.
-            - **Clean iOS status bar area**: dynamic island notch and fake status bar icons eliminated.
-            - **Ready for sideloading**: install with AltStore, Sideloadly, TrollStore, or Xcode.
+            - **Modern Account & Profile Settings**: Saved Places, Safety & Handover, Payments & GST Invoices, and Help Desk.
+            - **Minimal Profile Editing**: Edit pencil modal for updating name and phone.
+            - **Tactile Tap & Click Motion**: Pure mobile tactile press feedback without desktop hover outlines.
+            - **Frameless native display**: Edge-to-edge layout ready for sideloading with AltStore, Sideloadly, TrollStore, or Xcode.
           files: build/Ridingo-User-App.ipa
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
