@@ -1510,153 +1510,278 @@
         </div>
 
 
-          <!-- ================= PAGE 4: CHAUFFEURS DIRECTORY ================= -->
-          <div class="app-page hidden" id="pageChauffeurs">
+          <!-- ================= PAGE 4: WALLET & TRANSACTIONS ================= -->
+          <div class="app-page hidden" id="pageWallet">
             <div class="page-scroll-body">
-              <header class="page-header-standard">
-                <div class="badge-mini-gold">
-                  <span>TOP 1% VERIFIED DIRECTORY</span>
-                </div>
-                <h1 class="page-main-heading">Elite Chauffeurs</h1>
-                <p class="page-main-sub">Background-cleared chauffeurs trained for your car</p>
+              
+              <!-- Header -->
+              <header class="page-header-standard wallet-header">
+                <h1 class="page-main-heading">Your Wallet</h1>
+                <p class="page-main-sub">Manage prepaid chauffeur balance, corporate passes, and instant trip refunds.</p>
               </header>
 
-              <!-- Driver Category Filter -->
-              <div class="chauffeur-filter-bar">
-                <button class="ch-filter active" data-filter="all">All (18)</button>
-                <button class="ch-filter" data-filter="luxury">Luxury & EV</button>
-                <button class="ch-filter" data-filter="suv">SUV & Manual</button>
-                <button class="ch-filter" data-filter="night">Night Shift</button>
+              <!-- Stylized 3D Dual-Layer Wallet Card (Matching Reference Graphics) -->
+              <div class="wallet-card-3d-wrapper">
+                <div class="card-3d-bottom-plate" aria-hidden="true"></div>
+                <div class="stylized-wallet-card" id="stylizedWalletCard">
+                  
+                  <!-- Top Fluid Graphic Wave Zone -->
+                  <div class="card-wave-hero">
+                    <svg class="card-wave-svg" viewBox="0 0 360 120" preserveAspectRatio="none">
+                      <defs>
+                        <!-- Metallic Brand-Yellow to Light-Dark Amber/Bronze Gradient -->
+                        <linearGradient id="refCardGrad" x1="0%" y1="0%" x2="100%" y2="85%">
+                          <stop offset="0%" stop-color="#FFD633" />
+                          <stop offset="25%" stop-color="#FFB800" />
+                          <stop offset="52%" stop-color="#D98200" />
+                          <stop offset="78%" stop-color="#7A4100" />
+                          <stop offset="100%" stop-color="#3D1E00" />
+                        </linearGradient>
+                        
+                        <!-- Diagonal Glossy Sheen Overlay -->
+                        <linearGradient id="refSilkGrad" x1="10%" y1="0%" x2="90%" y2="100%">
+                          <stop offset="0%" stop-color="rgba(255,255,255,0.48)" />
+                          <stop offset="35%" stop-color="rgba(255,255,255,0.14)" />
+                          <stop offset="65%" stop-color="rgba(0,0,0,0.0)" />
+                          <stop offset="100%" stop-color="rgba(0,0,0,0.22)" />
+                        </linearGradient>
+
+                        <!-- Radial Soft Highlight on Top Left/Center -->
+                        <radialGradient id="refHighlightGlow" cx="22%" cy="20%" r="60%">
+                          <stop offset="0%" stop-color="rgba(255, 255, 255, 0.45)" />
+                          <stop offset="100%" stop-color="rgba(255, 255, 255, 0)" />
+                        </radialGradient>
+
+                        <!-- Light-Dark Contrast Scrim for Total Amount -->
+                        <radialGradient id="refBalanceDarkScrim" cx="88%" cy="22%" r="65%">
+                          <stop offset="0%" stop-color="rgba(10, 13, 18, 0.52)" />
+                          <stop offset="60%" stop-color="rgba(10, 13, 18, 0.22)" />
+                          <stop offset="100%" stop-color="rgba(10, 13, 18, 0)" />
+                        </radialGradient>
+                      </defs>
+
+                      <!-- Base Metallic Green/Yellow Wave Contour -->
+                      <path d="M 0 0 L 360 0 L 360 120 L 175 120 C 135 120, 125 72, 85 72 L 0 72 Z" fill="url(#refCardGrad)" />
+                      <!-- Sheen Reflection Overlay -->
+                      <path d="M 0 0 L 360 0 L 360 120 L 175 120 C 135 120, 125 72, 85 72 L 0 72 Z" fill="url(#refSilkGrad)" />
+                      <path d="M 0 0 L 360 0 L 360 120 L 175 120 C 135 120, 125 72, 85 72 L 0 72 Z" fill="url(#refHighlightGlow)" />
+                      <!-- Light-Dark Visibility Scrim Overlay -->
+                      <path d="M 0 0 L 360 0 L 360 120 L 175 120 C 135 120, 125 72, 85 72 L 0 72 Z" fill="url(#refBalanceDarkScrim)" />
+
+                      <!-- Translucent Overlapping Hologram Circles (Top-Left) -->
+                      <circle cx="34" cy="32" r="14" fill="rgba(255,255,255,0.42)" stroke="rgba(255,255,255,0.8)" stroke-width="1.2" />
+                      <circle cx="51" cy="32" r="14" fill="rgba(255,255,255,0.36)" stroke="rgba(255,255,255,0.8)" stroke-width="1.2" />
+                    </svg>
+
+                    <!-- Top-Right Balance Display (Clean typography, as in reference) -->
+                    <div class="card-balance-overlay">
+                      <div class="card-balance-number">
+                        <span class="curr-sign">₹</span><span id="walletBalanceAmount">80,600.00</span>
+                      </div>
+                      <span class="card-balance-caption">TOTAL BALANCE</span>
+                    </div>
+                  </div>
+
+                  <!-- Bottom Black Area (Matte Obsidian) -->
+                  <div class="card-black-area">
+                    <div class="black-area-top-row">
+                      <div class="card-exclusive-branding">
+                        <h4 class="exclusive-title">Premium Banking</h4>
+                        <p class="exclusive-sub">For Exclusive Clients</p>
+                      </div>
+                      <button type="button" class="btn-card-add-money" id="btnCardAddMoney" aria-label="Add Money">
+                        <div class="card-add-plus-icon">
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                        </div>
+                        <span>Add Money</span>
+                      </button>
+                    </div>
+
+                    <!-- Preset Money Quick Buttons (500, 1000, 1500, 2000) -->
+                    <div class="black-area-presets-row">
+                      <button type="button" class="card-preset-pill" data-amount="500">+500</button>
+                      <button type="button" class="card-preset-pill" data-amount="1000">+1000</button>
+                      <button type="button" class="card-preset-pill" data-amount="1500">+1500</button>
+                      <button type="button" class="card-preset-pill" data-amount="2000">+2000</button>
+                    </div>
+                  </div>
+
+                </div>
               </div>
 
-              <div class="chauffeur-full-list">
-                
-                <!-- Chauffeur 1 -->
-                <article class="chauffeur-directory-card" data-cat="luxury">
-                  <div class="card-status-bar">
-                    <span class="status-available-dot"></span>
-                    <span class="avail-text">Available Now in Koramangala (5m away)</span>
+              <!-- Transaction History Section -->
+              <div class="wallet-transactions-section">
+                <div class="wallet-section-header">
+                  <h3 class="section-title">Transaction History</h3>
+                  <div class="wallet-status-filter-pills" id="walletTxFilterGroup">
+                    <button type="button" class="tx-filter-pill active" data-status="all">All</button>
+                    <button type="button" class="tx-filter-pill" data-status="Complete">Complete</button>
+                    <button type="button" class="tx-filter-pill" data-status="Refund">Refund</button>
+                    <button type="button" class="tx-filter-pill" data-status="Fail">Fail</button>
                   </div>
-                  <div class="chauffeur-top">
-                    <div class="chauffeur-avatar-badge">
-                      <div class="monogram-avatar-large">VS</div>
-                      <span class="verified-seal">✓</span>
+                </div>
+
+                <!-- Transaction List Items -->
+                <div class="wallet-tx-stream" id="walletTxStream">
+                  
+                  <!-- 1. Complete - Chauffeur Trip -->
+                  <div class="wallet-tx-card" data-category="Complete">
+                    <div class="tx-icon-capsule status-complete-icon">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                      </svg>
                     </div>
-                    <div class="chauffeur-details">
-                      <div class="driver-name-row">
-                        <h3 class="driver-title">Vikram Singh</h3>
-                        <span class="experience-pill">7 Yrs Exp</span>
+                    <div class="tx-main-details">
+                      <div class="tx-title-row">
+                        <strong class="tx-title">Hourly Chauffeur • Mercedes C-Class</strong>
+                        <span class="tx-amount tx-debit">-₹850.00</span>
                       </div>
-                      <div class="driver-score-row">
-                        <span class="star-rating">★ 4.99</span>
-                        <span class="trips-count">(1,840+ trips)</span>
-                        <span class="vehicle-cert">Mercedes & BMW Pro</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="driver-quote-bubble">
-                    <p class="quote-text">"Vikram drove my BMW 5 series to the airport during heavy rains. Impeccable smooth braking and opened every door with gloves. True 5-star chauffeur."</p>
-                    <span class="quote-author">— Dr. Rohan K. (Verified Owner)</span>
-                  </div>
-
-                  <div class="credentials-badge-list">
-                    <span class="cred-chip">Police Cleared</span>
-                    <span class="cred-chip">Defensive Driving</span>
-                    <span class="cred-chip">Suited Uniform</span>
-                    <span class="cred-chip">English / Hindi</span>
-                  </div>
-
-                  <button class="btn-select-driver" data-driver-name="Vikram Singh">
-                    <span>Select Vikram as Chauffeur</span>
-                  </button>
-                </article>
-
-                <!-- Chauffeur 2 -->
-                <article class="chauffeur-directory-card" data-cat="suv">
-                  <div class="card-status-bar">
-                    <span class="status-available-dot"></span>
-                    <span class="avail-text">Available in Indiranagar (8m away)</span>
-                  </div>
-                  <div class="chauffeur-top">
-                    <div class="chauffeur-avatar-badge">
-                      <div class="monogram-avatar-large">AM</div>
-                      <span class="verified-seal">✓</span>
-                    </div>
-                    <div class="chauffeur-details">
-                      <div class="driver-name-row">
-                        <h3 class="driver-title">Arun Murthy</h3>
-                        <span class="experience-pill">9 Yrs Exp</span>
-                      </div>
-                      <div class="driver-score-row">
-                        <span class="star-rating">★ 4.98</span>
-                        <span class="trips-count">(2,410+ trips)</span>
-                        <span class="vehicle-cert">Fortuner & Manual SUV</span>
+                      <div class="tx-sub-row">
+                        <span class="tx-timestamp">Today, 08:30 PM • 3 hrs Koramangala</span>
+                        <span class="tx-status-badge status-badge-complete">
+                          <span class="badge-dot"></span> Complete
+                        </span>
                       </div>
                     </div>
                   </div>
 
-                  <div class="driver-quote-bubble">
-                    <p class="quote-text">"Hired Arun for a full-day city errand in my Fortuner. Extremely punctual, took care of parking everywhere, and didn't touch my stereo. Highly recommended."</p>
-                    <span class="quote-author">— Siddharth M. (Verified Owner)</span>
-                  </div>
-
-                  <div class="credentials-badge-list">
-                    <span class="cred-chip">Heavy SUV Certified</span>
-                    <span class="cred-chip">Non-Smoker</span>
-                    <span class="cred-chip">VIP Etiquette</span>
-                    <span class="cred-chip">Kannada / English</span>
-                  </div>
-
-                  <button class="btn-select-driver" data-driver-name="Arun Murthy">
-                    <span>Select Arun as Chauffeur</span>
-                  </button>
-                </article>
-
-                <!-- Chauffeur 3 -->
-                <article class="chauffeur-directory-card" data-cat="night">
-                  <div class="card-status-bar">
-                    <span class="status-available-dot"></span>
-                    <span class="avail-text">Available in CBD / MG Rd (12m away)</span>
-                  </div>
-                  <div class="chauffeur-top">
-                    <div class="chauffeur-avatar-badge">
-                      <div class="monogram-avatar-large">RN</div>
-                      <span class="verified-seal">✓</span>
+                  <!-- 2. Refund - Cancelled Booking Advance -->
+                  <div class="wallet-tx-card" data-category="Refund">
+                    <div class="tx-icon-capsule status-refund-icon">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="1 4 1 10 7 10"></polyline>
+                        <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+                      </svg>
                     </div>
-                    <div class="chauffeur-details">
-                      <div class="driver-name-row">
-                        <h3 class="driver-title">Ramesh N.</h3>
-                        <span class="experience-pill">11 Yrs Exp</span>
+                    <div class="tx-main-details">
+                      <div class="tx-title-row">
+                        <strong class="tx-title">Trip Advance Reversal • Outstation</strong>
+                        <span class="tx-amount tx-credit">+₹650.00</span>
                       </div>
-                      <div class="driver-score-row">
-                        <span class="star-rating">★ 4.97</span>
-                        <span class="trips-count">(3,120+ trips)</span>
-                        <span class="vehicle-cert">Night Shift Specialist</span>
+                      <div class="tx-sub-row">
+                        <span class="tx-timestamp">Oct 01, 02:15 PM • Driver Re-route</span>
+                        <span class="tx-status-badge status-badge-refund">
+                          <span class="badge-dot"></span> Refund
+                        </span>
                       </div>
                     </div>
                   </div>
 
-                  <div class="driver-quote-bubble">
-                    <p class="quote-text">"Ramesh is my go-to driver whenever I attend late-night dinner events. He brings his own clean gloves and drives with total respect for the vehicle."</p>
-                    <span class="quote-author">— Ananya S. (Verified Owner)</span>
+                  <!-- 3. Complete - Airport Concierge Transfer -->
+                  <div class="wallet-tx-card" data-category="Complete">
+                    <div class="tx-icon-capsule status-complete-icon">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                      </svg>
+                    </div>
+                    <div class="tx-main-details">
+                      <div class="tx-title-row">
+                        <strong class="tx-title">Airport Concierge • BMW 520d</strong>
+                        <span class="tx-amount tx-debit">-₹1,200.00</span>
+                      </div>
+                      <div class="tx-sub-row">
+                        <span class="tx-timestamp">Sep 29, 05:45 AM • BLR T2 Terminal</span>
+                        <span class="tx-status-badge status-badge-complete">
+                          <span class="badge-dot"></span> Complete
+                        </span>
+                      </div>
+                    </div>
                   </div>
 
-                  <div class="credentials-badge-list">
-                    <span class="cred-chip">Zero Fatigue Certified</span>
-                    <span class="cred-chip">Bangalore Route Master</span>
-                    <span class="cred-chip">Hindi / Tamil / English</span>
+                  <!-- 4. Fail - Auto-Debit Gateway Timeout -->
+                  <div class="wallet-tx-card" data-category="Fail">
+                    <div class="tx-icon-capsule status-fail-icon">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                      </svg>
+                    </div>
+                    <div class="tx-main-details">
+                      <div class="tx-title-row">
+                        <strong class="tx-title">Auto-Debit Top-up • HDFC Bank</strong>
+                        <span class="tx-amount tx-failed">₹1,500.00</span>
+                      </div>
+                      <div class="tx-sub-row">
+                        <span class="tx-timestamp">Sep 26, 09:10 AM • Bank Gateway Timeout</span>
+                        <span class="tx-status-badge status-badge-fail">
+                          <span class="badge-dot"></span> Fail
+                        </span>
+                      </div>
+                    </div>
                   </div>
 
-                  <button class="btn-select-driver" data-driver-name="Ramesh N.">
-                    <span>Select Ramesh as Chauffeur</span>
-                  </button>
-                </article>
+                  <!-- 5. Complete - Instant UPI Wallet Top-up -->
+                  <div class="wallet-tx-card" data-category="Complete">
+                    <div class="tx-icon-capsule status-complete-icon">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                      </svg>
+                    </div>
+                    <div class="tx-main-details">
+                      <div class="tx-title-row">
+                        <strong class="tx-title">Wallet Recharge • Google Pay UPI</strong>
+                        <span class="tx-amount tx-credit">+₹2,000.00</span>
+                      </div>
+                      <div class="tx-sub-row">
+                        <span class="tx-timestamp">Sep 24, 11:20 AM • Txn ID #UPI-84920</span>
+                        <span class="tx-status-badge status-badge-complete">
+                          <span class="badge-dot"></span> Complete
+                        </span>
+                      </div>
+                    </div>
+                  </div>
 
-              </div>
+                  <!-- 6. Refund - Overtime Cancellation Deposit -->
+                  <div class="wallet-tx-card" data-category="Refund">
+                    <div class="tx-icon-capsule status-refund-icon">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="1 4 1 10 7 10"></polyline>
+                        <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+                      </svg>
+                    </div>
+                    <div class="tx-main-details">
+                      <div class="tx-title-row">
+                        <strong class="tx-title">Grace Period Fare Adjustment</strong>
+                        <span class="tx-amount tx-credit">+₹320.00</span>
+                      </div>
+                      <div class="tx-sub-row">
+                        <span class="tx-timestamp">Sep 20, 04:30 PM • 30m early release</span>
+                        <span class="tx-status-badge status-badge-refund">
+                          <span class="badge-dot"></span> Refund
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 7. Fail - Card Expired Attempt -->
+                  <div class="wallet-tx-card" data-category="Fail">
+                    <div class="tx-icon-capsule status-fail-icon">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                      </svg>
+                    </div>
+                    <div class="tx-main-details">
+                      <div class="tx-title-row">
+                        <strong class="tx-title">Pre-Authorization • Corporate Card</strong>
+                        <span class="tx-amount tx-failed">₹2,500.00</span>
+                      </div>
+                      <div class="tx-sub-row">
+                        <span class="tx-timestamp">Sep 15, 01:10 PM • Card Authorization Declined</span>
+                        <span class="tx-status-badge status-badge-fail">
+                          <span class="badge-dot"></span> Fail
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                </div><!-- /wallet-tx-stream -->
+              </div><!-- /wallet-transactions-section -->
+
               <div class="bottom-safe-spacer"></div>
-            </div>
-          </div>
+            </div><!-- /page-scroll-body -->
+          </div><!-- /pageWallet -->
 
 
           <!-- ================= PAGE 5: GARAGE & VEHICLES ================= -->
@@ -1757,61 +1882,86 @@
 
 
           <!-- ============================================== -->
-          <!-- iOS 27 FLOATING DOCK / NAVBAR (Liquid Island)  -->
+          <!-- CURVED NOTCH FLOATING NAVBAR (DRIBBBLE MODERN)  -->
           <!-- ============================================== -->
-          <nav class="ios27-floating-navbar" id="iosNavbar" aria-label="iOS 27 Dynamic Navigation Dock">
-            <div class="navbar-liquid-backdrop"></div>
-            <div class="navbar-active-bubble" id="navbarBubble"></div>
-            
-            <button class="nav-dock-item active" data-tab="home" title="Home">
-              <div class="nav-icon-container">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                </svg>
-              </div>
-              <span class="nav-text">Home</span>
-            </button>
+          <nav class="curved-notch-navbar" id="iosNavbar" aria-label="Curved Notch Navigation Dock">
+            <!-- Curved Notch Background SVG Canvas -->
+            <svg class="notch-bg-svg" id="navbarNotchSvg" preserveAspectRatio="none">
+              <path id="navbarNotchPath" d="M 26 0 L 131.67 0 A 14 14 0 0 1 145.48 11.67 A 34 34 0 0 0 212.52 11.67 A 14 14 0 0 1 226.33 0 L 332 0 Q 358 0, 358 26 L 358 42 Q 358 68, 332 68 L 26 68 Q 0 68, 0 42 L 0 26 Q 0 0, 26 0 Z" fill="#FFFFFF" />
+            </svg>
 
-            <button class="nav-dock-item" data-tab="trips" title="Trips & History">
-              <div class="nav-icon-container">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-                  <circle cx="12" cy="12" r="10"></circle>
-                  <polyline points="12 6 12 12 16 14"></polyline>
-                </svg>
-              </div>
-              <span class="nav-text">Trips</span>
-            </button>
+            <div class="notch-nav-content">
+              <!-- Left Side Tabs (Home & Trips) -->
+              <div class="nav-cluster nav-cluster-left">
+                <button class="nav-dock-item active" data-tab="home" title="Home">
+                  <div class="nav-icon-container">
+                    <svg class="nav-icon-outline" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                      <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                    </svg>
+                    <svg class="nav-icon-filled" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                    </svg>
+                  </div>
+                  <span class="nav-indicator-dot"></span>
+                </button>
 
-            <button class="nav-dock-item primary-track-dock" data-tab="track" title="Live Tracking Hub">
-              <div class="track-capsule-glow">
-                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                  <polygon points="3 11 22 2 13 21 11 13 3 11"></polygon>
-                </svg>
+                <button class="nav-dock-item" data-tab="trips" title="Trips & History">
+                  <div class="nav-icon-container">
+                    <svg class="nav-icon-outline" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                    <svg class="nav-icon-filled" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm1 5a1 1 0 1 0-2 0v5a1 1 0 0 0 .5.866l3.5 2.021a1 1 0 1 0 1-1.732L13 11.424V7z"/>
+                    </svg>
+                  </div>
+                  <span class="nav-indicator-dot"></span>
+                </button>
               </div>
-              <span class="nav-text bold-yellow">Track</span>
-            </button>
 
-            <button class="nav-dock-item" data-tab="drivers" title="Top Chauffeurs Directory">
-              <div class="nav-icon-container">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                  <circle cx="9" cy="7" r="4"></circle>
-                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                  <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-                </svg>
+              <!-- Center Floating Elevated Circle Button (Track Action in Signature Brand Yellow) -->
+              <div class="nav-center-slot">
+                <button class="nav-dock-item nav-center-circle-btn primary-track-dock" data-tab="track" id="btnCenterAction" title="Live Tracking Hub">
+                  <svg class="track-nav-icon nav-icon-outline" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                    <polygon points="3 11 22 2 13 21 11 13 3 11"></polygon>
+                  </svg>
+                  <svg class="track-nav-icon nav-icon-filled" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                    <polygon points="3 11 22 2 13 21 11 13 3 11"></polygon>
+                  </svg>
+                </button>
               </div>
-              <span class="nav-text">Chauffeurs</span>
-            </button>
 
-            <button class="nav-dock-item" data-tab="garage" title="My Vehicles & Preferences">
-              <div class="nav-icon-container">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-                  <circle cx="12" cy="12" r="3"></circle>
-                  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-                </svg>
+              <!-- Right Side Tabs (Wallet & Garage) -->
+              <div class="nav-cluster nav-cluster-right">
+                <button class="nav-dock-item" data-tab="wallet" title="Your Wallet">
+                  <div class="nav-icon-container">
+                    <svg class="nav-icon-outline" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M20 12V8H6a2 2 0 0 1-2-2c0-1.1.9-2 2-2h12v4"></path>
+                      <path d="M4 6v12c0 1.1.9 2 2 2h14v-4"></path>
+                      <path d="M18 12a2 2 0 0 0-2 2c0 1.1.9 2 2 2h4v-4h-4z"></path>
+                    </svg>
+                    <svg class="nav-icon-filled" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M3 6a3 3 0 0 1 3-3h12a2 2 0 0 1 2 2v1.5a1 1 0 0 1-1 1H6a1.5 1.5 0 0 0-1.5 1.5V10H20a2 2 0 0 1 2 2v7a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V6zm14 8a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/>
+                    </svg>
+                  </div>
+                  <span class="nav-indicator-dot"></span>
+                </button>
+
+                <button class="nav-dock-item" data-tab="garage" title="My Vehicles & Profile">
+                  <div class="nav-icon-container">
+                    <svg class="nav-icon-outline" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="12" cy="8" r="4"></circle>
+                      <path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"></path>
+                    </svg>
+                    <svg class="nav-icon-filled" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
+                  </div>
+                  <span class="nav-indicator-dot"></span>
+                </button>
               </div>
-              <span class="nav-text">Garage</span>
-            </button>
+            </div>
           </nav>
 
         </section>

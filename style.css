@@ -43,6 +43,16 @@
   --shadow-dock: 0 16px 36px -4px rgba(0, 0, 0, 0.18), 0 2px 6px rgba(0, 0, 0, 0.06);
   --shadow-yellow: 0 10px 24px -4px rgba(255, 204, 0, 0.45);
 
+  /* Standard Mobile App Typography Scale (Best Readability for All Users) */
+  --font-hero: 23px;       /* Welcome & Slide Headlines */
+  --font-h1: 21px;         /* Main Screen Titles & Greetings */
+  --font-h2: 17px;         /* Section Headers & Card Titles */
+  --font-h3: 15px;         /* Card Subheaders & Vehicle / Driver Names */
+  --font-body: 14px;       /* Standard Readable Body & Paragraphs */
+  --font-body-sm: 13px;    /* Secondary Details, Subtext & Descriptions */
+  --font-caption: 12px;    /* Status Badges, Labels, Navigation & Buttons */
+  --font-micro: 11px;      /* Smallest Allowed Micro Tag (Clear & Legible) */
+
   /* Apple Transitions */
   --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.15);
   --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
@@ -192,7 +202,7 @@ button {
 }
 
 .brand-tag {
-  font-size: 10px;
+  font-size: 11.5px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.8px;
@@ -635,7 +645,7 @@ body.device-fluid-mode .ios-home-indicator {
 }
 
 .slide-title {
-  font-size: 26px;
+  font-size: 23px;
   font-weight: 800;
   letter-spacing: -0.5px;
   line-height: 1.18;
@@ -763,7 +773,7 @@ body.device-fluid-mode .ios-home-indicator {
 }
 
 .auth-headline {
-  font-size: 26px;
+  font-size: 23px;
   font-weight: 700;
   letter-spacing: -0.5px;
   color: var(--text-primary);
@@ -925,14 +935,14 @@ body.device-fluid-mode .ios-home-indicator {
 }
 
 .email-form-title {
-  font-size: 9.5px;
+  font-size: 11.5px;
   font-weight: 800;
   letter-spacing: 0.8px;
   color: var(--text-tertiary);
 }
 
 .email-form-badge {
-  font-size: 10px;
+  font-size: 11.5px;
   font-weight: 700;
   color: #10B981;
   background: rgba(16, 185, 129, 0.1);
@@ -1131,7 +1141,7 @@ body.device-fluid-mode .ios-home-indicator {
 }
 
 .contact-toggle-label {
-  font-size: 9.5px;
+  font-size: 11.5px;
   font-weight: 800;
   letter-spacing: 0.8px;
   color: var(--text-tertiary);
@@ -1374,7 +1384,7 @@ body.device-fluid-mode .ios-home-indicator {
 }
 
 .page-main-heading {
-  font-size: 24px;
+  font-size: 21px;
   font-weight: 800;
   letter-spacing: -0.5px;
   color: var(--text-primary);
@@ -1417,7 +1427,7 @@ body.device-fluid-mode .ios-home-indicator {
 }
 
 .greeting-heading {
-  font-size: 23px;
+  font-size: 21px;
   font-weight: 800;
   letter-spacing: -0.5px;
   color: var(--text-primary);
@@ -1613,7 +1623,7 @@ body.device-fluid-mode .ios-home-indicator {
 }
 
 .loc-label {
-  font-size: 9px;
+  font-size: 11.5px;
   font-weight: 700;
   letter-spacing: 0.6px;
   color: var(--text-tertiary);
@@ -1772,14 +1782,14 @@ body.device-fluid-mode .ios-home-indicator {
 }
 
 .occ-label {
-  font-size: 9px;
+  font-size: 11.5px;
   font-weight: 800;
   letter-spacing: 0.8px;
   color: var(--text-tertiary);
 }
 
 .occ-hint {
-  font-size: 9.5px;
+  font-size: 11.5px;
   font-weight: 600;
   color: #D97706;
 }
@@ -1943,7 +1953,7 @@ body.device-fluid-mode .ios-home-indicator {
 }
 
 .field-title {
-  font-size: 9.5px;
+  font-size: 11.5px;
   font-weight: 700;
   letter-spacing: 0.6px;
   color: var(--text-tertiary);
@@ -1951,7 +1961,7 @@ body.device-fluid-mode .ios-home-indicator {
 }
 
 .live-pill {
-  font-size: 9px;
+  font-size: 11.5px;
   font-weight: 600;
   color: #059669;
   background: #ECFDF5;
@@ -1961,7 +1971,7 @@ body.device-fluid-mode .ios-home-indicator {
 }
 
 .buffer-hint {
-  font-size: 9px;
+  font-size: 11.5px;
   color: #D97706;
   background: rgba(217, 119, 6, 0.1);
   padding: 1.5px 7px;
@@ -2027,7 +2037,7 @@ body.device-fluid-mode .ios-home-indicator {
 }
 
 .airline-brand-tag {
-  font-size: 10.5px;
+  font-size: 12px;
   font-weight: 700;
   background: var(--brand-yellow-subtle);
   color: #B45309;
@@ -2067,7 +2077,7 @@ body.device-fluid-mode .ios-home-indicator {
 }
 
 .ct-title {
-  font-size: 9px;
+  font-size: 11.5px;
   font-weight: 700;
   color: var(--text-tertiary);
   letter-spacing: 0.6px;
@@ -2075,7 +2085,7 @@ body.device-fluid-mode .ios-home-indicator {
 }
 
 .ct-selected-badge {
-  font-size: 10px;
+  font-size: 11.5px;
   font-weight: 700;
   color: #0A0D12;
   background: rgba(255, 204, 0, 0.25);
@@ -2143,7 +2153,7 @@ body.device-fluid-mode .ios-home-indicator {
 }
 
 .car-type-chip .ct-hint {
-  font-size: 10px;
+  font-size: 11.5px;
   color: var(--text-tertiary);
   white-space: nowrap;
   overflow: hidden;
@@ -2173,7 +2183,7 @@ body.device-fluid-mode .ios-home-indicator {
 }
 
 .sl-title {
-  font-size: 9px;
+  font-size: 11.5px;
   font-weight: 700;
   color: var(--text-tertiary);
   letter-spacing: 0.6px;
@@ -2232,7 +2242,7 @@ body.device-fluid-mode .ios-home-indicator {
 }
 
 .dt-title {
-  font-size: 9px;
+  font-size: 11.5px;
   font-weight: 700;
   color: var(--text-tertiary);
   letter-spacing: 0.6px;
@@ -2328,7 +2338,7 @@ body.device-fluid-mode .ios-home-indicator {
 }
 
 .dt-field-label {
-  font-size: 8.5px;
+  font-size: 11px;
   font-weight: 700;
   color: var(--text-tertiary);
   letter-spacing: 0.5px;
@@ -2372,9 +2382,9 @@ body.device-fluid-mode .ios-home-indicator {
 }
 
 .fare-quote-box {
-  width: 104px;
-  min-width: 104px;
-  max-width: 104px;
+  width: 112px;
+  min-width: 112px;
+  max-width: 112px;
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
@@ -2392,7 +2402,7 @@ body.device-fluid-mode .ios-home-indicator {
 }
 
 .quote-currency {
-  font-size: 8.5px;
+  font-size: 11px;
   font-weight: 700;
   color: var(--text-tertiary);
   letter-spacing: 0.5px;
@@ -2400,7 +2410,7 @@ body.device-fluid-mode .ios-home-indicator {
 }
 
 .quote-guarantee {
-  font-size: 8px;
+  font-size: 11px;
   font-weight: 700;
   color: #059669;
   white-space: nowrap;
@@ -2430,13 +2440,13 @@ body.device-fluid-mode .ios-home-indicator {
 }
 
 .fare-subtext {
-  font-size: 10px;
+  font-size: 11.5px;
   color: var(--text-tertiary);
   margin-top: 1px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 104px;
+  max-width: 112px;
   display: block;
 }
 
@@ -2533,7 +2543,7 @@ body.device-fluid-mode .ios-home-indicator {
 }
 
 .btn-secondary-text {
-  font-size: 10px;
+  font-size: 11.5px;
   font-weight: 500;
   opacity: 0.85;
   white-space: nowrap;
@@ -2576,7 +2586,7 @@ body.device-fluid-mode .ios-home-indicator {
 }
 
 .teaser-title {
-  font-size: 9.5px;
+  font-size: 11.5px;
   font-weight: 800;
   letter-spacing: 0.7px;
   color: var(--text-tertiary);
@@ -2584,7 +2594,7 @@ body.device-fluid-mode .ios-home-indicator {
 }
 
 .teaser-count-pill {
-  font-size: 9.5px;
+  font-size: 11.5px;
   font-weight: 700;
   color: var(--text-secondary);
   background: rgba(0, 0, 0, 0.05);
@@ -2699,7 +2709,7 @@ body.device-fluid-mode .ios-home-indicator {
 
 .meta-dot {
   color: var(--text-tertiary);
-  font-size: 9px;
+  font-size: 11.5px;
 }
 
 .meta-fare {
@@ -2742,7 +2752,7 @@ body.device-fluid-mode .ios-home-indicator {
 }
 
 .features-kicker {
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 1px;
   color: var(--text-tertiary);
@@ -2838,7 +2848,7 @@ body.device-fluid-mode .ios-home-indicator {
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  font-size: 10px;
+  font-size: 11.5px;
   font-weight: 700;
   color: #047857;
   letter-spacing: 0.5px;
@@ -2983,7 +2993,7 @@ body.device-fluid-mode .ios-home-indicator {
 }
 
 .d-sub {
-  font-size: 10.5px;
+  font-size: 12px;
   color: var(--text-secondary);
 }
 
@@ -3218,7 +3228,7 @@ body.device-fluid-mode .ios-home-indicator {
 }
 
 .eta-label-sub {
-  font-size: 10px;
+  font-size: 11.5px;
   font-weight: 600;
   opacity: 0.85;
 }
@@ -3373,7 +3383,7 @@ body.device-fluid-mode .ios-home-indicator {
 }
 
 .peek-status-sub {
-  font-size: 10.5px;
+  font-size: 12px;
   font-weight: 600;
   color: #B45309;
   white-space: nowrap;
@@ -3414,7 +3424,7 @@ body.device-fluid-mode .ios-home-indicator {
 }
 
 .preview-mode-tag {
-  font-size: 9.5px;
+  font-size: 11.5px;
   font-weight: 800;
   letter-spacing: 0.6px;
   color: var(--text-tertiary);
@@ -3523,7 +3533,7 @@ body.device-fluid-mode .ios-home-indicator {
   align-items: center;
   justify-content: center;
   border: 2px solid #FFFFFF;
-  font-size: 9.5px;
+  font-size: 11.5px;
   font-weight: 700;
 }
 
@@ -3549,7 +3559,7 @@ body.device-fluid-mode .ios-home-indicator {
 }
 
 .track-driver-rating {
-  font-size: 10.5px;
+  font-size: 12px;
   font-weight: 700;
   color: #B45309;
   background: #FEF3C7;
@@ -3568,7 +3578,7 @@ body.device-fluid-mode .ios-home-indicator {
 
 .track-driver-tag {
   display: inline-block;
-  font-size: 9.5px;
+  font-size: 11.5px;
   font-weight: 600;
   color: #475569;
   background: #E2E8F0;
@@ -3656,7 +3666,7 @@ body.device-fluid-mode .ios-home-indicator {
 }
 
 .wp-sub {
-  font-size: 9px;
+  font-size: 11.5px;
   font-weight: 700;
   letter-spacing: 0.5px;
   color: var(--text-tertiary);
@@ -3691,7 +3701,7 @@ body.device-fluid-mode .ios-home-indicator {
 }
 
 .telem-label {
-  font-size: 9px;
+  font-size: 11.5px;
   font-weight: 700;
   letter-spacing: 0.6px;
   color: var(--text-tertiary);
@@ -3833,7 +3843,7 @@ body.device-fluid-mode .ios-home-indicator {
   border: 1px solid var(--border-hairline);
   padding: 5px 12px;
   border-radius: var(--radius-full);
-  font-size: 10.5px;
+  font-size: 12px;
   font-weight: 600;
   color: #475569;
 }
@@ -3870,181 +3880,448 @@ body.device-fluid-mode .ios-home-indicator {
   color: #FFFFFF;
 }
 
-.chauffeur-full-list {
+/* ==========================================================================
+   PAGE 4: WALLET & TRANSACTIONS (CLEAN, MODERN APPLE-INSPIRED INTERFACE)
+   ========================================================================== */
+.wallet-header {
+  padding-bottom: 12px;
+}
+
+/* ==========================================================================
+   STYLIZED 3D WALLET CARD (MATCHING REFERENCE GRAPHICS)
+   ========================================================================== */
+.wallet-card-3d-wrapper {
+  position: relative;
+  width: 100%;
+  margin: 4px 0 24px 0;
+  padding-bottom: 8px;
+}
+
+/* Layered 3D Glowing Bottom Rim / Baseplate */
+.card-3d-bottom-plate {
+  position: absolute;
+  bottom: 0;
+  left: 10px;
+  right: 10px;
+  height: 32px;
+  border-radius: 26px;
+  background: linear-gradient(180deg, #FFB800 0%, #FFD633 45%, #FFCC00 80%, #CC8800 100%);
+  box-shadow: 0 14px 28px -4px rgba(255, 204, 0, 0.45), 0 8px 18px rgba(0, 0, 0, 0.45);
+  z-index: 1;
+}
+
+/* Main Two-Tone Floating Card Body */
+.stylized-wallet-card {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  border-radius: 26px;
+  background: #07090C;
+  overflow: hidden;
+  box-shadow: 0 16px 36px -6px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: transform 0.28s var(--ease-spring), box-shadow 0.28s ease;
+}
+
+.stylized-wallet-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 42px -4px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 204, 0, 0.35);
+}
+
+/* Top Section: Metallic Brand-Yellow Organic Contour */
+.card-wave-hero {
+  position: relative;
+  width: 100%;
+  height: 124px;
+  overflow: hidden;
+  background: #07090C;
+}
+
+.card-wave-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Top-Right Large Balance Typography (Matching Reference $80.600 Layout) */
+.card-balance-overlay {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  text-align: right;
+  z-index: 3;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  align-items: flex-end;
+  pointer-events: none;
 }
 
-.chauffeur-directory-card {
-  background: #FFFFFF;
-  border: 1px solid var(--border-hairline);
-  border-radius: var(--radius-lg);
-  padding: 16px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-}
-
-.card-status-bar {
+.card-balance-number {
   display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 10.5px;
+  align-items: baseline;
+  font-size: 32px;
   font-weight: 600;
-  color: #059669;
-  margin-bottom: 10px;
-}
-
-.status-available-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #10B981;
-}
-
-.chauffeur-top {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 12px;
-}
-
-.chauffeur-avatar-badge {
-  position: relative;
-}
-
-.monogram-avatar-large {
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
-  background: #0A0D12;
-  color: var(--brand-yellow);
-  font-size: 15px;
-  font-weight: 800;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-}
-
-.verified-seal {
-  position: absolute;
-  bottom: -2px;
-  right: -2px;
-  width: 17px;
-  height: 17px;
-  border-radius: 50%;
-  background: #10B981;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Outfit", sans-serif;
+  letter-spacing: -0.5px;
   color: #FFFFFF;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid #FFFFFF;
-  font-size: 10px;
+  line-height: 1.05;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.72), 0 1px 3px rgba(0, 0, 0, 0.9);
+}
+
+.card-balance-number .curr-sign {
+  font-size: 26px;
+  font-weight: 600;
+  margin-right: 2px;
+  opacity: 0.95;
+}
+
+.card-balance-caption {
+  font-size: 9.5px;
   font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  opacity: 0.95;
+  margin-top: 4px;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.85);
 }
 
-.chauffeur-details {
-  flex: 1;
+/* Lower Section: Matte Obsidian Black Area */
+.card-black-area {
+  padding: 16px 20px 20px 20px;
+  background: #07090C;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  position: relative;
+  z-index: 2;
 }
 
-.driver-name-row {
+/* Top Row: Exclusive Client Branding + Add Money Button */
+.black-area-top-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
 }
 
-.driver-title {
+.card-exclusive-branding {
+  display: flex;
+  flex-direction: column;
+}
+
+.exclusive-title {
   font-size: 15px;
   font-weight: 700;
-  color: var(--text-primary);
+  letter-spacing: -0.2px;
+  color: #FFFFFF;
+  margin: 0 0 2px 0;
 }
 
-.experience-pill {
-  font-size: 10px;
-  font-weight: 600;
-  background: var(--bg-subtle);
-  padding: 2px 6px;
-  border-radius: 4px;
-  color: var(--text-secondary);
+.exclusive-sub {
+  font-size: 11.5px;
+  font-weight: 400;
+  color: #94A3B8;
+  margin: 0;
+  letter-spacing: -0.1px;
 }
 
-.driver-score-row {
-  display: flex;
+/* Integrated "+ Add Money" Button */
+.btn-card-add-money {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #FFFFFF;
+  padding: 6px 14px 6px 8px;
+  border-radius: 999px;
+  display: inline-flex;
   align-items: center;
-  gap: 6px;
-  margin-top: 3px;
-}
-
-.star-rating {
-  font-size: 12px;
-  font-weight: 700;
-  color: #B45309;
-}
-
-.trips-count {
-  font-size: 11px;
-  color: var(--text-tertiary);
-}
-
-.vehicle-cert {
-  font-size: 10.5px;
-  font-weight: 600;
-  color: #2563EB;
-}
-
-.driver-quote-bubble {
-  background: var(--bg-subtle);
-  border-radius: var(--radius-sm);
-  padding: 10px 12px;
-  margin-bottom: 12px;
-  border-left: 3px solid var(--brand-yellow);
-}
-
-.quote-text {
-  font-size: 12px;
-  line-height: 1.4;
-  color: var(--text-secondary);
-  font-style: italic;
-}
-
-.quote-author {
-  display: block;
-  font-size: 10px;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-top: 4px;
-}
-
-.credentials-badge-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-bottom: 12px;
-}
-
-.cred-chip {
-  font-size: 10.5px;
-  font-weight: 500;
-  color: var(--text-secondary);
-  background: #FFFFFF;
-  border: 1px solid var(--border-hairline);
-  padding: 3px 8px;
-  border-radius: var(--radius-full);
-}
-
-.btn-select-driver {
-  width: 100%;
-  padding: 10px;
+  gap: 8px;
   font-size: 12.5px;
   font-weight: 700;
-  background: var(--brand-yellow);
-  color: #000000;
-  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.btn-card-add-money:hover {
+  background: rgba(255, 204, 0, 0.16);
+  border-color: rgba(255, 204, 0, 0.5);
+  color: #FFD633;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(255, 204, 0, 0.22);
+}
+
+.btn-card-add-money:active {
+  transform: scale(0.96);
+}
+
+.card-add-plus-icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #FFCC00;
+  color: #07090C;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(255, 204, 0, 0.45);
+}
+
+/* Preset Money Quick Buttons (500, 1000, 1500, 2000) */
+.black-area-presets-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.card-preset-pill {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 9px 4px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #E2E8F0;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.18s ease;
+}
+
+.card-preset-pill:hover {
+  background: rgba(255, 204, 0, 0.14);
+  border-color: #FFCC00;
+  color: #FFFFFF;
+  transform: translateY(-1px);
+}
+
+.card-preset-pill:active {
+  transform: scale(0.94);
+  background: #FFCC00;
+  color: #07090C;
+}
+
+/* ==========================================================================
+   TRANSACTION HISTORY SECTION (Complete, Refund, Fail)
+   ========================================================================== */
+.wallet-transactions-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.wallet-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 2px;
+}
+
+.wallet-section-header .section-title {
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+/* Status Filter Pills */
+.wallet-status-filter-pills {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: #F1F4F8;
+  padding: 3px;
+  border-radius: 10px;
+}
+
+.tx-filter-pill {
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #64748B;
+  padding: 4px 10px;
+  border-radius: 8px;
+  cursor: pointer;
   transition: all 0.2s ease;
 }
 
-.btn-select-driver:hover {
-  background: var(--brand-yellow-bright);
+.tx-filter-pill:hover {
+  color: #0A0D12;
+}
+
+.tx-filter-pill.active {
+  background: #FFFFFF;
+  color: #0A0D12;
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+/* Transaction Cards Stream */
+.wallet-tx-stream {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.wallet-tx-card {
+  background: #FFFFFF;
+  border: 1px solid #EEF2F6;
+  border-radius: 16px;
+  padding: 13px 15px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+  transition: transform 0.16s ease, border-color 0.16s ease, box-shadow 0.16s ease;
+}
+
+.wallet-tx-card:hover {
+  border-color: #CBD5E1;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+  transform: translateY(-1px);
+}
+
+.wallet-tx-card.hidden {
+  display: none !important;
+}
+
+/* Icon Capsules */
+.tx-icon-capsule {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.status-complete-icon {
+  background: rgba(16, 185, 129, 0.12);
+  color: #059669;
+}
+
+.status-refund-icon {
+  background: rgba(59, 130, 246, 0.12);
+  color: #2563EB;
+}
+
+.status-fail-icon {
+  background: rgba(239, 68, 68, 0.12);
+  color: #DC2626;
+}
+
+.tx-main-details {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.tx-title-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.tx-title {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tx-amount {
+  font-size: 14px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
+}
+
+.tx-amount.tx-debit {
+  color: #0A0D12;
+}
+
+.tx-amount.tx-credit {
+  color: #059669;
+}
+
+.tx-amount.tx-failed {
+  color: #94A3B8;
+  text-decoration: line-through;
+}
+
+.tx-sub-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.tx-timestamp {
+  font-size: 11px;
+  color: #64748B;
+}
+
+/* Status Badges: Complete, Refund, Fail */
+.tx-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10.5px;
+  font-weight: 700;
+  padding: 2.5px 8px;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.tx-status-badge .badge-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+}
+
+/* Status Complete (Green) */
+.status-badge-complete {
+  background: #ECFDF5;
+  color: #047857;
+}
+
+.status-badge-complete .badge-dot {
+  background: #10B981;
+}
+
+/* Status Refund (Blue/Teal) */
+.status-badge-refund {
+  background: #EFF6FF;
+  color: #1D4ED8;
+}
+
+.status-badge-refund .badge-dot {
+  background: #3B82F6;
+}
+
+/* Status Fail (Red) */
+.status-badge-fail {
+  background: #FEF2F2;
+  color: #B91C1C;
+}
+
+.status-badge-fail .badge-dot {
+  background: #EF4444;
 }
 
 /* ==========================================================================
@@ -4111,7 +4388,7 @@ body.device-fluid-mode .ios-home-indicator {
   position: absolute;
   top: 12px;
   right: 14px;
-  font-size: 9px;
+  font-size: 11.5px;
   font-weight: 800;
   background: #0A0D12;
   color: var(--brand-yellow);
@@ -4150,7 +4427,7 @@ body.device-fluid-mode .ios-home-indicator {
 }
 
 .spec-pill {
-  font-size: 10px;
+  font-size: 11.5px;
   font-weight: 500;
   background: #FFFFFF;
   border: 1px solid var(--border-hairline);
@@ -4189,7 +4466,7 @@ body.device-fluid-mode .ios-home-indicator {
 }
 
 .pref-heading {
-  font-size: 9.5px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.8px;
   color: var(--text-tertiary);
@@ -4215,7 +4492,7 @@ body.device-fluid-mode .ios-home-indicator {
   gap: 4px;
   background: var(--brand-yellow-subtle);
   color: #B45309;
-  font-size: 9.5px;
+  font-size: 11.5px;
   font-weight: 700;
   letter-spacing: 0.5px;
   padding: 2px 7px;
@@ -4225,125 +4502,211 @@ body.device-fluid-mode .ios-home-indicator {
 }
 
 .bottom-safe-spacer {
-  height: calc(76px + env(safe-area-inset-bottom, 0px));
+  height: 96px;
 }
 
 /* ==========================================================================
-   iOS 27 FLOATING DOCK NAVBAR
+   CURVED NOTCH FLOATING NAVBAR (DRIBBBLE MODERN WITH BRAND YELLOW ACCENT)
    ========================================================================== */
+.curved-notch-navbar,
 .ios27-floating-navbar {
+  --dock-spacing: 16px;
   position: absolute;
-  bottom: max(10px, calc(env(safe-area-inset-bottom, 0px) - 14px));
-  left: 50%;
-  transform: translateX(-50%);
-  width: calc(100% - 32px);
-  max-width: 380px;
-  height: 64px;
-  background: var(--glass-dock-bg);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--glass-dock-border);
-  border-radius: var(--radius-full);
-  box-shadow: var(--shadow-dock);
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  padding: 0 8px;
+  bottom: var(--dock-spacing);
+  left: var(--dock-spacing);
+  right: var(--dock-spacing);
+  width: calc(100% - (var(--dock-spacing) * 2));
+  max-width: 420px;
+  margin: 0 auto;
+  height: 68px;
+  background: transparent;
+  filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.08)) drop-shadow(0 2px 6px rgba(0, 0, 0, 0.04));
   z-index: 90;
   user-select: none;
 }
 
-.navbar-liquid-backdrop {
+.notch-bg-svg {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  border-radius: inherit;
-  pointer-events: none;
-}
-
-.navbar-active-bubble {
-  position: absolute;
-  top: 6px;
-  left: 0;
-  width: 56px;
-  height: 52px;
-  background: rgba(0, 0, 0, 0.06);
-  border-radius: var(--radius-full);
-  transition: transform 0.3s var(--ease-spring), width 0.25s ease;
+  overflow: visible;
   pointer-events: none;
   z-index: 1;
 }
 
-.nav-dock-item {
+.notch-bg-svg path {
+  fill: #FFFFFF;
+}
+
+.notch-nav-content {
   position: relative;
   z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+
+.nav-cluster {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex: 1;
+  height: 100%;
+}
+
+.nav-center-slot {
+  position: relative;
+  width: 80px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Center Elevated Circular Action Button in Signature Brand Yellow - No Drop Shadow, Perfectly Contoured */
+.nav-center-circle-btn {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #FFD633 0%, #FFCC00 52%, #F5B800 100%);
+  color: #0A0D12;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: none !important;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+  transition: transform 0.28s var(--ease-spring);
+}
+
+.nav-center-circle-btn svg {
+  color: #0A0D12;
+  fill: #0A0D12;
+  width: 22px;
+  height: 22px;
+  transform: rotate(-10deg);
+  transition: transform 0.28s var(--ease-spring);
+}
+
+.nav-center-circle-btn:hover {
+  transform: translateX(-50%) translateY(-2px) scale(1.05);
+  box-shadow: none !important;
+}
+
+.nav-center-circle-btn:hover svg {
+  transform: rotate(0deg) scale(1.08);
+}
+
+.nav-center-circle-btn:active {
+  transform: translateX(-50%) scale(0.92);
+  box-shadow: none !important;
+}
+
+.nav-center-circle-btn.active {
+  box-shadow: none !important;
+}
+
+.nav-center-circle-btn.active svg {
+  fill: #0A0D12;
+  transform: rotate(-15deg) scale(1.12);
+  filter: none;
+}
+
+/* Side Navigation Items */
+.curved-notch-navbar .nav-dock-item:not(.nav-center-circle-btn) {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 56px;
+  width: 52px;
   height: 52px;
-  color: var(--text-tertiary);
-  transition: all 0.25s var(--ease-spring);
+  color: #8C95A0;
+  border-radius: 16px;
+  background: transparent;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border: none;
+  outline: none;
 }
 
-.nav-dock-item:active {
-  transform: scale(0.9);
-}
-
-.nav-dock-item.active {
-  color: #000000;
-}
-
-.nav-icon-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 2px;
-  transition: transform 0.2s ease;
-}
-
-.nav-dock-item.active .nav-icon-container {
+.curved-notch-navbar .nav-dock-item:not(.nav-center-circle-btn):hover {
+  color: #334155;
   transform: translateY(-1px);
 }
 
-.nav-text {
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: -0.1px;
+.curved-notch-navbar .nav-dock-item:not(.nav-center-circle-btn):active {
+  transform: scale(0.92);
 }
 
-.nav-dock-item.primary-quick-rebook,
-.nav-dock-item.primary-track-dock {
-  position: relative;
-  top: -6px;
+.curved-notch-navbar .nav-dock-item:not(.nav-center-circle-btn).active {
+  color: #0A0D12;
 }
 
-.rebook-capsule-glow,
-.track-capsule-glow {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: #0A0D12;
-  color: var(--brand-yellow);
+.curved-notch-navbar .nav-dock-item:not(.nav-center-circle-btn) .nav-icon-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35), 0 0 16px var(--brand-yellow-glow);
-  margin-bottom: 2px;
-  transition: transform 0.25s var(--ease-spring);
+  transition: transform 0.2s ease, color 0.2s ease;
 }
 
-.nav-dock-item.primary-quick-rebook:hover .rebook-capsule-glow,
-.nav-dock-item.primary-track-dock:hover .track-capsule-glow {
-  transform: scale(1.08) rotate(4deg);
+/* Full Filled Icon on Selected Nav Items (Outline when unselected) */
+.curved-notch-navbar .nav-dock-item .nav-icon-filled {
+  display: none !important;
 }
 
-.bold-yellow {
-  color: #000000;
-  font-weight: 700;
+.curved-notch-navbar .nav-dock-item .nav-icon-outline {
+  display: block !important;
+}
+
+.curved-notch-navbar .nav-dock-item.active .nav-icon-filled {
+  display: block !important;
+  fill: currentColor;
+  transform: scale(1.08);
+}
+
+.curved-notch-navbar .nav-dock-item.active .nav-icon-outline {
+  display: none !important;
+}
+
+/* Center Elevated Track Button (Always Filled Navigation Arrow) */
+.nav-center-circle-btn.primary-track-dock .nav-icon-filled {
+  display: block !important;
+  fill: currentColor;
+}
+
+.nav-center-circle-btn.primary-track-dock .nav-icon-outline {
+  display: none !important;
+}
+
+/* Minimal Active Indicator Dot */
+.nav-indicator-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--brand-yellow-deep);
+  margin-top: 4px;
+  opacity: 0;
+  transform: scale(0.4);
+  transition: all 0.22s var(--ease-spring);
+}
+
+.curved-notch-navbar .nav-dock-item.active .nav-indicator-dot {
+  opacity: 1;
+  transform: scale(1);
+  box-shadow: 0 0 6px var(--brand-yellow);
 }
 
 /* ==========================================================================
@@ -4454,7 +4817,7 @@ body.device-fluid-mode .ios-home-indicator {
 .blip-badge {
   background: #FFFFFF;
   color: #000000;
-  font-size: 10.5px;
+  font-size: 12px;
   font-weight: 700;
   padding: 3px 8px;
   border-radius: var(--radius-full);
@@ -4490,7 +4853,7 @@ body.device-fluid-mode .ios-home-indicator {
 }
 
 .top-rated-tag {
-  font-size: 10.5px;
+  font-size: 12px;
   font-weight: 700;
   background: var(--brand-yellow-subtle);
   color: #92400E;
@@ -4511,7 +4874,7 @@ body.device-fluid-mode .ios-home-indicator {
 }
 
 .pill-mini {
-  font-size: 10px;
+  font-size: 11.5px;
   background: var(--bg-subtle);
   padding: 2px 6px;
   border-radius: 4px;
@@ -4557,7 +4920,7 @@ body.device-fluid-mode .ios-home-indicator {
 }
 
 .otp-sub {
-  font-size: 8.5px;
+  font-size: 11px;
   font-weight: 700;
   color: var(--brand-yellow);
   letter-spacing: 0.5px;
@@ -4595,7 +4958,7 @@ body.device-fluid-mode .ios-home-indicator {
 .v-sub {
   color: #059669;
   font-weight: 600;
-  font-size: 10.5px;
+  font-size: 12px;
 }
 
 .status-steps-timeline {
@@ -4619,7 +4982,7 @@ body.device-fluid-mode .ios-home-indicator {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 10.5px;
+  font-size: 12px;
   font-weight: 700;
 }
 
@@ -4739,7 +5102,7 @@ body.device-fluid-mode .ios-home-indicator {
 }
 
 .sr-label {
-  font-size: 10px;
+  font-size: 11.5px;
   font-weight: 700;
   color: var(--text-tertiary);
 }
@@ -4753,7 +5116,7 @@ body.device-fluid-mode .ios-home-indicator {
 }
 
 .sr-badge {
-  font-size: 10px;
+  font-size: 11.5px;
   font-weight: 800;
   background: #0A0D12;
   color: var(--brand-yellow);
@@ -4780,7 +5143,7 @@ body.device-fluid-mode .ios-home-indicator {
 }
 
 .demo-tag {
-  font-size: 9px;
+  font-size: 11.5px;
   font-weight: 800;
   background: #B45309;
   color: #FFFFFF;
@@ -4853,7 +5216,7 @@ body.device-fluid-mode .ios-home-indicator {
 }
 
 .driver-sim-tag {
-  font-size: 9.5px;
+  font-size: 11.5px;
   font-weight: 700;
   color: #9CA3AF;
   background: rgba(255, 255, 255, 0.08);
@@ -4941,7 +5304,7 @@ body.device-fluid-mode .ios-home-indicator {
 }
 
 .job-route-row .lbl {
-  font-size: 9px;
+  font-size: 11.5px;
   font-weight: 700;
   color: #9CA3AF;
 }
@@ -4958,7 +5321,7 @@ body.device-fluid-mode .ios-home-indicator {
 
 .driver-car-meta .car-badge {
   display: inline-block;
-  font-size: 10.5px;
+  font-size: 12px;
   font-weight: 700;
   color: #F3F4F6;
   background: rgba(255, 255, 255, 0.1);
@@ -5070,7 +5433,7 @@ body.device-fluid-mode .ios-home-indicator {
 }
 
 .btn-driver-step .step-num {
-  font-size: 9.5px;
+  font-size: 11.5px;
   font-weight: 800;
   color: var(--brand-yellow);
   text-transform: uppercase;
@@ -5218,7 +5581,7 @@ body.device-fluid-mode .ios-home-indicator {
 }
 
 .car-tag-primary {
-  font-size: 9.5px;
+  font-size: 11.5px;
   font-weight: 700;
   background: #0A0D12;
   color: var(--brand-yellow);
@@ -5251,31 +5614,9 @@ body.device-fluid-mode .ios-home-indicator {
   background: var(--bg-inset);
 }
 
-/* iOS Toast Capsule */
+/* iOS Toast Capsule - Permanently disabled per user request */
 .ios-toast-capsule {
-  position: absolute;
-  top: 14px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #0A0D12;
-  color: #FFFFFF;
-  padding: 8px 16px;
-  border-radius: var(--radius-full);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 12px;
-  font-weight: 600;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-  z-index: 300;
-  transition: all 0.3s var(--ease-spring);
-  white-space: nowrap;
-}
-
-.ios-toast-capsule.hidden {
-  opacity: 0;
-  transform: translate(-50%, -20px);
-  pointer-events: none;
+  display: none !important;
 }
 
 .ios-home-indicator {
@@ -5419,7 +5760,7 @@ body.device-fluid-mode .features-mini-grid {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 10.5px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.6px;
   text-transform: uppercase;
@@ -5572,7 +5913,7 @@ body.device-fluid-mode .features-mini-grid {
 
 .policy-hero-badge {
   display: inline-block;
-  font-size: 10px;
+  font-size: 11.5px;
   font-weight: 800;
   letter-spacing: 0.8px;
   text-transform: uppercase;
@@ -5660,7 +6001,7 @@ body.device-fluid-mode .features-mini-grid {
 }
 
 .policy-tag-pill {
-  font-size: 9.5px;
+  font-size: 11.5px;
   font-weight: 700;
   letter-spacing: 0.6px;
   text-transform: uppercase;

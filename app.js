@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
     home: document.getElementById('pageHome'),
     trips: document.getElementById('pageTrips'),
     track: document.getElementById('pageTrack'),
-    drivers: document.getElementById('pageChauffeurs'),
+    wallet: document.getElementById('pageWallet'),
     garage: document.getElementById('pageGarage')
   };
 
@@ -165,17 +165,9 @@ document.addEventListener('DOMContentLoaded', () => {
   updateLiveClock();
   setInterval(updateLiveClock, 30000);
 
-  let toastTimeout = null;
+  // Notifications / Popups disabled per user instruction
   function showToast(msg, icon = '⚡') {
-    if (!iosToast) return;
-    toastMessage.textContent = msg;
-    document.getElementById('toastIcon').textContent = icon;
-    iosToast.classList.remove('hidden');
-
-    if (toastTimeout) clearTimeout(toastTimeout);
-    toastTimeout = setTimeout(() => {
-      iosToast.classList.add('hidden');
-    }, 2800);
+    return;
   }
 
   // ==========================================
@@ -183,6 +175,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==========================================
   function switchScreen(screenKey) {
     state.currentScreen = screenKey;
+
+    try {
+      sessionStorage.setItem('ridingo_preview_screen', screenKey);
+      localStorage.setItem('ridingo_preview_screen', screenKey);
+    } catch (e) {}
 
     Object.keys(screens).forEach(key => {
       if (key === screenKey) {
@@ -216,12 +213,20 @@ document.addEventListener('DOMContentLoaded', () => {
   // Switch between the dedicated Navbar Pages
   function switchNavbarPage(pageKey) {
     if (pageKey === 'quick') pageKey = 'track';
+    if (pageKey === 'drivers') pageKey = 'wallet';
 
     if (state.currentScreen !== 'main') {
       switchScreen('main');
     }
 
     state.activeNavPage = pageKey;
+
+    try {
+      sessionStorage.setItem('ridingo_preview_screen', 'main');
+      localStorage.setItem('ridingo_preview_screen', 'main');
+      sessionStorage.setItem('ridingo_preview_nav', pageKey);
+      localStorage.setItem('ridingo_preview_nav', pageKey);
+    } catch (e) {}
 
     Object.keys(pages).forEach(key => {
       if (key === pageKey) {
@@ -648,50 +653,61 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnClearAirportDest = document.getElementById('btnClearAirportDest');
   const lblAirportDest = document.getElementById('lblAirportDest');
 
-  categoryTabs.forEach((tab, index) => {
+  function switchCategory(category) {
+    const tabsArr = Array.from(categoryTabs);
+    const tabIndex = tabsArr.findIndex(t => t.dataset.category === category);
+    if (tabIndex === -1) return;
+    const tab = tabsArr[tabIndex];
+
+    categoryTabs.forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    if (categoryGlider) {
+      categoryGlider.style.transform = `translateX(${tabIndex * 100}%)`;
+    }
+    
+    state.activeCategory = category;
+
+    try {
+      sessionStorage.setItem('ridingo_preview_category', category);
+      localStorage.setItem('ridingo_preview_category', category);
+    } catch (e) {}
+
+    // Smooth Stage Transitions
+    if (category === 'hourly') {
+      dualLocationView?.classList.remove('hidden');
+      specialOccasionBox?.classList.add('hidden');
+      airportSectionBox?.classList.add('hidden');
+      if (hourlyConfigRow) hourlyConfigRow.style.display = 'flex';
+      durationSliderBox?.classList.remove('hidden');
+      if (dispDurationValue) dispDurationValue.textContent = `${state.selectedHours} Hours`;
+    } else if (category === 'day') {
+      dualLocationView?.classList.remove('hidden');
+      specialOccasionBox?.classList.add('hidden');
+      airportSectionBox?.classList.add('hidden');
+      if (hourlyConfigRow) hourlyConfigRow.style.display = 'flex';
+      durationSliderBox?.classList.add('hidden');
+    } else if (category === 'airport') {
+      dualLocationView?.classList.add('hidden');
+      specialOccasionBox?.classList.add('hidden');
+      airportSectionBox?.classList.remove('hidden');
+      if (hourlyConfigRow) hourlyConfigRow.style.display = 'flex';
+      durationSliderBox?.classList.add('hidden');
+    } else if (category === 'special') {
+      dualLocationView?.classList.remove('hidden');
+      specialOccasionBox?.classList.remove('hidden');
+      airportSectionBox?.classList.add('hidden');
+      if (hourlyConfigRow) hourlyConfigRow.style.display = 'flex';
+      durationSliderBox?.classList.remove('hidden');
+      if (dispDurationValue) dispDurationValue.textContent = `12 Hours (Event / Outstation)`;
+    }
+
+    updateFareCalculation();
+    updateBookingButtonState();
+  }
+
+  categoryTabs.forEach((tab) => {
     tab.addEventListener('click', () => {
-      categoryTabs.forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-      categoryGlider.style.transform = `translateX(${index * 100}%)`;
-      
-      const category = tab.dataset.category;
-      state.activeCategory = category;
-
-      // Smooth Stage Transitions as per user request
-      if (category === 'hourly') {
-        // Hourly: show dual location From & To, duration selection slider & pickup date/time
-        dualLocationView.classList.remove('hidden');
-        specialOccasionBox.classList.add('hidden');
-        airportSectionBox.classList.add('hidden');
-        hourlyConfigRow.style.display = 'flex';
-        durationSliderBox?.classList.remove('hidden');
-        dispDurationValue.textContent = `${state.selectedHours} Hours`;
-      } else if (category === 'day') {
-        // Day Service: fixed hour service (max 10 hours flat), no hour selection needed
-        dualLocationView.classList.remove('hidden');
-        specialOccasionBox.classList.add('hidden');
-        airportSectionBox.classList.add('hidden');
-        hourlyConfigRow.style.display = 'flex';
-        durationSliderBox?.classList.add('hidden'); // Hide hour selection for Day
-      } else if (category === 'airport') {
-        // Airport: show Airport Concierge Transfer box, keep car type & date/time visible, hide duration slider
-        dualLocationView.classList.add('hidden');
-        specialOccasionBox.classList.add('hidden');
-        airportSectionBox.classList.remove('hidden');
-        hourlyConfigRow.style.display = 'flex';
-        durationSliderBox?.classList.add('hidden');
-      } else if (category === 'special') {
-        // Special: keep From & To box, show occasion chips, car type & date/time module
-        dualLocationView.classList.remove('hidden');
-        specialOccasionBox.classList.remove('hidden');
-        airportSectionBox.classList.add('hidden');
-        hourlyConfigRow.style.display = 'flex';
-        durationSliderBox?.classList.remove('hidden');
-        dispDurationValue.textContent = `12 Hours (Event / Outstation)`;
-      }
-
-      updateFareCalculation();
-      updateBookingButtonState();
+      switchCategory(tab.dataset.category);
     });
   });
 
@@ -1264,33 +1280,90 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ==========================================
-  // 10. CHAUFFEURS DIRECTORY: FILTERS & SELECTION
+  // 10. WALLET & TRANSACTION HISTORY CONTROLLER
   // ==========================================
-  const chFilters = document.querySelectorAll('.ch-filter');
-  const chauffeurCards = document.querySelectorAll('.chauffeur-directory-card');
+  let currentWalletBalance = 80600.00;
+  const walletBalanceAmount = document.getElementById('walletBalanceAmount');
+  const btnCardAddMoney = document.getElementById('btnCardAddMoney');
+  const cardPresetPills = document.querySelectorAll('.card-preset-pill');
+  const txFilterPills = document.querySelectorAll('.tx-filter-pill');
+  const walletTxStream = document.getElementById('walletTxStream');
 
-  chFilters.forEach(ch => {
-    ch.addEventListener('click', () => {
-      chFilters.forEach(c => c.classList.remove('active'));
-      ch.classList.add('active');
-
-      const filter = ch.dataset.filter;
-      chauffeurCards.forEach(card => {
-        if (filter === 'all' || card.dataset.cat === filter) {
-          card.style.display = 'block';
-        } else {
-          card.style.display = 'none';
-        }
+  function updateBalanceDisplay(newBalance) {
+    currentWalletBalance = newBalance;
+    if (walletBalanceAmount) {
+      walletBalanceAmount.textContent = currentWalletBalance.toLocaleString('en-IN', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
       });
+    }
+  }
+
+  function addWalletFunds(amount, sourceLabel) {
+    const prevBalance = currentWalletBalance;
+    const newBalance = prevBalance + amount;
+    updateBalanceDisplay(newBalance);
+    // Notification popup permanently disabled per user requirement
+
+    // Prepend a live Complete transaction to the stream
+    if (walletTxStream) {
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      const newCard = document.createElement('div');
+      newCard.className = 'wallet-tx-card';
+      newCard.dataset.category = 'Complete';
+      newCard.innerHTML = `
+        <div class="tx-icon-capsule status-complete-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+        <div class="tx-main-details">
+          <div class="tx-title-row">
+            <strong class="tx-title">Instant Top-up • ${sourceLabel || 'UPI Direct'}</strong>
+            <span class="tx-amount tx-credit">+₹${amount.toFixed(2)}</span>
+          </div>
+          <div class="tx-sub-row">
+            <span class="tx-timestamp">Just now, ${timeStr} • Verified Recharge</span>
+            <span class="tx-status-badge status-badge-complete">
+              <span class="badge-dot"></span> Complete
+            </span>
+          </div>
+        </div>
+      `;
+      walletTxStream.prepend(newCard);
+    }
+  }
+
+  // Integrated "+ Add Money" button inside card
+  btnCardAddMoney?.addEventListener('click', () => {
+    addWalletFunds(1000, 'Prepaid Mobility Pass');
+  });
+
+  // Preset money quick buttons inside card (+500, +1000, +1500, +2000)
+  cardPresetPills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      const amt = parseInt(pill.dataset.amount, 10) || 500;
+      addWalletFunds(amt, `Instant Top-up +₹${amt}`);
     });
   });
 
-  document.querySelectorAll('.btn-select-driver').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const driverName = btn.dataset.driverName;
-      showToast(`Selected ${driverName} for your car`, '✓');
-      setTimeout(() => switchScreen('booking'), 600);
+  // Transaction History category filter pills (All, Complete, Refund, Fail)
+  txFilterPills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      txFilterPills.forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+
+      const filterStatus = pill.dataset.status;
+      const allCards = document.querySelectorAll('.wallet-tx-card');
+      allCards.forEach(card => {
+        const cat = card.dataset.category;
+        if (filterStatus === 'all' || cat === filterStatus) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
     });
   });
 
@@ -2058,8 +2131,51 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ==========================================
-  // 13. iOS 27 LIQUID DOCK NAVBAR
+  // 13. CURVED NOTCH FLOATING NAVBAR (DRIBBBLE MODERN)
   // ==========================================
+  function updateNavbarNotch() {
+    const nav = document.getElementById('iosNavbar');
+    const path = document.getElementById('navbarNotchPath');
+    if (!nav || !path) return;
+    const w = nav.offsetWidth || 360;
+    const h = 68;
+    const r = 26; // outer corner radius
+    const cx = w / 2;
+    const cy = 6;      // vertical center of floating 52px button (top: -20px + 26px radius = 6px)
+    const r_btn = 26;  // radius of the circular button (52px diameter)
+    const gap = 8;     // seamless uniform gap between button and navbar cutout
+    const R = r_btn + gap; // 34px notch cradle radius
+    const r_s = 14;    // shoulder curve radius for smooth upward U-transition
+
+    // Compute exact tangent geometry so shoulder arcs smoothly flow into the circular cradle
+    const Xs = Math.sqrt(Math.pow(R + r_s, 2) - Math.pow(cy - r_s, 2));
+    const Pt_x = (R / (R + r_s)) * (-Xs);
+    const Pt_y = cy + (R / (R + r_s)) * (r_s - cy);
+
+    const p1_x = (cx - Xs).toFixed(2);
+    const t1_x = (cx + Pt_x).toFixed(2);
+    const t1_y = Pt_y.toFixed(2);
+    const t2_x = (cx - Pt_x).toFixed(2);
+    const t2_y = Pt_y.toFixed(2);
+    const p2_x = (cx + Xs).toFixed(2);
+
+    path.setAttribute('d', 
+      `M ${r} 0 ` +
+      `L ${p1_x} 0 ` +
+      `A ${r_s} ${r_s} 0 0 1 ${t1_x} ${t1_y} ` +
+      `A ${R} ${R} 0 0 0 ${t2_x} ${t2_y} ` +
+      `A ${r_s} ${r_s} 0 0 1 ${p2_x} 0 ` +
+      `L ${w - r} 0 ` +
+      `Q ${w} 0, ${w} ${r} ` +
+      `L ${w} ${h - r} ` +
+      `Q ${w} ${h}, ${w - r} ${h} ` +
+      `L ${r} ${h} ` +
+      `Q 0 ${h}, 0 ${h - r} ` +
+      `L 0 ${r} ` +
+      `Q 0 0, ${r} 0 Z`
+    );
+  }
+
   function updateNavbarPosition(activeItem) {
     if (!activeItem || !navbarBubble) return;
     const offsetLeft = activeItem.offsetLeft;
@@ -2075,6 +2191,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  window.addEventListener('resize', updateNavbarNotch);
+
   // ==========================================
   // 14. DEVICE VIEW SWITCHER (iPhone Frame vs Fluid)
   // ==========================================
@@ -2084,6 +2202,7 @@ document.addEventListener('DOMContentLoaded', () => {
     btnPhoneView.classList.add('active');
     btnFluidView.classList.remove('active');
     state.deviceMode = 'mobile';
+    setTimeout(updateNavbarNotch, 50);
   });
 
   btnFluidView?.addEventListener('click', () => {
@@ -2092,19 +2211,51 @@ document.addEventListener('DOMContentLoaded', () => {
     btnFluidView.classList.add('active');
     btnPhoneView.classList.remove('active');
     state.deviceMode = 'fluid';
+    setTimeout(updateNavbarNotch, 50);
   });
 
   // ==========================================
-  // 15. INITIALIZATION
+  // 15. INITIALIZATION & PREVIEW PERSISTENCE
   // ==========================================
-  switchScreen('onboarding');
+  // In preview / browser reloading, restore the active screen and tab so refresh doesn't reset to onboarding
+  let savedScreen = null;
+  let savedNav = null;
+  let savedCategory = null;
+
+  try {
+    const urlParams = new URLSearchParams(window.location.search);
+    savedScreen = urlParams.get('screen') || sessionStorage.getItem('ridingo_preview_screen') || localStorage.getItem('ridingo_preview_screen');
+    savedNav = urlParams.get('tab') || sessionStorage.getItem('ridingo_preview_nav') || localStorage.getItem('ridingo_preview_nav');
+    savedCategory = urlParams.get('category') || sessionStorage.getItem('ridingo_preview_category') || localStorage.getItem('ridingo_preview_category');
+  } catch (e) {}
+
+  // If no saved screen exists yet, default to 'main' (Home page) for preview
+  const targetScreen = (savedScreen && screens[savedScreen]) ? savedScreen : 'main';
+  const targetNav = (savedNav && pages[savedNav]) ? savedNav : 'home';
+
+  switchScreen(targetScreen);
+
+  if (targetScreen === 'main') {
+    switchNavbarPage(targetNav);
+    if (savedCategory && typeof switchCategory === 'function') {
+      switchCategory(savedCategory);
+    }
+  }
+
   updateFareCalculation();
   updateLocationClearButtons();
   updateBookingButtonState();
-  const initialNavTab = document.querySelector('#iosNavbar .nav-dock-item.active') || document.querySelector('#iosNavbar .nav-dock-item[data-tab="home"]');
-  if (initialNavTab) {
-    updateNavbarPosition(initialNavTab);
-  }
+  updateNavbarNotch();
 
-  console.log('Ridingo Chauffeur App Initialized — Apple Multi-Page Architecture Active.');
+  setTimeout(() => {
+    updateNavbarNotch();
+    const activeNavTab = document.querySelector(`#iosNavbar .nav-dock-item[data-tab="${targetNav}"]`) || 
+                          document.querySelector('#iosNavbar .nav-dock-item.active') || 
+                          document.querySelector('#iosNavbar .nav-dock-item[data-tab="home"]');
+    if (activeNavTab) {
+      updateNavbarPosition(activeNavTab);
+    }
+  }, 120);
+
+  console.log(`Ridingo App Initialized — Restored screen: ${targetScreen}, tab: ${targetNav}`);
 });
