@@ -2,7 +2,6 @@
   "appId": "com.ridingo.userapp",
   "appName": "Ridingo",
   "webDir": "www",
-  "bundledWebRuntime": false,
   "backgroundColor": "#FFFFFF",
   "server": {
     "androidScheme": "https"

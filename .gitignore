@@ -7,3 +7,5 @@ Thumbs.db
 *.log
 .env
 *.ipa
+*.apk
+build-apk/
