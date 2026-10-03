@@ -39,7 +39,7 @@ VALUES
   ('current_user', 'Airport VIP Gate', 'Kempegowda International Airport T1 & T2 Curb', 'navigation', FALSE)
 ON CONFLICT DO NOTHING;
 
--- 3. RIDES & BOOKINGS TABLE (Chauffeur dispatch telemetry & requests)
+-- 3. RIDES & BOOKINGS TABLE (Driver dispatch telemetry & requests)
 CREATE TABLE IF NOT EXISTS public.rides (
     id TEXT PRIMARY KEY,
     user_id TEXT DEFAULT 'current_user',

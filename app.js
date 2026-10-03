@@ -1,5 +1,5 @@
 /**
- * RIDINGO — MINIMAL APPLE-STYLE CHAUFFEUR APPLICATION
+ * RIDINGO — MINIMAL APPLE-STYLE DRIVER APPLICATION
  * Architecture: Clean Vanilla JS State Machine & Fluid Multi-Page Router
  */
 
@@ -142,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const carModelLabel = document.querySelector('.car-model');
   const carTypeLabel = document.querySelector('.car-type');
 
-  const btnBookChauffeur = document.getElementById('btnBookChauffeur');
+  const btnBookDriver = document.getElementById('btnBookDriver');
   const btnCloseBooking = document.getElementById('btnCloseBooking');
   const btnCancelBooking = document.getElementById('btnCancelBooking');
   const btnShareTrip = document.getElementById('btnShareTrip');
@@ -349,12 +349,12 @@ document.addEventListener('DOMContentLoaded', () => {
         authLoginStage?.classList.add('hidden');
         authRegisterStage?.classList.remove('hidden');
         if (authHeadline) authHeadline.textContent = 'Create Account';
-        if (authSubline) authSubline.textContent = 'Certified personal chauffeurs for your car';
+        if (authSubline) authSubline.textContent = 'Certified personal drivers for your car';
       } else {
         authRegisterStage?.classList.add('hidden');
         authLoginStage?.classList.remove('hidden');
         if (authHeadline) authHeadline.textContent = 'Welcome to Ridingo';
-        if (authSubline) authSubline.textContent = 'Chauffeur service for your personal car';
+        if (authSubline) authSubline.textContent = 'Driver service for your personal car';
       }
     });
   });
@@ -926,7 +926,7 @@ document.addEventListener('DOMContentLoaded', () => {
       dispPickupDate.textContent = `Today, ${String(today.getDate()).padStart(2, '0')} ${monthNames[today.getMonth()]}`;
     }
     if (dispPickupTime) dispPickupTime.textContent = 'Immediate (6 min)';
-    showToast('Chauffeur scheduled to arrive now (6 mins)', '⚡');
+    showToast('Driver scheduled to arrive now (6 mins)', '⚡');
   });
 
   btnDtSchedule?.addEventListener('click', () => {
@@ -971,9 +971,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   initPickupDateTime();
 
-  // Dynamic Validation for Book Chauffeur Button (Gray & Disabled when details not entered)
+  // Dynamic Validation for Book Driver Button (Gray & Disabled when details not entered)
   function updateBookingButtonState() {
-    if (!btnBookChauffeur) return;
+    if (!btnBookDriver) return;
 
     let isReady = false;
     const category = state.activeCategory || 'hourly';
@@ -988,17 +988,17 @@ document.addEventListener('DOMContentLoaded', () => {
       isReady = fromVal.length > 0 && toVal.length > 0;
     }
 
-    const subText = btnBookChauffeur.querySelector('.btn-secondary-text');
+    const subText = btnBookDriver.querySelector('.btn-secondary-text');
 
     if (isReady) {
-      btnBookChauffeur.classList.remove('disabled');
-      btnBookChauffeur.removeAttribute('disabled');
-      btnBookChauffeur.setAttribute('aria-disabled', 'false');
+      btnBookDriver.classList.remove('disabled');
+      btnBookDriver.removeAttribute('disabled');
+      btnBookDriver.setAttribute('aria-disabled', 'false');
       if (subText) subText.textContent = 'Nearest in 6 mins';
     } else {
-      btnBookChauffeur.classList.add('disabled');
-      btnBookChauffeur.setAttribute('disabled', 'disabled');
-      btnBookChauffeur.setAttribute('aria-disabled', 'true');
+      btnBookDriver.classList.add('disabled');
+      btnBookDriver.setAttribute('disabled', 'disabled');
+      btnBookDriver.setAttribute('aria-disabled', 'true');
       if (subText) {
         if (category === 'airport') {
           const carPickupVal = inputAirportCarPickup ? inputAirportCarPickup.value.trim() : '';
@@ -1079,13 +1079,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (inputAirportTerminal) inputAirportTerminal.value = 'Kempegowda Int\'l Terminal 2 (Arrivals Gate 4)';
         if (lblAirportDest) lblAirportDest.textContent = 'DESTINATION (LAST STOP)';
         if (inputAirportDest) inputAirportDest.value = 'Indiranagar 100ft Road, Bengaluru';
-        showToast('Chauffeur meets you at Airport Arrivals Gate', '🛬');
+        showToast('Driver meets you at Airport Arrivals Gate', '🛬');
       } else {
         if (lblAirportTerminal) lblAirportTerminal.textContent = 'AIRPORT TERMINAL (DROP-OFF)';
         if (inputAirportTerminal) inputAirportTerminal.value = 'Kempegowda Int\'l Terminal 2 (Departures Ramp)';
         if (lblAirportDest) lblAirportDest.textContent = 'DESTINATION (LAST STOP)';
         if (inputAirportDest) inputAirportDest.value = 'Kempegowda Int\'l Airport T2';
-        showToast('Chauffeur drives your car to Airport Departures', '🛫');
+        showToast('Driver drives your car to Airport Departures', '🛫');
       }
       updateLocationClearButtons();
       updateBookingButtonState();
@@ -1113,7 +1113,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Chauffeur Reaching Time Change Handler
+  // Driver Reaching Time Change Handler
   const selectDriverReachTime = document.getElementById('selectDriverReachTime');
   const lblReachBufferHint = document.getElementById('lblReachBufferHint');
   selectDriverReachTime?.addEventListener('change', (e) => {
@@ -1121,16 +1121,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if (lblReachBufferHint) {
       if (val === 'before15') {
         lblReachBufferHint.textContent = '15 min before';
-        showToast('Chauffeur reaching 15 min before landing', '⏱️');
+        showToast('Driver reaching 15 min before landing', '⏱️');
       } else if (val === 'before30') {
         lblReachBufferHint.textContent = '30 min before';
-        showToast('Chauffeur reaching 30 min before landing', '⏱️');
+        showToast('Driver reaching 30 min before landing', '⏱️');
       } else if (val === 'before45') {
         lblReachBufferHint.textContent = '45 min before';
-        showToast('Chauffeur reaching 45 min before landing', '⏱️');
+        showToast('Driver reaching 45 min before landing', '⏱️');
       } else if (val === 'landing') {
         lblReachBufferHint.textContent = 'At touchdown';
-        showToast('Chauffeur waiting at flight touchdown', '⏱️');
+        showToast('Driver waiting at flight touchdown', '⏱️');
       } else {
         lblReachBufferHint.textContent = 'Curbside ready';
       }
@@ -1261,7 +1261,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Manage upcoming trip button
   document.getElementById('btnManageUpcoming')?.addEventListener('click', () => {
-    showToast('Flight 6E 204 is on time. Chauffeur arriving at 05:45 AM.', '✈️');
+    showToast('Flight 6E 204 is on time. Driver arriving at 05:45 AM.', '✈️');
   });
 
 
@@ -1607,9 +1607,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setTimeout(() => {
       const replies = [
-        "Your message has been received by our Chauffeur Operations Desk. An on-duty coordinator is reviewing your request.",
+        "Your message has been received by our Driver Operations Desk. An on-duty coordinator is reviewing your request.",
         "Your driver's live GPS route telemetry is fully synchronized with our operations center.",
-        "Understood Alexander! We have updated the chauffeur's dispatch briefing notes accordingly."
+        "Understood Alexander! We have updated the driver's dispatch briefing notes accordingly."
       ];
       const randomReply = replies[Math.floor(Math.random() * replies.length)];
       appendChatMessage(randomReply, false);
@@ -1628,11 +1628,11 @@ document.addEventListener('DOMContentLoaded', () => {
         appendChatMessage(msg, true);
         setTimeout(() => {
           if (msg.includes('ETA')) {
-            appendChatMessage("Your assigned chauffeur is stationed 1.4 km away and ready for rapid dispatch.", false);
+            appendChatMessage("Your assigned driver is stationed 1.4 km away and ready for rapid dispatch.", false);
           } else if (msg.includes('airport')) {
-            appendChatMessage("Flight auto-sync enabled. Chauffeur will arrive at the arrival curb 30 mins prior to touchdown.", false);
+            appendChatMessage("Flight auto-sync enabled. Driver will arrive at the arrival curb 30 mins prior to touchdown.", false);
           } else {
-            appendChatMessage("Operations desk has flagged this note for your chauffeur partner.", false);
+            appendChatMessage("Operations desk has flagged this note for your driver partner.", false);
           }
         }, 600);
       }
@@ -1701,7 +1701,7 @@ document.addEventListener('DOMContentLoaded', () => {
       avatar: 'MR',
       rating: '★ 4.97 Premier',
       exp: '6 Yrs Exp',
-      sub: 'Certified Chauffeur • Fluent in English'
+      sub: 'Certified Driver • Fluent in English'
     }
   ];
 
@@ -1753,10 +1753,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const descTripStarted = document.getElementById('descTripStarted');
   const markerTripStarted = document.getElementById('markerTripStarted');
 
-  // 1. User clicks "Book Chauffeur": DOES NOT confirm booking directly!
+  // 1. User clicks "Book Driver": DOES NOT confirm booking directly!
   // Instead: sends request to driver app & shows Searching screen (no driver details shown yet)
-  btnBookChauffeur?.addEventListener('click', (e) => {
-    if (btnBookChauffeur.classList.contains('disabled') || btnBookChauffeur.hasAttribute('disabled')) {
+  btnBookDriver?.addEventListener('click', (e) => {
+    if (btnBookDriver.classList.contains('disabled') || btnBookDriver.hasAttribute('disabled')) {
       e.preventDefault();
       e.stopPropagation();
       showToast('Please enter pickup and destination details', '⚠️');
@@ -1848,7 +1848,7 @@ document.addEventListener('DOMContentLoaded', () => {
     driverSimStateActive?.classList.remove('hidden');
     if (simDriverMiniName) simDriverMiniName.textContent = `${randomDriver.name} (Partner)`;
     if (simDriverMiniAvatar) simDriverMiniAvatar.textContent = randomDriver.avatar;
-    if (driverStepGuide) driverStepGuide.textContent = `Chauffeur is navigating to customer's location at ${inputFromLoc?.value || 'pickup point'}.`;
+    if (driverStepGuide) driverStepGuide.textContent = `Driver is navigating to customer's location at ${inputFromLoc?.value || 'pickup point'}.`;
 
     // Reset Driver Stepper buttons
     if (btnDriverArrived) {
@@ -1890,7 +1890,7 @@ document.addEventListener('DOMContentLoaded', () => {
     stepTripStarted?.classList.remove('current', 'completed');
     stepTripStarted?.classList.add('pending');
     if (markerTripStarted) markerTripStarted.textContent = '3';
-    if (descTripStarted) descTripStarted.textContent = 'Trip Started • Chauffeur driving your car';
+    if (descTripStarted) descTripStarted.textContent = 'Trip Started • Driver driving your car';
 
     showToast(`Driver ${randomDriver.name} accepted your request!`, '✓');
     syncTrackTripState('confirmed', randomDriver);
@@ -1916,17 +1916,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Update Customer Screen
-    if (liveStatusBadgeText) liveStatusBadgeText.textContent = 'Chauffeur Arrived at Location';
+    if (liveStatusBadgeText) liveStatusBadgeText.textContent = 'Driver Arrived at Location';
     if (driverBlipBadge) driverBlipBadge.textContent = 'Arrived at Doorstep';
     if (markerDriverArriving) markerDriverArriving.textContent = '✓';
     stepDriverArriving?.classList.remove('current');
     stepDriverArriving?.classList.add('completed');
-    if (descDriverArriving) descDriverArriving.textContent = 'Chauffeur has arrived at your pick-up location';
+    if (descDriverArriving) descDriverArriving.textContent = 'Driver has arrived at your pick-up location';
 
     stepTripStarted?.classList.remove('pending');
     stepTripStarted?.classList.add('current');
 
-    showToast('Chauffeur has arrived at your location!', '📍');
+    showToast('Driver has arrived at your location!', '📍');
     syncTrackTripState('arrived', currentAcceptedDriver);
 
     // Auto minimize simulator after 1.2s
@@ -1940,7 +1940,7 @@ document.addEventListener('DOMContentLoaded', () => {
     btnDriverStartTrip.classList.add('completed');
     btnDriverStartTrip.setAttribute('disabled', 'disabled');
     if (driverStepGuide) {
-      driverStepGuide.textContent = 'Trip active in progress! Chauffeur is safely driving customer\'s vehicle.';
+      driverStepGuide.textContent = 'Trip active in progress! Driver is safely driving customer\'s vehicle.';
     }
 
     // Update Customer Screen to TRIP STARTED
@@ -1950,7 +1950,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (markerTripStarted) markerTripStarted.textContent = '✓';
     stepTripStarted?.classList.remove('pending');
     stepTripStarted?.classList.add('completed');
-    if (descTripStarted) descTripStarted.textContent = 'Trip Started • Chauffeur is safely driving your car';
+    if (descTripStarted) descTripStarted.textContent = 'Trip Started • Driver is safely driving your car';
 
     showToast('OTP verified! Trip started successfully.', '🚀');
     syncTrackTripState('started', currentAcceptedDriver);
@@ -1972,17 +1972,17 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Cancel Request / Cancel Booking
-  function cancelChauffeurBooking() {
+  function cancelDriverBooking() {
     clearTimeout(driverSimTimer);
     clearInterval(searchCountdownInterval);
     driverAppDemoModal?.classList.add('hidden');
-    showToast('Chauffeur request cancelled', '✕');
+    showToast('Driver request cancelled', '✕');
     syncTrackTripState('cancelled');
     switchScreen('main');
   }
 
-  btnCancelSearching?.addEventListener('click', cancelChauffeurBooking);
-  btnCancelBooking?.addEventListener('click', cancelChauffeurBooking);
+  btnCancelSearching?.addEventListener('click', cancelDriverBooking);
+  btnCancelBooking?.addEventListener('click', cancelDriverBooking);
 
   btnCloseBooking?.addEventListener('click', () => {
     switchScreen('main');
@@ -1994,7 +1994,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('btnCallAcceptedDriver')?.addEventListener('click', () => {
     const name = currentAcceptedDriver?.name || 'Vikram Singh';
-    showToast(`Calling chauffeur ${name}...`, '📞');
+    showToast(`Calling driver ${name}...`, '📞');
   });
 
   document.getElementById('btnChatAcceptedDriver')?.addEventListener('click', () => {
@@ -2020,7 +2020,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const trackSheetActiveState = document.getElementById('trackSheetActiveState');
   const trackSheetEmptyState = document.getElementById('trackSheetEmptyState');
   const btnTrackNow = document.getElementById('btnTrackNow');
-  const btnTrackBookChauffeur = document.getElementById('btnTrackBookChauffeur');
+  const btnTrackBookDriver = document.getElementById('btnTrackBookDriver');
   const btnRecenterMap = document.getElementById('btnRecenterMap');
   const btnToggleTraffic = document.getElementById('btnToggleTraffic');
   const btnTrackCallDriver = document.getElementById('btnTrackCallDriver');
@@ -2042,7 +2042,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const mapFloatingEtaTime = document.getElementById('mapFloatingEtaTime');
   const mapFloatingEtaSub = document.getElementById('mapFloatingEtaSub');
   const mapStatusIndicator = document.getElementById('mapStatusIndicator');
-  const trackChauffeurMarker = document.getElementById('trackChauffeurMarker');
+  const trackDriverMarker = document.getElementById('trackDriverMarker');
   const trackLiveRoutePath = document.getElementById('trackLiveRoutePath');
   const trackMapViewport = document.getElementById('trackMapViewport');
   const trackMapCanvas = document.getElementById('trackMapCanvas');
@@ -2143,17 +2143,17 @@ document.addEventListener('DOMContentLoaded', () => {
     trackMapCanvas.style.transform = `translate3d(${x.toFixed(2)}px, ${y.toFixed(2)}px, 0)`;
   }
 
-  function resetMapToChauffeur(animate = true) {
+  function resetMapToDriver(animate = true) {
     mapPanX = 0;
     mapPanY = 0;
     applyMapTransform(0, 0, animate);
     updateRecenterButtonState();
 
-    if (trackChauffeurMarker) {
-      trackChauffeurMarker.style.transition = 'transform 0.4s cubic-bezier(0.17, 0.89, 0.32, 1.28)';
-      trackChauffeurMarker.style.transform = 'translate(95px, 245px) scale(1.35)';
+    if (trackDriverMarker) {
+      trackDriverMarker.style.transition = 'transform 0.4s cubic-bezier(0.17, 0.89, 0.32, 1.28)';
+      trackDriverMarker.style.transform = 'translate(95px, 245px) scale(1.35)';
       setTimeout(() => {
-        trackChauffeurMarker.style.transform = 'translate(95px, 245px) scale(1)';
+        trackDriverMarker.style.transform = 'translate(95px, 245px) scale(1)';
       }, 450);
     }
   }
@@ -2287,7 +2287,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (trackAssignedCar) {
         trackAssignedCar.textContent = `${state.selectedCar.make || 'Mercedes-Benz'} • ${state.selectedCar.regNo || 'KA 01 MJ 4402'}`;
       }
-      if (trackStatusTitle) trackStatusTitle.textContent = `Chauffeur en route (${driverInfo.name})`;
+      if (trackStatusTitle) trackStatusTitle.textContent = `Driver en route (${driverInfo.name})`;
       if (trackEtaPill) trackEtaPill.textContent = 'ETA 4 mins';
       if (mapFloatingEtaTime) mapFloatingEtaTime.textContent = '4 MIN';
       if (mapFloatingEtaSub) mapFloatingEtaSub.textContent = `${driverInfo.name} • En Route`;
@@ -2303,14 +2303,14 @@ document.addEventListener('DOMContentLoaded', () => {
       if (trackDropDisp) trackDropDisp.textContent = toText;
       if (trackFareDisp) trackFareDisp.textContent = dispFareAmount?.textContent ? `₹${dispFareAmount.textContent}` : '₹899';
     } else if (status === 'arrived') {
-      if (trackStatusTitle) trackStatusTitle.textContent = 'Chauffeur Arrived at Doorstep';
+      if (trackStatusTitle) trackStatusTitle.textContent = 'Driver Arrived at Doorstep';
       if (trackEtaPill) trackEtaPill.textContent = 'Arrived';
       if (mapFloatingEtaTime) mapFloatingEtaTime.textContent = 'ARRIVED';
       if (mapFloatingEtaSub) mapFloatingEtaSub.textContent = 'At your pick-up location';
       if (mapStatusIndicator) mapStatusIndicator.textContent = 'GPS Live • Arrived at Doorstep';
-      if (peekStatusSub) peekStatusSub.textContent = 'Chauffeur arrived at doorstep';
+      if (peekStatusSub) peekStatusSub.textContent = 'Driver arrived at doorstep';
     } else if (status === 'started') {
-      if (trackStatusTitle) trackStatusTitle.textContent = 'Trip Started • Chauffeur Driving';
+      if (trackStatusTitle) trackStatusTitle.textContent = 'Trip Started • Driver Driving';
       if (trackEtaPill) trackEtaPill.textContent = 'On The Way';
       if (mapFloatingEtaTime) mapFloatingEtaTime.textContent = 'IN TRANSIT';
       if (mapFloatingEtaSub) mapFloatingEtaSub.textContent = 'Driving customer vehicle';
@@ -2336,8 +2336,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // 1. Minimize popup to reveal the full map!
     minimizeBottomSheet();
 
-    // 2. Smoothly reset/center map on chauffeur location
-    resetMapToChauffeur(true);
+    // 2. Smoothly reset/center map on driver location
+    resetMapToDriver(true);
 
     const dName = trackDriverName?.textContent || 'Vikram Singh';
     showToast(`Full Map View • Tracking ${dName} live (1.8 km away)`, '📍');
@@ -2346,17 +2346,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  btnTrackBookChauffeur?.addEventListener('click', () => {
+  btnTrackBookDriver?.addEventListener('click', () => {
     switchNavbarPage('home');
     setTimeout(() => {
       inputFromLoc?.focus();
     }, 200);
-    showToast('Select locations to request your chauffeur', '🚗');
+    showToast('Select locations to request your driver', '🚗');
   });
 
   btnRecenterMap?.addEventListener('click', () => {
-    resetMapToChauffeur(true);
-    showToast('Map centered on Chauffeur location', '⌖');
+    resetMapToDriver(true);
+    showToast('Map centered on Driver location', '⌖');
   });
 
   let trafficActive = false;
@@ -2367,7 +2367,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   btnTrackCallDriver?.addEventListener('click', () => {
     const dName = trackDriverName?.textContent || 'Vikram Singh';
-    showToast(`Calling chauffeur ${dName}...`, '📞');
+    showToast(`Calling driver ${dName}...`, '📞');
   });
 
   btnTrackChatDriver?.addEventListener('click', () => {

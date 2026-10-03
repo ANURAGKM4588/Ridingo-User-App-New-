@@ -1,14 +1,14 @@
 {
   "name": "ridingo-user-app",
   "version": "1.0.1",
-  "description": "Ridingo User App - Personal Chauffeur for Your Car",
+  "description": "Ridingo User App - Personal Driver for Your Car",
   "scripts": {
     "start": "node server.js",
     "build": "node -e \"const fs = require('fs'); fs.mkdirSync('www', {recursive: true}); ['index.html', 'style.css', 'app.js', 'supabaseClient.js', 'avatar_user.jpg', 'privacy_english.json', 'terms_english.json'].forEach(f => fs.copyFileSync(f, 'www/' + f)); console.log('Web assets prepared in www/');\""
   },
   "keywords": [
     "ridingo",
-    "chauffeur",
+    "driver",
     "ios",
     "capacitor"
   ],

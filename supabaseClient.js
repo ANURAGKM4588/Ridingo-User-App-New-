@@ -95,7 +95,7 @@ window.RidingoDB = {
     }
   },
 
-  // 2. CHAUFFEUR RIDES & BOOKINGS
+  // 2. DRIVER RIDES & BOOKINGS
   async createRide(rideData) {
     const ride = {
       id: 'ride_' + Date.now(),

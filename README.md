@@ -1,13 +1,13 @@
-# Ridingo — Personal Chauffeur App (Your Car, Our Driver)
+# Ridingo — Personal Driver App (Your Car, Our Driver)
 
-An Apple-grade, minimalist mobile web application built with **Swiss & Cupertino design principles**, tailored for personal vehicle owners seeking verified chauffeurs for rent.
+An Apple-grade, minimalist mobile web application built with **Swiss & Cupertino design principles**, tailored for personal vehicle owners seeking verified drivers for rent.
 
 ---
 
 ## 🎨 Design System & Philosophy
 
 - **Theme Palette**: 
-  - **Taxi Yellow Accent**: `#FFCC00` (Warm gold-yellow, authentic chauffeur/taxi heritage)
+  - **Taxi Yellow Accent**: `#FFCC00` (Warm gold-yellow, authentic driver/taxi heritage)
   - **Pure White**: `#FFFFFF` (Ultra-clean modern surface cards)
   - **Obsidian Black**: `#0A0D12` (Sharp contrasting typographic anchors & badges)
   - **Hairline Dividers**: `1px solid rgba(0, 0, 0, 0.07)`
@@ -24,7 +24,7 @@ An Apple-grade, minimalist mobile web application built with **Swiss & Cupertino
 ## 📱 Complete User Journey & Implemented Features
 
 ### 1. Onboarding Walkthrough (Minimal Apple Slides)
-- **Slide 1**: *"Your vehicle. Our verified driver."* (Comfort of personal car + trained chauffeur).
+- **Slide 1**: *"Your vehicle. Our verified driver."* (Comfort of personal car + trained driver).
 - **Slide 2**: *"Precision timing. Gate-to-gate assist."* (Live flight radar tracking, airport concierge).
 - **Slide 3**: *"Zero surge rates. White-glove ethics."* (Background audited, defensive driving, top 1% drivers).
 - Interactive step indicator, swipe logic, and Skip / Get Started flow.
@@ -52,7 +52,7 @@ An Apple-grade, minimalist mobile web application built with **Swiss & Cupertino
 - **Dedicated Airport Module** (when Airport tab is selected):
   - Direction toggle: `Pick Up at Airport` vs `Drop to Airport`.
   - Flight number input with **live airline detection** (`6E` -> IndiGo, `AI` -> Air India, `EK` -> Emirates, `UK` -> Vistara).
-  - Chauffeur reaching time selector (15m / 30m / 45m before landing buffer standby).
+  - Driver reaching time selector (15m / 30m / 45m before landing buffer standby).
 - **Car Garage Selector**:
   - Choose customer's registered vehicle: *Mercedes C-Class (Automatic)*, *BMW 3 Series*, or *Toyota Fortuner (Manual 4x4)*.
 - **Dynamic Fare Calculator**:
@@ -60,26 +60,26 @@ An Apple-grade, minimalist mobile web application built with **Swiss & Cupertino
 
 ### 4. Previous Trip History & Instant Repeat UX
 - Quick action cards of previous journeys (e.g. *Airport Drop T2*, *4-Hour City Rental*).
-- **Instant "Repeat" Button (`⚡ Repeat`)**: 1-click rebooking that immediately reloads the route and initiates chauffeur matching.
+- **Instant "Repeat" Button (`⚡ Repeat`)**: 1-click rebooking that immediately reloads the route and initiates driver matching.
 
 ### 5. Best Drivers & Reviews Showcase
-- Top-rated chauffeur cards (`Vikram Singh ★ 4.99`, `Arun Murthy ★ 4.98`).
+- Top-rated driver cards (`Vikram Singh ★ 4.99`, `Arun Murthy ★ 4.98`).
 - Police verified seal, experience tags, and authentic client review bubbles.
 - Badges: *Luxury & EV certified*, *Suited uniform*, *Defensive driving clear*.
 
 ### 6. Value Proposition / Key Features
 - **Your Car, Your Sanctuary**: Clean, familiar personal comfort.
-- **5-Step Vetted Chauffeurs**: Multi-point background verified and skill audited.
+- **5-Step Vetted Drivers**: Multi-point background verified and skill audited.
 - **Zero Surge Guarantee**: Flat transparent hourly rates.
 - **24x7 Safety Command Center**: Telemetry, live trip sharing, speed compliance.
 
 ### 7. iOS 27 Liquid Dock Navigation
 - Floating frosted glass capsule with fluid gliding bubble indicator.
-- Tabs: `Home`, `Trips`, `Quick Rebook (Floating Yellow Core)`, `Chauffeurs`, `Garage`.
+- Tabs: `Home`, `Trips`, `Quick Rebook (Floating Yellow Core)`, `Drivers`, `Garage`.
 
-### 8. Live Chauffeur Assigned Simulation
+### 8. Live Driver Assigned Simulation
 - Radar search visual with glowing beacon and driver ETA blip.
-- Chauffeur details card with suit confirmation, 4-digit ride start OTP (`8412`), call & messaging shortcuts, and vehicle safety checklist.
+- Driver details card with suit confirmation, 4-digit ride start OTP (`8412`), call & messaging shortcuts, and vehicle safety checklist.
 
 ---
 
