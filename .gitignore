@@ -6,3 +6,4 @@ ios/
 Thumbs.db
 *.log
 .env
+*.ipa
