@@ -1481,6 +1481,17 @@ document.addEventListener('DOMContentLoaded', () => {
     if (subEl && phone) {
       subEl.textContent = `+91 ${phone} • Ridingo Club`;
     }
+    // Sync to Supabase Backend / RidingoDB
+    if (window.RidingoDB) {
+      window.RidingoDB.updateProfile({
+        full_name: fullName,
+        phone: phone ? `+91 ${phone}` : undefined
+      }).then(res => {
+        if (res && res.mode === 'supabase') {
+          console.log('✅ Profile synced to Supabase database');
+        }
+      });
+    }
 
     closeEditProfileModal();
     showToast('Profile information saved successfully', '✓');
